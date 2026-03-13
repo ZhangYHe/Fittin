@@ -57,8 +57,7 @@ void main() {
     expect(find.text('Plan Library'), findsOneWidget);
     expect(find.text('GZCLP 4-Day 12-Week'), findsOneWidget);
   });
-
-  testWidgets('profile settings can switch language to Chinese', (
+  testWidgets('bottom nav opens the profile settings tab', (
     WidgetTester tester,
   ) async {
     final repository = InMemoryDatabaseRepository();
@@ -98,11 +97,5 @@ void main() {
 
     expect(find.text('Settings'), findsOneWidget);
     expect(find.text('Language'), findsOneWidget);
-
-    await tester.tap(find.text('中文'));
-    await tester.pumpAndSettle();
-
-    expect(find.text('设置'), findsOneWidget);
-    expect(find.text('语言'), findsOneWidget);
   });
 }

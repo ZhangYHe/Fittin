@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dashboard_primitives.dart';
+
 class SetInputRow extends StatefulWidget {
   final int setIndex;
   final String role;
@@ -62,8 +64,6 @@ class _SetInputRowState extends State<SetInputRow> {
 
   void _handleRepsPan(DragUpdateDetails details) {
     if (_isCompleted) return;
-
-    // Simple gesture threshold processing: swipe right to increase, left to decrease
     if (details.delta.dx > 1.0) {
       setState(() => _currentReps++);
     } else if (details.delta.dx < -1.0 && _currentReps > 0) {
@@ -79,7 +79,6 @@ class _SetInputRowState extends State<SetInputRow> {
 
   void _handleWeightPan(DragUpdateDetails details) {
     if (_isCompleted) return;
-
     if (details.delta.dx > 1.0) {
       setState(() => _currentWeight += 2.5);
     } else if (details.delta.dx < -1.0 && _currentWeight > 0) {
@@ -102,125 +101,117 @@ class _SetInputRowState extends State<SetInputRow> {
     final colorScheme = theme.colorScheme;
 
     return RepaintBoundary(
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.fastOutSlowIn,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _isCompleted
-              ? colorScheme.primary.withOpacity(0.08)
-              : colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: widget.role == 'warmup'
-                ? colorScheme.secondary.withOpacity(0.16)
-                : colorScheme.primary.withOpacity(0.08),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      child: Listener(
+        onPointerDown: (_) => setState(() => _isPressed = true),
+        onPointerUp: (_) => setState(() => _isPressed = false),
+        onPointerCancel: (_) => setState(() => _isPressed = false),
+        child: AnimatedScale(
+          scale: _isPressed ? 0.985 : 1.0,
+          duration: const Duration(milliseconds: 120),
+          child: DashboardSurfaceCard(
+            radius: 24,
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 36,
-                  height: 36,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: widget.role == 'warmup'
-                        ? colorScheme.secondary.withOpacity(0.12)
-                        : colorScheme.primary.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    '${widget.setIndex + 1}',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: _isCompleted
-                          ? colorScheme.primary
-                          : colorScheme.outline,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.role == 'warmup' ? 'Warm-up Set' : 'Working Set',
-                        style: theme.textTheme.labelMedium?.copyWith(
+                Row(
+                  children: [
+                    Container(
+                      width: 38,
+                      height: 38,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: widget.role == 'warmup'
+                            ? colorScheme.secondary.withValues(alpha: 0.12)
+                            : colorScheme.primary.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Text(
+                        '${widget.setIndex + 1}',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: _isCompleted
+                              ? colorScheme.primary
+                              : colorScheme.outline,
                           fontWeight: FontWeight.w700,
-                          color: widget.role == 'warmup'
-                              ? colorScheme.secondary
-                              : colorScheme.primary,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${widget.targetWeight.toStringAsFixed(widget.targetWeight.truncateToDouble() == widget.targetWeight ? 0 : 1)} kg • ${widget.targetReps} reps${widget.isAmrap ? '+' : ''}',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.74),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() => _isCompleted = !_isCompleted);
-                    widget.onToggleComplete();
-                  },
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 250),
-                    transitionBuilder: (child, animation) {
-                      return ScaleTransition(scale: animation, child: child);
-                    },
-                    child: _isCompleted
-                        ? Icon(
-                            Icons.check_circle_rounded,
-                            key: const ValueKey('checked'),
-                            color: colorScheme.primary,
-                            size: 32,
-                          )
-                        : Icon(
-                            Icons.circle_outlined,
-                            key: const ValueKey('unchecked'),
-                            color: colorScheme.outline.withOpacity(0.5),
-                            size: 32,
-                          ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onPanUpdate: _handleWeightPan,
-                    onPanEnd: _handleWeightPanEnd,
-                    child: _ValueCard(
-                      label: 'Weight',
-                      value:
-                          '${_currentWeight.toStringAsFixed(_currentWeight.truncateToDouble() == _currentWeight ? 0 : 1)} kg',
-                      muted: _isCompleted,
                     ),
-                  ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.role == 'warmup'
+                                ? 'Warm-up Set'
+                                : 'Working Set',
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: widget.role == 'warmup'
+                                  ? colorScheme.secondary
+                                  : colorScheme.primary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${widget.targetWeight.toStringAsFixed(widget.targetWeight.truncateToDouble() == widget.targetWeight ? 0 : 1)} kg • ${widget.targetReps} reps${widget.isAmrap ? '+' : ''}',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.onSurface.withValues(
+                                alpha: 0.74,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() => _isCompleted = !_isCompleted);
+                        widget.onToggleComplete();
+                      },
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        transitionBuilder: (child, animation) =>
+                            ScaleTransition(scale: animation, child: child),
+                        child: _isCompleted
+                            ? Icon(
+                                Icons.check_circle_rounded,
+                                key: const ValueKey('checked'),
+                                color: colorScheme.primary,
+                                size: 32,
+                              )
+                            : Icon(
+                                Icons.circle_outlined,
+                                key: const ValueKey('unchecked'),
+                                color: colorScheme.outline.withValues(
+                                  alpha: 0.5,
+                                ),
+                                size: 32,
+                              ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Listener(
-                    onPointerDown: (_) => setState(() => _isPressed = true),
-                    onPointerUp: (_) => setState(() => _isPressed = false),
-                    onPointerCancel: (_) => setState(() => _isPressed = false),
-                    child: GestureDetector(
-                      onPanUpdate: _handleRepsPan,
-                      onPanEnd: _handleRepsPanEnd,
-                      child: AnimatedScale(
-                        scale: _isPressed ? 0.97 : 1.0,
-                        duration: const Duration(milliseconds: 120),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onPanUpdate: _handleWeightPan,
+                        onPanEnd: _handleWeightPanEnd,
+                        child: _ValueCard(
+                          label: 'Weight',
+                          value:
+                              '${_currentWeight.toStringAsFixed(_currentWeight.truncateToDouble() == _currentWeight ? 0 : 1)} kg',
+                          muted: _isCompleted,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: GestureDetector(
+                        onPanUpdate: _handleRepsPan,
+                        onPanEnd: _handleRepsPanEnd,
                         child: _ValueCard(
                           label: widget.isAmrap ? 'Reps (AMRAP)' : 'Reps',
                           value: '$_currentReps',
@@ -229,11 +220,11 @@ class _SetInputRowState extends State<SetInputRow> {
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -262,9 +253,9 @@ class _ValueCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: muted
-            ? colorScheme.primary.withOpacity(0.08)
-            : colorScheme.background,
-        borderRadius: BorderRadius.circular(16),
+            ? colorScheme.primary.withValues(alpha: 0.08)
+            : colorScheme.surface.withValues(alpha: 0.42),
+        borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +263,7 @@ class _ValueCard extends StatelessWidget {
           Text(
             label,
             style: theme.textTheme.labelMedium?.copyWith(
-              color: colorScheme.onSurface.withOpacity(0.5),
+              color: colorScheme.onSurface.withValues(alpha: 0.5),
               fontWeight: FontWeight.w700,
             ),
           ),

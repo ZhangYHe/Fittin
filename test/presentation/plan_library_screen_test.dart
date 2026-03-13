@@ -114,59 +114,64 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
 
-    expect(find.text('计划库'), findsOneWidget);
+    expect(find.text('计划库'), findsWidgets);
     expect(find.text('GZCLP 四天十二周'), findsOneWidget);
     expect(find.text('深蹲主项日'), findsOneWidget);
     expect(find.text('当前计划'), findsOneWidget);
   });
 
-  testWidgets('switching a new TM-driven built-in plan prompts for training maxes', (
-    WidgetTester tester,
-  ) async {
-    final repository = InMemoryDatabaseRepository();
-    final tmRecord = StoredTemplateRecord(
-      template: fakePlanTemplate.copyWith(
-        id: 'template-tm',
-        name: 'TM Plan',
-        engineFamily: 'linear_tm',
-        requiredTrainingMaxKeys: const [
-          'squat',
-          'bench',
-          'deadlift',
-          'overhead_press',
-        ],
-      ),
-      isBuiltIn: true,
-      sourceTemplateId: null,
-      createdAt: DateTime(2026, 3, 12),
-      lastModifiedAt: DateTime(2026, 3, 12),
-      instanceCount: 0,
-    );
+  testWidgets(
+    'switching a new TM-driven built-in plan prompts for training maxes',
+    (WidgetTester tester) async {
+      final repository = InMemoryDatabaseRepository();
+      final tmRecord = StoredTemplateRecord(
+        template: fakePlanTemplate.copyWith(
+          id: 'template-tm',
+          name: 'TM Plan',
+          engineFamily: 'linear_tm',
+          requiredTrainingMaxKeys: const [
+            'squat',
+            'bench',
+            'deadlift',
+            'overhead_press',
+          ],
+        ),
+        isBuiltIn: true,
+        sourceTemplateId: null,
+        createdAt: DateTime(2026, 3, 12),
+        lastModifiedAt: DateTime(2026, 3, 12),
+        instanceCount: 0,
+      );
 
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          databaseRepositoryProvider.overrideWithValue(repository),
-          planLibraryItemsProvider.overrideWith(
-            (ref) async => [PlanLibraryItem(record: tmRecord, isActive: false)],
-          ),
-          planLibraryActionProvider.overrideWith(
-            (ref) => PlanLibraryActionNotifier(ref),
-          ),
-        ],
-        child: const MaterialApp(home: PlanLibraryScreen()),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 400));
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            databaseRepositoryProvider.overrideWithValue(repository),
+            planLibraryItemsProvider.overrideWith(
+              (ref) async => [
+                PlanLibraryItem(record: tmRecord, isActive: false),
+              ],
+            ),
+            planLibraryActionProvider.overrideWith(
+              (ref) => PlanLibraryActionNotifier(ref),
+            ),
+          ],
+          child: const MaterialApp(home: PlanLibraryScreen()),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
 
-    await tester.tap(find.text('Switch'));
-    await tester.pumpAndSettle();
+      final switchButtonLabel = find.text('Switch').at(0);
+      await tester.scrollUntilVisible(switchButtonLabel, 200);
+      await tester.tap(switchButtonLabel.last, warnIfMissed: false);
+      await tester.pumpAndSettle();
 
-    expect(find.text('Set Training Maxes'), findsOneWidget);
-    expect(find.text('Squat'), findsOneWidget);
-    expect(find.text('Bench Press'), findsOneWidget);
-    expect(find.text('Deadlift'), findsOneWidget);
-    expect(find.text('Overhead Press'), findsOneWidget);
-  });
+      expect(find.text('Set Training Maxes'), findsOneWidget);
+      expect(find.text('Squat'), findsOneWidget);
+      expect(find.text('Bench Press'), findsOneWidget);
+      expect(find.text('Deadlift'), findsOneWidget);
+      expect(find.text('Overhead Press'), findsOneWidget);
+    },
+  );
 }

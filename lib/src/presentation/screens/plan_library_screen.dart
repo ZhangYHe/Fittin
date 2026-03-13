@@ -8,6 +8,7 @@ import 'package:fittin_v2/src/domain/models/training_max.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
 import 'package:fittin_v2/src/presentation/localization/plan_text.dart';
 import 'package:fittin_v2/src/presentation/screens/plan_editor_screen.dart';
+import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
 
 class PlanLibraryScreen extends ConsumerWidget {
   const PlanLibraryScreen({super.key});
@@ -17,9 +18,9 @@ class PlanLibraryScreen extends ConsumerWidget {
     final templatesAsync = ref.watch(planLibraryItemsProvider);
     final actionState = ref.watch(planLibraryActionProvider);
     final actionNotifier = ref.read(planLibraryActionProvider.notifier);
-    final theme = Theme.of(context);
     final locale = ref.watch(appLocaleProvider);
     final strings = AppStrings.of(context, ref);
+    final theme = Theme.of(context);
 
     if (actionState.infoMessage != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -37,188 +38,256 @@ class PlanLibraryScreen extends ConsumerWidget {
       });
     }
 
-    return Scaffold(
-      appBar: AppBar(title: Text(strings.planLibrary), centerTitle: true),
-      body: templatesAsync.when(
-        data: (templates) => ListView.separated(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
-          itemCount: templates.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 12),
-          itemBuilder: (context, index) {
-            final item = templates[index];
-            final record = item.record;
-            final preview = record.template.workouts
-                .take(3)
-                .map((workout) => localizedWorkoutName(workout, locale))
-                .join(' · ');
-            return Container(
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: item.isActive
-                    ? theme.colorScheme.primary.withValues(alpha: 0.08)
-                    : theme.colorScheme.onSurface.withValues(alpha: 0.04),
-                border: Border.all(
-                  color: item.isActive
-                      ? theme.colorScheme.primary.withValues(alpha: 0.18)
-                      : theme.colorScheme.onSurface.withValues(alpha: 0.06),
+    return templatesAsync.when(
+      data: (templates) => DashboardPageScaffold(
+        bottomPadding: 170,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            await Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const PlanEditorScreen()));
+            ref.invalidate(planLibraryItemsProvider);
+          },
+          icon: const Icon(Icons.add_rounded),
+          label: Text(strings.newPlan),
+        ),
+        children: [
+          DashboardScreenHeader(
+            eyebrow: strings.planLibrary,
+            title: strings.planLibrary,
+            subtitle: strings.isChinese
+                ? '内置计划、自定义模板与切换入口都应该像设计对象，而不是一组暗色表单。'
+                : 'Built-in plans, custom templates, and switching flows should feel like premium objects.',
+          ),
+          const SizedBox(height: 24),
+          DashboardSurfaceCard(
+            radius: 34,
+            padding: const EdgeInsets.fromLTRB(22, 22, 22, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  strings.isChinese ? '模板收藏' : 'Template Objects',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          localizedTemplateName(record.template, locale),
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
+                const SizedBox(height: 8),
+                Text(
+                  strings.isChinese
+                      ? '把计划看作可切换、可编辑、可分享的训练对象。激活状态、内置属性和操作层级都应该一眼可见。'
+                      : 'Treat every plan as a switchable, editable, shareable training object with visible hierarchy.',
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.66),
+                    height: 1.45,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 28),
+          DashboardSectionLabel(
+            label: strings.isChinese ? '全部计划' : 'All Plans',
+          ),
+          const SizedBox(height: 14),
+          ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: templates.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 16),
+            itemBuilder: (context, index) {
+              final item = templates[index];
+              final record = item.record;
+              final preview = record.template.workouts
+                  .take(3)
+                  .map((workout) => localizedWorkoutName(workout, locale))
+                  .join(' · ');
+              return DashboardSurfaceCard(
+                padding: const EdgeInsets.all(22),
+                radius: 32,
+                highlight: item.isActive,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            localizedTemplateName(record.template, locale),
+                            style: theme.textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -1.2,
+                              height: 1.05,
+                            ),
                           ),
                         ),
-                      ),
-                      if (record.isBuiltIn)
-                        _MetaPill(
-                          label: strings.builtIn,
-                          color: theme.colorScheme.primary,
-                        )
-                      else
-                        _MetaPill(
-                          label: strings.custom,
-                          color: theme.colorScheme.secondary,
-                        ),
-                      if (item.isActive) ...[
-                        const SizedBox(width: 8),
-                        _MetaPill(
-                          label: strings.active,
-                          color: theme.colorScheme.tertiary,
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            if (record.isBuiltIn)
+                              _MetaPill(
+                                label: strings.builtIn,
+                                color: theme.colorScheme.primary,
+                              )
+                            else
+                              _MetaPill(
+                                label: strings.custom,
+                                color: theme.colorScheme.secondary,
+                              ),
+                            if (item.isActive) ...[
+                              const SizedBox(height: 8),
+                              _MetaPill(
+                                label: strings.active,
+                                color: theme.colorScheme.tertiary,
+                              ),
+                            ],
+                          ],
                         ),
                       ],
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    localizedTemplateDescription(record.template, locale),
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    preview,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(
-                        alpha: 0.65,
+                    const SizedBox(height: 12),
+                    Text(
+                      localizedTemplateDescription(record.template, locale),
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.7),
+                        height: 1.45,
                       ),
-                      fontWeight: FontWeight.w600,
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      _StatChip(
-                        icon: Icons.calendar_view_week_rounded,
-                        label: strings.workoutsCount(record.template.workouts.length),
+                    const SizedBox(height: 16),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
                       ),
-                      _StatChip(
-                        icon: Icons.fitness_center_rounded,
-                        label: strings.exercisesCount(
-                          record.template.workouts.fold<int>(
-                            0,
-                            (sum, workout) => sum + workout.exercises.length,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(22),
+                        color: Colors.white.withValues(alpha: 0.04),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.06),
+                        ),
+                      ),
+                      child: Text(
+                        preview,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white.withValues(alpha: 0.56),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        _StatChip(
+                          icon: Icons.calendar_view_week_rounded,
+                          label: strings.workoutsCount(
+                            record.template.workouts.length,
                           ),
                         ),
-                      ),
-                      _StatChip(
-                        icon: Icons.play_circle_outline_rounded,
-                        label: strings.activeInstancesCount(record.instanceCount),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton.tonalIcon(
-                          onPressed:
-                              item.isActive ||
-                                  (actionState.isSwitching &&
-                                      actionState.switchingTemplateId ==
-                                          record.template.id)
-                              ? null
-                              : () async {
-                                  final trainingMaxProfile =
-                                      await _resolveTrainingMaxProfile(
-                                        context,
-                                        record,
-                                      );
-                                  if (!context.mounted ||
-                                      trainingMaxProfile == null) {
-                                    return;
-                                  }
-                                  await actionNotifier.activateTemplate(
-                                    record,
-                                    trainingMaxProfile: trainingMaxProfile,
-                                  );
-                                },
-                          icon:
-                              actionState.isSwitching &&
-                                  actionState.switchingTemplateId ==
-                                      record.template.id
-                              ? const SizedBox(
-                                  width: 16,
-                                  height: 16,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                              : Icon(
-                                  item.isActive
-                                      ? Icons.check_circle_rounded
-                                      : Icons.play_circle_fill_rounded,
-                                ),
-                          label: Text(item.isActive ? strings.current : strings.switchPlan),
+                        _StatChip(
+                          icon: Icons.fitness_center_rounded,
+                          label: strings.exercisesCount(
+                            record.template.workouts.fold<int>(
+                              0,
+                              (sum, workout) => sum + workout.exercises.length,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: () async {
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => PlanEditorScreen(
-                                  templateId: record.template.id,
-                                ),
+                        _StatChip(
+                          icon: Icons.play_circle_outline_rounded,
+                          label: strings.activeInstancesCount(
+                            record.instanceCount,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: PremiumPrimaryButton(
+                            onPressed:
+                                item.isActive ||
+                                    (actionState.isSwitching &&
+                                        actionState.switchingTemplateId ==
+                                            record.template.id)
+                                ? null
+                                : () async {
+                                    final trainingMaxProfile =
+                                        await _resolveTrainingMaxProfile(
+                                          context,
+                                          record,
+                                        );
+                                    if (!context.mounted ||
+                                        trainingMaxProfile == null) {
+                                      return;
+                                    }
+                                    await actionNotifier.activateTemplate(
+                                      record,
+                                      trainingMaxProfile: trainingMaxProfile,
+                                    );
+                                  },
+                            loading:
+                                actionState.isSwitching &&
+                                actionState.switchingTemplateId ==
+                                    record.template.id,
+                            icon: item.isActive
+                                ? Icons.check_circle_rounded
+                                : Icons.play_circle_fill_rounded,
+                            label: item.isActive
+                                ? strings.current
+                                : strings.switchPlan,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(62),
+                              side: BorderSide(
+                                color: Colors.white.withValues(alpha: 0.18),
                               ),
-                            );
-                            ref.invalidate(planLibraryItemsProvider);
-                          },
-                          icon: const Icon(Icons.edit_outlined),
-                          label: Text(strings.edit),
+                              shape: const StadiumBorder(),
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.white.withValues(
+                                alpha: 0.02,
+                              ),
+                              textStyle: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            onPressed: () async {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => PlanEditorScreen(
+                                    templateId: record.template.id,
+                                  ),
+                                ),
+                              );
+                              ref.invalidate(planLibraryItemsProvider);
+                            },
+                            icon: const Icon(Icons.edit_outlined),
+                            label: Text(strings.edit),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(child: Text(error.toString())),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await Navigator.of(
-            context,
-          ).push(MaterialPageRoute(builder: (_) => const PlanEditorScreen()));
-          ref.invalidate(planLibraryItemsProvider);
-        },
-        icon: const Icon(Icons.add_rounded),
-        label: Text(strings.newPlan),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (error, _) =>
+          Scaffold(body: Center(child: Text(error.toString()))),
     );
   }
 }
@@ -249,7 +318,7 @@ class _MetaPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: color.withValues(alpha: 0.16),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
@@ -273,10 +342,11 @@ class _StatChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
-        color: theme.colorScheme.surfaceContainerHighest,
+        color: Colors.white.withValues(alpha: 0.06),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -296,7 +366,8 @@ class _TrainingMaxSetupDialog extends StatefulWidget {
   final PlanTemplate template;
 
   @override
-  State<_TrainingMaxSetupDialog> createState() => _TrainingMaxSetupDialogState();
+  State<_TrainingMaxSetupDialog> createState() =>
+      _TrainingMaxSetupDialogState();
 }
 
 class _TrainingMaxSetupDialogState extends State<_TrainingMaxSetupDialog> {
@@ -339,7 +410,8 @@ class _TrainingMaxSetupDialogState extends State<_TrainingMaxSetupDialog> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
-              for (final liftKey in widget.template.requiredTrainingMaxKeys) ...[
+              for (final liftKey
+                  in widget.template.requiredTrainingMaxKeys) ...[
                 TextFormField(
                   controller: _controllers[liftKey],
                   keyboardType: const TextInputType.numberWithOptions(

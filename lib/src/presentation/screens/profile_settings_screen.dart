@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fittin_v2/src/application/app_locale_provider.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
+import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
 
 class ProfileSettingsScreen extends ConsumerWidget {
   const ProfileSettingsScreen({super.key});
@@ -11,65 +12,92 @@ class ProfileSettingsScreen extends ConsumerWidget {
     final strings = AppStrings.of(context, ref);
     final locale = ref.watch(appLocaleProvider);
     final notifier = ref.read(appLocaleProvider.notifier);
-    final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(strings.settings),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: theme.colorScheme.surfaceContainerHighest,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    strings.language,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    strings.languageSubtitle,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _LocaleTile(
-                    title: strings.english,
-                    subtitle: 'English',
-                    selected: locale == AppLocale.en,
-                    onTap: () => notifier.setLocale(AppLocale.en),
-                  ),
-                  const SizedBox(height: 12),
-                  _LocaleTile(
-                    title: strings.chinese,
-                    subtitle: 'Chinese',
-                    selected: locale == AppLocale.zh,
-                    onTap: () => notifier.setLocale(AppLocale.zh),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return DashboardPageScaffold(
+      bottomPadding: 180,
+      children: [
+        DashboardScreenHeader(
+          eyebrow: strings.profile,
+          title: strings.settings,
+          subtitle: strings.languageSubtitle,
         ),
-      ),
+        const SizedBox(height: 24),
+        DashboardSurfaceCard(
+          highlight: true,
+          radius: 32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                strings.profile,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                strings.isChinese
+                    ? '统一管理语言与后续个人偏好设置。'
+                    : 'Manage language and future profile preferences in one place.',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.66),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 32),
+        DashboardSectionLabel(label: strings.settings),
+        const SizedBox(height: 14),
+        DashboardSurfaceCard(
+          radius: 32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                strings.language,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                strings.languageSubtitle,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
+              ),
+              const SizedBox(height: 18),
+              _LocaleTile(
+                key: const ValueKey('locale-en'),
+                title: strings.english,
+                subtitle: 'English',
+                selected: locale == AppLocale.en,
+                onTap: () => notifier.setLocale(AppLocale.en),
+              ),
+              const SizedBox(height: 12),
+              _LocaleTile(
+                key: const ValueKey('locale-zh'),
+                title: strings.chinese,
+                subtitle: 'Chinese',
+                selected: locale == AppLocale.zh,
+                onTap: () => notifier.setLocale(AppLocale.zh),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
 
 class _LocaleTile extends StatelessWidget {
   const _LocaleTile({
+    super.key,
     required this.title,
     required this.subtitle,
     required this.selected,
@@ -86,19 +114,29 @@ class _LocaleTile extends StatelessWidget {
     final theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
-      child: Container(
+      borderRadius: BorderRadius.circular(22),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(
             color: selected
-                ? theme.colorScheme.primary
-                : theme.colorScheme.outlineVariant,
+                ? theme.colorScheme.primary.withValues(alpha: 0.92)
+                : Colors.white.withValues(alpha: 0.08),
           ),
           color: selected
-              ? theme.colorScheme.primary.withValues(alpha: 0.08)
-              : Colors.transparent,
+              ? theme.colorScheme.primary.withValues(alpha: 0.12)
+              : Colors.white.withValues(alpha: 0.04),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.16),
+                    blurRadius: 24,
+                    offset: const Offset(0, 10),
+                  ),
+                ]
+              : null,
         ),
         child: Row(
           children: [

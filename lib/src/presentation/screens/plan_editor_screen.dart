@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fittin_v2/src/application/template_editor_provider.dart';
 import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/presentation/screens/share_screen.dart';
+import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
 
 class PlanEditorScreen extends ConsumerStatefulWidget {
   const PlanEditorScreen({super.key, this.templateId});
@@ -55,97 +56,102 @@ class _PlanEditorScreenState extends ConsumerState<PlanEditorScreen> {
       });
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(draft.name),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => ShareScreen(planTemplate: draft),
-                ),
-              );
-            },
-            icon: const Icon(Icons.qr_code_2_rounded),
-            tooltip: 'Share plan',
-          ),
-          TextButton.icon(
-            onPressed: state.isSaving
-                ? null
-                : () async {
-                    await notifier.saveTemplate();
-                  },
-            icon: state.isSaving
-                ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.save_outlined),
-            label: const Text('Save'),
-          ),
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
-        children: [
-          if (state.sourceTemplate != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _InfoBanner(
-                message: state.sourceTemplate!.isBuiltIn
-                    ? 'Built-in templates save as a new custom copy.'
-                    : state.sourceTemplate!.instanceCount > 0
-                    ? 'Templates with active instances save as a new copy to protect existing progress.'
-                    : 'You are editing a custom template in place.',
+    return DashboardPageScaffold(
+      bottomPadding: 140,
+      children: [
+        DashboardScreenHeader(
+          eyebrow: 'Template Editor',
+          title: draft.name,
+          subtitle:
+              'Shape the plan like a premium composition, not a raw form.',
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ShareScreen(planTemplate: draft),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.qr_code_2_rounded),
+                tooltip: 'Share plan',
               ),
-            ),
-          if (state.validationErrors.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _ValidationBanner(errors: state.validationErrors),
-            ),
-          _EditorCard(
-            title: 'Template',
-            child: Column(
-              children: [
-                _DraftTextField(
-                  label: 'Template Name',
-                  value: draft.name,
-                  onChanged: notifier.updateTemplateName,
-                ),
-                const SizedBox(height: 12),
-                _DraftTextField(
-                  label: 'Description',
-                  value: draft.description,
-                  maxLines: 3,
-                  onChanged: notifier.updateTemplateDescription,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          for (
-            var workoutIndex = 0;
-            workoutIndex < draft.workouts.length;
-            workoutIndex++
-          )
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _WorkoutEditorCard(
-                workout: draft.workouts[workoutIndex],
-                workoutIndex: workoutIndex,
-                notifier: notifier,
+              TextButton.icon(
+                onPressed: state.isSaving
+                    ? null
+                    : () async {
+                        await notifier.saveTemplate();
+                      },
+                icon: state.isSaving
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.save_outlined),
+                label: const Text('Save'),
               ),
-            ),
-          OutlinedButton.icon(
-            onPressed: notifier.addWorkout,
-            icon: const Icon(Icons.add_rounded),
-            label: const Text('Add Workout'),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 20),
+        if (state.sourceTemplate != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _InfoBanner(
+              message: state.sourceTemplate!.isBuiltIn
+                  ? 'Built-in templates save as a new custom copy.'
+                  : state.sourceTemplate!.instanceCount > 0
+                  ? 'Templates with active instances save as a new copy to protect existing progress.'
+                  : 'You are editing a custom template in place.',
+            ),
+          ),
+        if (state.validationErrors.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _ValidationBanner(errors: state.validationErrors),
+          ),
+        _EditorCard(
+          title: 'Template',
+          child: Column(
+            children: [
+              _DraftTextField(
+                label: 'Template Name',
+                value: draft.name,
+                onChanged: notifier.updateTemplateName,
+              ),
+              const SizedBox(height: 12),
+              _DraftTextField(
+                label: 'Description',
+                value: draft.description,
+                maxLines: 3,
+                onChanged: notifier.updateTemplateDescription,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        for (
+          var workoutIndex = 0;
+          workoutIndex < draft.workouts.length;
+          workoutIndex++
+        )
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _WorkoutEditorCard(
+              workout: draft.workouts[workoutIndex],
+              workoutIndex: workoutIndex,
+              notifier: notifier,
+            ),
+          ),
+        OutlinedButton.icon(
+          onPressed: notifier.addWorkout,
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('Add Workout'),
+        ),
+      ],
     );
   }
 }
@@ -258,12 +264,9 @@ class _ExerciseEditorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tierOptions = const ['T1', 'T2', 'T3'];
-    return Container(
+    return DashboardSurfaceCard(
+      radius: 24,
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -320,7 +323,7 @@ class _ExerciseEditorCard extends StatelessWidget {
             children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  value: tierOptions.contains(exercise.tier)
+                  initialValue: tierOptions.contains(exercise.tier)
                       ? exercise.tier
                       : tierOptions.first,
                   decoration: const InputDecoration(labelText: 'Tier'),
@@ -415,15 +418,9 @@ class _StageEditorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DashboardSurfaceCard(
+      radius: 20,
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Theme.of(context).colorScheme.surface,
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.06),
-        ),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -566,120 +563,136 @@ class _SetEditorRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: DropdownButtonFormField<String>(
-            value: setDefinition.kind,
-            decoration: const InputDecoration(labelText: 'Role'),
-            items: const [
-              DropdownMenuItem(value: 'warmup', child: Text('Warmup')),
-              DropdownMenuItem(value: 'working', child: Text('Working')),
-            ],
-            onChanged: (value) {
-              if (value != null) {
-                notifier.updateSetKind(
-                  workoutIndex,
-                  exerciseIndex,
-                  stageIndex,
-                  setIndex,
-                  value,
-                );
-              }
-            },
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _DraftIntField(
-            label: 'Reps',
-            value: setDefinition.targetReps,
-            onChanged: (value) => notifier.updateSetTargetReps(
-              workoutIndex,
-              exerciseIndex,
-              stageIndex,
-              setIndex,
-              value,
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _DraftDoubleField(
-            label: 'Intensity',
-            value: setDefinition.intensity,
-            onChanged: (value) => notifier.updateSetIntensity(
-              workoutIndex,
-              exerciseIndex,
-              stageIndex,
-              setIndex,
-              value,
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Column(
-          children: [
-            const Text('AMRAP'),
-            Switch(
-              value: setDefinition.isAmrap,
-              onChanged: (value) => notifier.updateSetAmrap(
-                workoutIndex,
-                exerciseIndex,
-                stageIndex,
-                setIndex,
-                value,
+    return DashboardSurfaceCard(
+      radius: 18,
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  initialValue: setDefinition.kind,
+                  decoration: const InputDecoration(labelText: 'Role'),
+                  items: const [
+                    DropdownMenuItem(value: 'warmup', child: Text('Warmup')),
+                    DropdownMenuItem(value: 'working', child: Text('Working')),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      notifier.updateSetKind(
+                        workoutIndex,
+                        exerciseIndex,
+                        stageIndex,
+                        setIndex,
+                        value,
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-        PopupMenuButton<String>(
-          onSelected: (value) {
-            switch (value) {
-              case 'up':
-                notifier.moveSet(
-                  workoutIndex,
-                  exerciseIndex,
-                  stageIndex,
-                  setIndex,
-                  -1,
-                );
-                break;
-              case 'down':
-                notifier.moveSet(
-                  workoutIndex,
-                  exerciseIndex,
-                  stageIndex,
-                  setIndex,
-                  1,
-                );
-                break;
-              case 'duplicate':
-                notifier.duplicateSet(
-                  workoutIndex,
-                  exerciseIndex,
-                  stageIndex,
-                  setIndex,
-                );
-                break;
-              case 'delete':
-                notifier.removeSet(
-                  workoutIndex,
-                  exerciseIndex,
-                  stageIndex,
-                  setIndex,
-                );
-                break;
-            }
-          },
-          itemBuilder: (context) => const [
-            PopupMenuItem(value: 'up', child: Text('Move up')),
-            PopupMenuItem(value: 'down', child: Text('Move down')),
-            PopupMenuItem(value: 'duplicate', child: Text('Duplicate')),
-            PopupMenuItem(value: 'delete', child: Text('Delete')),
-          ],
-        ),
-      ],
+              PopupMenuButton<String>(
+                onSelected: (value) {
+                  switch (value) {
+                    case 'up':
+                      notifier.moveSet(
+                        workoutIndex,
+                        exerciseIndex,
+                        stageIndex,
+                        setIndex,
+                        -1,
+                      );
+                      break;
+                    case 'down':
+                      notifier.moveSet(
+                        workoutIndex,
+                        exerciseIndex,
+                        stageIndex,
+                        setIndex,
+                        1,
+                      );
+                      break;
+                    case 'duplicate':
+                      notifier.duplicateSet(
+                        workoutIndex,
+                        exerciseIndex,
+                        stageIndex,
+                        setIndex,
+                      );
+                      break;
+                    case 'delete':
+                      notifier.removeSet(
+                        workoutIndex,
+                        exerciseIndex,
+                        stageIndex,
+                        setIndex,
+                      );
+                      break;
+                  }
+                },
+                itemBuilder: (context) => const [
+                  PopupMenuItem(value: 'up', child: Text('Move up')),
+                  PopupMenuItem(value: 'down', child: Text('Move down')),
+                  PopupMenuItem(value: 'duplicate', child: Text('Duplicate')),
+                  PopupMenuItem(value: 'delete', child: Text('Delete')),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: _DraftIntField(
+                  label: 'Reps',
+                  value: setDefinition.targetReps,
+                  onChanged: (value) => notifier.updateSetTargetReps(
+                    workoutIndex,
+                    exerciseIndex,
+                    stageIndex,
+                    setIndex,
+                    value,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _DraftDoubleField(
+                  label: 'Intensity',
+                  value: setDefinition.intensity,
+                  onChanged: (value) => notifier.updateSetIntensity(
+                    workoutIndex,
+                    exerciseIndex,
+                    stageIndex,
+                    setIndex,
+                    value,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('AMRAP'),
+                    const SizedBox(height: 6),
+                    Switch(
+                      value: setDefinition.isAmrap,
+                      onChanged: (value) => notifier.updateSetAmrap(
+                        workoutIndex,
+                        exerciseIndex,
+                        stageIndex,
+                        setIndex,
+                        value,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -712,12 +725,9 @@ class _RuleEditor extends StatelessWidget {
       orElse: () => null,
     );
     final actions = rule?.actions ?? const <RuleAction>[];
-    return Container(
+    return DashboardSurfaceCard(
+      radius: 18,
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -815,7 +825,7 @@ class _RuleActionEditorRow extends StatelessWidget {
       children: [
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: action.type,
+            initialValue: action.type,
             decoration: const InputDecoration(labelText: 'Action'),
             items: const [
               DropdownMenuItem(value: 'STAY_STAGE', child: Text('Stay Stage')),
@@ -856,7 +866,7 @@ class _RuleActionEditorRow extends StatelessWidget {
         else if (action.type == 'JUMP_TO_STAGE')
           Expanded(
             child: DropdownButtonFormField<String>(
-              value: stageIds.contains(action.targetStageId)
+              initialValue: stageIds.contains(action.targetStageId)
                   ? action.targetStageId
                   : null,
               decoration: const InputDecoration(labelText: 'Target Stage'),
@@ -889,15 +899,9 @@ class _EditorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
+    return DashboardSurfaceCard(
       padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: theme.colorScheme.onSurface.withOpacity(0.04),
-        border: Border.all(
-          color: theme.colorScheme.onSurface.withOpacity(0.06),
-        ),
-      ),
+      radius: 28,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -929,12 +933,8 @@ class _InfoBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DashboardSurfaceCard(
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Theme.of(context).colorScheme.primary.withOpacity(0.08),
-      ),
       child: Row(
         children: [
           Icon(
@@ -956,12 +956,8 @@ class _ValidationBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DashboardSurfaceCard(
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Theme.of(context).colorScheme.errorContainer,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1027,7 +1023,11 @@ class _DraftTextFieldState extends State<_DraftTextField> {
     return TextField(
       controller: _controller,
       maxLines: widget.maxLines,
-      decoration: InputDecoration(labelText: widget.label),
+      decoration: InputDecoration(
+        labelText: widget.label,
+        filled: true,
+        fillColor: Colors.white.withValues(alpha: 0.04),
+      ),
       onChanged: widget.onChanged,
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fittin_v2/src/application/progress_analytics_provider.dart';
 import 'package:fittin_v2/src/domain/one_rep_max.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
+import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
 
 class ProgressAnalyticsScreen extends ConsumerWidget {
   const ProgressAnalyticsScreen({super.key});
@@ -13,90 +14,103 @@ class ProgressAnalyticsScreen extends ConsumerWidget {
     final overviewAsync = ref.watch(progressAnalyticsOverviewProvider);
     final formula = ref.watch(analyticsFormulaProvider);
 
-    return Scaffold(
-      body: SafeArea(
-        child: overviewAsync.when(
-          data: (overview) {
-            if (overview.exerciseSummaries.isEmpty) {
-              return _EmptyState(strings: strings);
-            }
-            return CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          strings.progressAnalytics,
-                          style: Theme.of(context).textTheme.headlineMedium
-                              ?.copyWith(fontWeight: FontWeight.w800),
-                        ),
-                        const SizedBox(height: 12),
-                        _FormulaPicker(
-                          formula: formula,
-                          strings: strings,
-                          onChanged: (value) => ref
-                              .read(analyticsFormulaProvider.notifier)
-                              .setFormula(value),
-                        ),
-                        const SizedBox(height: 20),
-                        _OverviewCards(overview: overview, strings: strings),
-                        const SizedBox(height: 20),
-                        Text(
-                          strings.allExercises,
-                          style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ],
+    return overviewAsync.when(
+      data: (overview) {
+        if (overview.exerciseSummaries.isEmpty) {
+          return DashboardPageScaffold(
+            children: [
+              DashboardScreenHeader(
+                eyebrow: strings.insights,
+                title: strings.progressAnalytics,
+                subtitle: strings.analyticsEmptySubtitle,
+              ),
+              const SizedBox(height: 28),
+              _EmptyState(strings: strings),
+            ],
+          );
+        }
+
+        return DashboardPageScaffold(
+          children: [
+            DashboardScreenHeader(
+              eyebrow: strings.insights,
+              title: strings.progressAnalytics,
+              subtitle: strings.isChinese
+                  ? '按动作查看预估 1RM、真实 1RM、PR 与停滞情况。'
+                  : 'Track estimated 1RM, actual 1RM, PRs, and stagnation by exercise.',
+            ),
+            const SizedBox(height: 20),
+            DashboardSurfaceCard(
+              radius: 34,
+              highlight: true,
+              padding: const EdgeInsets.fromLTRB(22, 22, 22, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    strings.isChinese ? '力量轨迹' : 'Strength Trajectory',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 120),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      if (index.isOdd) {
-                        return const SizedBox(height: 12);
-                      }
-                      final itemIndex = index ~/ 2;
-                      if (itemIndex >= overview.exerciseSummaries.length) {
-                        return null;
-                      }
-                      final summary = overview.exerciseSummaries[itemIndex];
-                      return _ExerciseSummaryCard(
-                        summary: summary,
-                        strings: strings,
-                        onTap: () => showModalBottomSheet<void>(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (context) => _ExerciseDetailSheet(
-                            summary: summary,
-                            strings: strings,
-                            formula: formula,
-                          ),
-                        ),
-                      );
-                    },
-                    childCount: overview.exerciseSummaries.isEmpty
-                        ? 0
-                        : overview.exerciseSummaries.length * 2 - 1,
+                  const SizedBox(height: 8),
+                  Text(
+                    strings.isChinese
+                        ? '先给出总体节奏，再下钻到单动作的预估 1RM、真实 1RM、PR 与停滞。减少重复黑块，强化阅读节奏。'
+                        : 'Start with overall momentum, then drill into per-lift estimated 1RM, actual 1RM, PRs, and stagnation.',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Colors.white.withValues(alpha: 0.68),
+                      height: 1.45,
+                    ),
                   ),
-                  ),
-                ),
-              ],
-            );
-          },
-          error: (error, stackTrace) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Text(error.toString(), textAlign: TextAlign.center),
+                ],
+              ),
             ),
+            const SizedBox(height: 18),
+            DashboardSurfaceCard(
+              child: _FormulaPicker(
+                formula: formula,
+                strings: strings,
+                onChanged: (value) => ref
+                    .read(analyticsFormulaProvider.notifier)
+                    .setFormula(value),
+              ),
+            ),
+            const SizedBox(height: 24),
+            _OverviewCards(overview: overview, strings: strings),
+            const SizedBox(height: 32),
+            DashboardSectionLabel(label: strings.allExercises),
+            const SizedBox(height: 14),
+            for (final summary in overview.exerciseSummaries) ...[
+              _ExerciseSummaryCard(
+                summary: summary,
+                strings: strings,
+                onTap: () => showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => _ExerciseDetailSheet(
+                    summary: summary,
+                    strings: strings,
+                    formula: formula,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
+          ],
+        );
+      },
+      error: (error, stackTrace) => Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Text(error.toString(), textAlign: TextAlign.center),
           ),
-          loading: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }
@@ -109,17 +123,23 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Center(
+    return DashboardSurfaceCard(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 28),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.insights_rounded, size: 56, color: theme.colorScheme.primary),
+            Icon(
+              Icons.insights_rounded,
+              size: 56,
+              color: theme.colorScheme.primary,
+            ),
             const SizedBox(height: 16),
             Text(
               strings.analyticsEmptyTitle,
-              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -150,35 +170,48 @@ class _FormulaPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '${strings.formula}: ',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: DropdownButtonFormField<OneRepMaxFormula>(
-            value: formula,
-            decoration: const InputDecoration(
-              isDense: true,
-              border: OutlineInputBorder(),
+        DashboardSectionLabel(label: strings.formula),
+        const SizedBox(height: 10),
+        DropdownButtonFormField<OneRepMaxFormula>(
+          initialValue: formula,
+          dropdownColor: const Color(0xFF111317),
+          decoration: InputDecoration(
+            isDense: true,
+            filled: true,
+            fillColor: Colors.white.withValues(alpha: 0.04),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(22),
+              borderSide: BorderSide(
+                color: Colors.white.withValues(alpha: 0.14),
+              ),
             ),
-            items: [
-              for (final item in OneRepMaxFormula.values)
-                DropdownMenuItem(
-                  value: item,
-                  child: Text(item.label),
-                ),
-            ],
-            onChanged: (value) {
-              if (value != null) {
-                onChanged(value);
-              }
-            },
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(22),
+              borderSide: BorderSide(
+                color: Colors.white.withValues(alpha: 0.12),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(22),
+              borderSide: BorderSide(
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.72),
+              ),
+            ),
           ),
+          items: [
+            for (final item in OneRepMaxFormula.values)
+              DropdownMenuItem(value: item, child: Text(item.label)),
+          ],
+          onChanged: (value) {
+            if (value != null) {
+              onChanged(value);
+            }
+          },
         ),
       ],
     );
@@ -202,19 +235,20 @@ class _OverviewCards extends StatelessWidget {
       spacing: 12,
       runSpacing: 12,
       children: [
-        _StatCard(
+        _OverviewStatCard(
           title: strings.workoutsCompleted,
           value: '${overview.completedWorkoutCount}',
+          highlight: true,
         ),
-        _StatCard(
+        _OverviewStatCard(
           title: strings.trainingDays,
           value: '${overview.recentTrainingDays}',
         ),
-        _StatCard(
+        _OverviewStatCard(
           title: strings.recentVolume,
           value: strings.kilograms(overview.recentVolume),
         ),
-        _StatCard(
+        _OverviewStatCard(
           title: strings.highlightLift,
           value: highlight?.exerciseName ?? '—',
         ),
@@ -223,40 +257,25 @@ class _OverviewCards extends StatelessWidget {
   }
 }
 
-class _StatCard extends StatelessWidget {
-  const _StatCard({required this.title, required this.value});
+class _OverviewStatCard extends StatelessWidget {
+  const _OverviewStatCard({
+    required this.title,
+    required this.value,
+    this.highlight = false,
+  });
 
   final String title;
   final String value;
+  final bool highlight;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
+    return SizedBox(
       width: 160,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.08),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.68),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-          ),
-        ],
+      child: DashboardStatCard(
+        label: title,
+        value: value,
+        highlight: highlight,
       ),
     );
   }
@@ -276,72 +295,66 @@ class _ExerciseSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return InkWell(
+    return DashboardSurfaceCard(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
-      child: Ink(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: theme.colorScheme.surface,
-          border: Border.all(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.08),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    summary.exerciseName,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+      radius: 30,
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  summary.exerciseName,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    height: 1.05,
                   ),
                 ),
-                if (summary.isStagnating)
-                  _Pill(
-                    label: strings.stagnating,
-                    color: theme.colorScheme.errorContainer,
-                  ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                _MetricPill(
-                  label: strings.estimatedOneRepMax,
-                  value: summary.currentEstimatedOneRepMax == null
-                      ? '—'
-                      : strings.kilograms(summary.currentEstimatedOneRepMax!),
-                ),
-                _MetricPill(
-                  label: strings.actualOneRepMax,
-                  value: summary.currentActualOneRepMax == null
-                      ? strings.noActualOneRepMax
-                      : strings.kilograms(summary.currentActualOneRepMax!),
-                ),
-                _MetricPill(
-                  label: strings.recentChange,
-                  value: summary.recentChange == null
-                      ? strings.noRecentChangeLabel()
-                      : strings.plusMinusKilograms(summary.recentChange!),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              strings.sessionsLogged(summary.encounterCount),
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.66),
               ),
+              if (summary.isStagnating)
+                _Pill(
+                  label: strings.stagnating,
+                  color: theme.colorScheme.errorContainer,
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              _MetricPill(
+                label: strings.estimatedOneRepMax,
+                value: summary.currentEstimatedOneRepMax == null
+                    ? '—'
+                    : strings.kilograms(summary.currentEstimatedOneRepMax!),
+              ),
+              _MetricPill(
+                label: strings.actualOneRepMax,
+                value: summary.currentActualOneRepMax == null
+                    ? strings.noActualOneRepMax
+                    : strings.kilograms(summary.currentActualOneRepMax!),
+              ),
+              _MetricPill(
+                label: strings.recentChange,
+                value: summary.recentChange == null
+                    ? strings.noRecentChangeLabel()
+                    : strings.plusMinusKilograms(summary.recentChange!),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            strings.sessionsLogged(summary.encounterCount),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.52),
+              fontWeight: FontWeight.w600,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -365,88 +378,115 @@ class _ExerciseDetailSheet extends StatelessWidget {
         ? null
         : summary.estimatedHistory.reduce((a, b) => a.value > b.value ? a : b);
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                summary.exerciseName,
-                style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '${strings.activeFormula}: ${formula.label}',
-                style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20),
-              _MetricPill(
-                label: strings.bestEstimatedOneRepMax,
-                value: summary.bestEstimatedOneRepMax == null
-                    ? '—'
-                    : strings.kilograms(summary.bestEstimatedOneRepMax!),
-              ),
-              const SizedBox(height: 8),
-              _MetricPill(
-                label: strings.bestActualOneRepMax,
-                value: summary.bestActualOneRepMax == null
-                    ? strings.noActualOneRepMax
-                    : strings.kilograms(summary.bestActualOneRepMax!),
-              ),
-              const SizedBox(height: 8),
-              _MetricPill(
-                label: strings.bestSet,
-                value: estimatedBestSet == null
-                    ? '—'
-                    : '${strings.kilograms(estimatedBestSet.weight)} x ${estimatedBestSet.reps}',
-              ),
-              const SizedBox(height: 20),
-              Text(
-                strings.estimatedTrend,
-                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              ...summary.estimatedHistory.reversed.take(6).map(
-                (point) => ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(strings.kilograms(point.value)),
-                  subtitle: Text(
-                    '${strings.kilograms(point.weight)} x ${point.reps}',
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0B0D10),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DashboardScreenHeader(
+                  eyebrow: strings.exerciseDetails,
+                  title: summary.exerciseName,
+                  subtitle: '${strings.activeFormula}: ${formula.label}',
+                ),
+                const SizedBox(height: 20),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    _MetricPill(
+                      label: strings.bestEstimatedOneRepMax,
+                      value: summary.bestEstimatedOneRepMax == null
+                          ? '—'
+                          : strings.kilograms(summary.bestEstimatedOneRepMax!),
+                    ),
+                    _MetricPill(
+                      label: strings.bestActualOneRepMax,
+                      value: summary.bestActualOneRepMax == null
+                          ? strings.noActualOneRepMax
+                          : strings.kilograms(summary.bestActualOneRepMax!),
+                    ),
+                    _MetricPill(
+                      label: strings.bestSet,
+                      value: estimatedBestSet == null
+                          ? '—'
+                          : '${strings.kilograms(estimatedBestSet.weight)} x ${estimatedBestSet.reps}',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                DashboardSectionLabel(label: strings.estimatedTrend),
+                const SizedBox(height: 12),
+                DashboardSurfaceCard(
+                  radius: 24,
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    children: summary.estimatedHistory.reversed
+                        .take(6)
+                        .map(
+                          (point) => ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            title: Text(strings.kilograms(point.value)),
+                            subtitle: Text(
+                              '${strings.kilograms(point.weight)} x ${point.reps}',
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                strings.actualTrend,
-                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              if (summary.actualHistory.isEmpty)
-                Text(strings.noActualOneRepMax)
-              else
-                ...summary.actualHistory.reversed.take(6).map(
-                  (point) => ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(strings.kilograms(point.value)),
-                    subtitle: Text(strings.daysAgo(DateTime.now().difference(point.completedAt).inDays)),
-                  ),
+                const SizedBox(height: 20),
+                DashboardSectionLabel(label: strings.actualTrend),
+                const SizedBox(height: 12),
+                DashboardSurfaceCard(
+                  radius: 24,
+                  padding: const EdgeInsets.all(12),
+                  child: summary.actualHistory.isEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(strings.noActualOneRepMax),
+                        )
+                      : Column(
+                          children: summary.actualHistory.reversed
+                              .take(6)
+                              .map(
+                                (point) => ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(strings.kilograms(point.value)),
+                                  subtitle: Text(
+                                    strings.daysAgo(
+                                      DateTime.now()
+                                          .difference(point.completedAt)
+                                          .inDays,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
                 ),
-              const SizedBox(height: 16),
-              Text(
-                strings.personalRecords,
-                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  for (final pr in summary.personalRecords)
-                    _Pill(label: pr, color: theme.colorScheme.secondaryContainer),
-                ],
-              ),
-            ],
+                const SizedBox(height: 20),
+                DashboardSectionLabel(label: strings.personalRecords),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final pr in summary.personalRecords)
+                      _Pill(
+                        label: pr,
+                        color: theme.colorScheme.secondaryContainer,
+                      ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -463,12 +503,9 @@ class _MetricPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
+    return DashboardSurfaceCard(
+      radius: 18,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -476,13 +513,15 @@ class _MetricPill extends StatelessWidget {
           Text(
             label,
             style: theme.textTheme.labelMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.66),
+              color: Colors.white.withValues(alpha: 0.52),
             ),
           ),
           const SizedBox(height: 2),
           Text(
             value,
-            style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
@@ -501,10 +540,16 @@ class _Pill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: color,
+        color: color.withValues(alpha: 0.22),
+        border: Border.all(color: color.withValues(alpha: 0.28)),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(label),
+      child: Text(
+        label,
+        style: Theme.of(
+          context,
+        ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700),
+      ),
     );
   }
 }
