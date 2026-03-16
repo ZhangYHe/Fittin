@@ -104,6 +104,47 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
     );
   }
 
+  void completeSet(int setIndex) {
+    final workout = state.activeWorkout;
+    if (workout == null) {
+      return;
+    }
+
+    final exerciseIndex = workout.currentExerciseIndex;
+    final currentExercise = workout.exercises[exerciseIndex];
+    if (setIndex < 0 || setIndex >= currentExercise.sets.length) {
+      return;
+    }
+
+    final updatedSets = [...currentExercise.sets];
+    updatedSets[setIndex] = updatedSets[setIndex].copyWith(isCompleted: true);
+
+    var nextExerciseIndex = exerciseIndex;
+    final nextSetIndex = updatedSets.indexWhere((set) => !set.isCompleted);
+    if (nextSetIndex == -1) {
+      for (var i = exerciseIndex + 1; i < workout.exercises.length; i++) {
+        final candidate = workout.exercises[i];
+        if (candidate.sets.any((set) => !set.isCompleted)) {
+          nextExerciseIndex = i;
+          break;
+        }
+      }
+    }
+
+    final updatedExercises = [...workout.exercises];
+    updatedExercises[exerciseIndex] = currentExercise.copyWith(
+      sets: updatedSets,
+    );
+
+    state = state.copyWith(
+      activeWorkout: workout.copyWith(
+        exercises: updatedExercises,
+        currentExerciseIndex: nextExerciseIndex,
+      ),
+      clearError: true,
+    );
+  }
+
   void toggleSetComplete(int setIndex) {
     _updateCurrentExerciseSet(
       setIndex,

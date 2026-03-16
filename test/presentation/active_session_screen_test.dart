@@ -11,7 +11,7 @@ import '../support/in_memory_database_repository.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('active session screen renders premium workout console', (
+  testWidgets('active session screen renders compact workout console', (
     WidgetTester tester,
   ) async {
     final container = ProviderContainer(
@@ -37,8 +37,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
 
-    expect(find.text('Squat Focus'), findsOneWidget);
-    expect(find.text('EXERCISE RAIL'), findsOneWidget);
-    expect(find.text('CURRENT SET'), findsOneWidget);
+    expect(find.text('D1-Squat Focus'), findsOneWidget);
+    expect(find.text('Squat'), findsOneWidget);
+    expect(find.text('Set 1 / 2'), findsOneWidget);
   });
 }
