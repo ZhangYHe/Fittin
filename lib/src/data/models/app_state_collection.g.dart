@@ -16,7 +16,7 @@ extension GetAppStateCollectionCollection on Isar {
 
 const AppStateCollectionSchema = CollectionSchema(
   name: r'AppStateCollection',
-  id: 7585267032018409075,
+  id: 7585267032018409472,
   properties: {
     r'activeInstanceId': PropertySchema(
       id: 0,
@@ -61,7 +61,7 @@ const AppStateCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'stateKey': IndexSchema(
-      id: 535423888346486579,
+      id: 535423888346486592,
       name: r'stateKey',
       unique: true,
       replace: true,

@@ -25,14 +25,18 @@ void main() {
       phases: [
         fakePlanTemplate.phases.first.copyWith(
           workouts: [
-            fakePlanTemplate.workoutByIndex(0).copyWith(
-              name: 'Squat & Pull',
-              exercises: [
-                fakePlanTemplate.workoutByIndex(0).exercises.first.copyWith(
-                  name: 'Competition Squat',
+            fakePlanTemplate
+                .workoutByIndex(0)
+                .copyWith(
+                  name: 'Squat & Pull',
+                  exercises: [
+                    fakePlanTemplate
+                        .workoutByIndex(0)
+                        .exercises
+                        .first
+                        .copyWith(name: 'Competition Squat'),
+                  ],
                 ),
-              ],
-            ),
           ],
         ),
       ],
@@ -64,6 +68,10 @@ void main() {
       workoutId: 'day1',
       workoutName: 'Squat & Pull',
       dayLabel: 'Day 1',
+      currentWeekNumber: 2,
+      currentDayNumber: 3,
+      cycleWeekCount: 12,
+      workoutsPerWeek: 4,
       primaryExerciseId: 'day1-squat',
       primaryExerciseName: 'Competition Squat',
       estimatedDurationMinutes: 70,

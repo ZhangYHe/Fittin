@@ -1152,6 +1152,10 @@ mixin _$TodayWorkoutSummary {
   String get workoutId => throw _privateConstructorUsedError;
   String get workoutName => throw _privateConstructorUsedError;
   String get dayLabel => throw _privateConstructorUsedError;
+  int get currentWeekNumber => throw _privateConstructorUsedError;
+  int get currentDayNumber => throw _privateConstructorUsedError;
+  int get cycleWeekCount => throw _privateConstructorUsedError;
+  int get workoutsPerWeek => throw _privateConstructorUsedError;
   String get primaryExerciseId => throw _privateConstructorUsedError;
   String get primaryExerciseName => throw _privateConstructorUsedError;
   int get estimatedDurationMinutes => throw _privateConstructorUsedError;
@@ -1174,6 +1178,10 @@ abstract class $TodayWorkoutSummaryCopyWith<$Res> {
       String workoutId,
       String workoutName,
       String dayLabel,
+      int currentWeekNumber,
+      int currentDayNumber,
+      int cycleWeekCount,
+      int workoutsPerWeek,
       String primaryExerciseId,
       String primaryExerciseName,
       int estimatedDurationMinutes,
@@ -1197,6 +1205,10 @@ class _$TodayWorkoutSummaryCopyWithImpl<$Res, $Val extends TodayWorkoutSummary>
     Object? workoutId = null,
     Object? workoutName = null,
     Object? dayLabel = null,
+    Object? currentWeekNumber = null,
+    Object? currentDayNumber = null,
+    Object? cycleWeekCount = null,
+    Object? workoutsPerWeek = null,
     Object? primaryExerciseId = null,
     Object? primaryExerciseName = null,
     Object? estimatedDurationMinutes = null,
@@ -1219,6 +1231,22 @@ class _$TodayWorkoutSummaryCopyWithImpl<$Res, $Val extends TodayWorkoutSummary>
           ? _value.dayLabel
           : dayLabel // ignore: cast_nullable_to_non_nullable
               as String,
+      currentWeekNumber: null == currentWeekNumber
+          ? _value.currentWeekNumber
+          : currentWeekNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      currentDayNumber: null == currentDayNumber
+          ? _value.currentDayNumber
+          : currentDayNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      cycleWeekCount: null == cycleWeekCount
+          ? _value.cycleWeekCount
+          : cycleWeekCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      workoutsPerWeek: null == workoutsPerWeek
+          ? _value.workoutsPerWeek
+          : workoutsPerWeek // ignore: cast_nullable_to_non_nullable
+              as int,
       primaryExerciseId: null == primaryExerciseId
           ? _value.primaryExerciseId
           : primaryExerciseId // ignore: cast_nullable_to_non_nullable
@@ -1252,6 +1280,10 @@ abstract class _$$TodayWorkoutSummaryImplCopyWith<$Res>
       String workoutId,
       String workoutName,
       String dayLabel,
+      int currentWeekNumber,
+      int currentDayNumber,
+      int cycleWeekCount,
+      int workoutsPerWeek,
       String primaryExerciseId,
       String primaryExerciseName,
       int estimatedDurationMinutes,
@@ -1273,6 +1305,10 @@ class __$$TodayWorkoutSummaryImplCopyWithImpl<$Res>
     Object? workoutId = null,
     Object? workoutName = null,
     Object? dayLabel = null,
+    Object? currentWeekNumber = null,
+    Object? currentDayNumber = null,
+    Object? cycleWeekCount = null,
+    Object? workoutsPerWeek = null,
     Object? primaryExerciseId = null,
     Object? primaryExerciseName = null,
     Object? estimatedDurationMinutes = null,
@@ -1295,6 +1331,22 @@ class __$$TodayWorkoutSummaryImplCopyWithImpl<$Res>
           ? _value.dayLabel
           : dayLabel // ignore: cast_nullable_to_non_nullable
               as String,
+      currentWeekNumber: null == currentWeekNumber
+          ? _value.currentWeekNumber
+          : currentWeekNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      currentDayNumber: null == currentDayNumber
+          ? _value.currentDayNumber
+          : currentDayNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      cycleWeekCount: null == cycleWeekCount
+          ? _value.cycleWeekCount
+          : cycleWeekCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      workoutsPerWeek: null == workoutsPerWeek
+          ? _value.workoutsPerWeek
+          : workoutsPerWeek // ignore: cast_nullable_to_non_nullable
+              as int,
       primaryExerciseId: null == primaryExerciseId
           ? _value.primaryExerciseId
           : primaryExerciseId // ignore: cast_nullable_to_non_nullable
@@ -1323,6 +1375,10 @@ class _$TodayWorkoutSummaryImpl implements _TodayWorkoutSummary {
       required this.workoutId,
       required this.workoutName,
       required this.dayLabel,
+      required this.currentWeekNumber,
+      required this.currentDayNumber,
+      required this.cycleWeekCount,
+      required this.workoutsPerWeek,
       required this.primaryExerciseId,
       required this.primaryExerciseName,
       required this.estimatedDurationMinutes,
@@ -1340,6 +1396,14 @@ class _$TodayWorkoutSummaryImpl implements _TodayWorkoutSummary {
   @override
   final String dayLabel;
   @override
+  final int currentWeekNumber;
+  @override
+  final int currentDayNumber;
+  @override
+  final int cycleWeekCount;
+  @override
+  final int workoutsPerWeek;
+  @override
   final String primaryExerciseId;
   @override
   final String primaryExerciseName;
@@ -1350,7 +1414,7 @@ class _$TodayWorkoutSummaryImpl implements _TodayWorkoutSummary {
 
   @override
   String toString() {
-    return 'TodayWorkoutSummary(instanceId: $instanceId, workoutId: $workoutId, workoutName: $workoutName, dayLabel: $dayLabel, primaryExerciseId: $primaryExerciseId, primaryExerciseName: $primaryExerciseName, estimatedDurationMinutes: $estimatedDurationMinutes, exerciseCount: $exerciseCount)';
+    return 'TodayWorkoutSummary(instanceId: $instanceId, workoutId: $workoutId, workoutName: $workoutName, dayLabel: $dayLabel, currentWeekNumber: $currentWeekNumber, currentDayNumber: $currentDayNumber, cycleWeekCount: $cycleWeekCount, workoutsPerWeek: $workoutsPerWeek, primaryExerciseId: $primaryExerciseId, primaryExerciseName: $primaryExerciseName, estimatedDurationMinutes: $estimatedDurationMinutes, exerciseCount: $exerciseCount)';
   }
 
   @override
@@ -1366,6 +1430,14 @@ class _$TodayWorkoutSummaryImpl implements _TodayWorkoutSummary {
                 other.workoutName == workoutName) &&
             (identical(other.dayLabel, dayLabel) ||
                 other.dayLabel == dayLabel) &&
+            (identical(other.currentWeekNumber, currentWeekNumber) ||
+                other.currentWeekNumber == currentWeekNumber) &&
+            (identical(other.currentDayNumber, currentDayNumber) ||
+                other.currentDayNumber == currentDayNumber) &&
+            (identical(other.cycleWeekCount, cycleWeekCount) ||
+                other.cycleWeekCount == cycleWeekCount) &&
+            (identical(other.workoutsPerWeek, workoutsPerWeek) ||
+                other.workoutsPerWeek == workoutsPerWeek) &&
             (identical(other.primaryExerciseId, primaryExerciseId) ||
                 other.primaryExerciseId == primaryExerciseId) &&
             (identical(other.primaryExerciseName, primaryExerciseName) ||
@@ -1385,6 +1457,10 @@ class _$TodayWorkoutSummaryImpl implements _TodayWorkoutSummary {
       workoutId,
       workoutName,
       dayLabel,
+      currentWeekNumber,
+      currentDayNumber,
+      cycleWeekCount,
+      workoutsPerWeek,
       primaryExerciseId,
       primaryExerciseName,
       estimatedDurationMinutes,
@@ -1411,6 +1487,10 @@ abstract class _TodayWorkoutSummary implements TodayWorkoutSummary {
       required final String workoutId,
       required final String workoutName,
       required final String dayLabel,
+      required final int currentWeekNumber,
+      required final int currentDayNumber,
+      required final int cycleWeekCount,
+      required final int workoutsPerWeek,
       required final String primaryExerciseId,
       required final String primaryExerciseName,
       required final int estimatedDurationMinutes,
@@ -1427,6 +1507,14 @@ abstract class _TodayWorkoutSummary implements TodayWorkoutSummary {
   String get workoutName;
   @override
   String get dayLabel;
+  @override
+  int get currentWeekNumber;
+  @override
+  int get currentDayNumber;
+  @override
+  int get cycleWeekCount;
+  @override
+  int get workoutsPerWeek;
   @override
   String get primaryExerciseId;
   @override

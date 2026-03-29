@@ -42,6 +42,7 @@ class PlanLibraryScreen extends ConsumerWidget {
       data: (templates) => DashboardPageScaffold(
         bottomPadding: 170,
         floatingActionButton: FloatingActionButton.extended(
+          heroTag: 'plan-library-fab',
           onPressed: () async {
             await Navigator.of(
               context,

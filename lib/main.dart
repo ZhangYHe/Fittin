@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:fittin_v2/src/application/active_session_provider.dart';
+import 'package:fittin_v2/src/application/auth_provider.dart';
 import 'package:fittin_v2/src/application/app_locale_provider.dart';
 import 'package:fittin_v2/src/application/sync_provider.dart';
 import 'package:fittin_v2/src/application/supabase_bootstrap.dart';
@@ -13,17 +15,64 @@ import 'package:fittin_v2/src/data/models/instance_collection.dart';
 import 'package:fittin_v2/src/data/models/template_collection.dart';
 import 'package:fittin_v2/src/data/models/workout_log_collection.dart';
 import 'package:fittin_v2/src/data/models/body_metric_collection.dart';
+import 'package:fittin_v2/src/data/progress_repository.dart';
+import 'package:fittin_v2/src/data/remote/supabase_remote_repository.dart';
+import 'package:fittin_v2/src/data/sync/sync_service.dart';
 import 'package:fittin_v2/src/presentation/screens/app_shell_screen.dart';
 import 'package:fittin_v2/src/presentation/theme/app_colors.dart';
 import 'package:fittin_v2/src/presentation/theme/app_styles.dart';
 import 'package:fittin_v2/src/data/models/sync_queue_collection.dart';
+import 'package:fittin_v2/src/data/web_database_repository.dart';
+import 'package:fittin_v2/src/data/web_local_store.dart';
+import 'package:fittin_v2/src/data/web_progress_repository.dart';
+import 'package:fittin_v2/src/data/web_sync_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final supabaseBootstrap = await initializeSupabase();
-  final appDirectory = await getApplicationDocumentsDirectory();
+  final persistence = await _createLocalPersistence();
+  await persistence.databaseRepository.ensureDefaultProgramSeeded();
 
-  final isar = await Isar.open([
+  runApp(
+    ProviderScope(
+      overrides: [
+        databaseRepositoryProvider.overrideWithValue(
+          persistence.databaseRepository,
+        ),
+        progressRepositoryProvider.overrideWithValue(
+          persistence.progressRepository,
+        ),
+        if (persistence.webDatabaseRepository != null &&
+            persistence.webProgressRepository != null)
+          syncServiceProvider.overrideWith((ref) {
+            return WebSyncService(
+              databaseRepository: persistence.webDatabaseRepository!,
+              progressRepository: persistence.webProgressRepository!,
+              remoteRepository: ref.watch(supabaseRemoteRepositoryProvider),
+              ownerUserId: ref.watch(currentUserIdProvider),
+            );
+          }),
+        supabaseBootstrapProvider.overrideWithValue(supabaseBootstrap),
+      ],
+      child: const FittinApp(),
+    ),
+  );
+}
+
+Future<_LocalPersistenceBundle> _createLocalPersistence() async {
+  if (kIsWeb) {
+    final store = await WebLocalStore.open();
+    final databaseRepository = WebDatabaseRepository(store);
+    final progressRepository = WebProgressRepository(store);
+    return _LocalPersistenceBundle(
+      databaseRepository: databaseRepository,
+      progressRepository: progressRepository,
+      webDatabaseRepository: databaseRepository,
+      webProgressRepository: progressRepository,
+    );
+  }
+
+  const schemas = [
     AppStateCollectionSchema,
     TemplateCollectionSchema,
     InstanceCollectionSchema,
@@ -31,19 +80,28 @@ void main() async {
     BodyMetricCollectionSchema,
     ProgressPhotoCollectionSchema,
     SyncQueueCollectionSchema,
-  ], directory: appDirectory.path);
-  final repository = DatabaseRepository(isar);
-  await repository.ensureDefaultProgramSeeded();
+  ];
 
-  runApp(
-    ProviderScope(
-      overrides: [
-        databaseRepositoryProvider.overrideWithValue(repository),
-        supabaseBootstrapProvider.overrideWithValue(supabaseBootstrap),
-      ],
-      child: const FittinApp(),
-    ),
+  final appDirectory = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(schemas, directory: appDirectory.path);
+  return _LocalPersistenceBundle(
+    databaseRepository: DatabaseRepository(isar),
+    progressRepository: ProgressRepository(isar),
   );
+}
+
+class _LocalPersistenceBundle {
+  const _LocalPersistenceBundle({
+    required this.databaseRepository,
+    required this.progressRepository,
+    this.webDatabaseRepository,
+    this.webProgressRepository,
+  });
+
+  final DatabaseRepository databaseRepository;
+  final ProgressRepository progressRepository;
+  final WebDatabaseRepository? webDatabaseRepository;
+  final WebProgressRepository? webProgressRepository;
 }
 
 class FittinApp extends ConsumerWidget {

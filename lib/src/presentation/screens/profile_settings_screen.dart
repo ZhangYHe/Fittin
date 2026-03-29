@@ -5,6 +5,7 @@ import 'package:fittin_v2/src/application/app_locale_provider.dart';
 import 'package:fittin_v2/src/application/ui_settings_provider.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
 import 'package:fittin_v2/src/presentation/screens/account_screen.dart';
+import 'package:fittin_v2/src/presentation/screens/profile_preferences_screen.dart';
 import 'package:fittin_v2/src/presentation/screens/set_type_guide_screen.dart';
 import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
 
@@ -110,6 +111,48 @@ class ProfileSettingsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              DashboardSurfaceCard(
+                radius: 24,
+                highlight: true,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            strings.profilePreferences,
+                            style: Theme.of(context).textTheme.titleSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            strings.profilePreferencesSubtitle,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurface
+                                      .withValues(alpha: 0.72),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    FilledButton.tonal(
+                      key: const ValueKey('open-profile-preferences'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const ProfilePreferencesScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(strings.edit),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
               Text(
                 strings.language,
                 style: Theme.of(

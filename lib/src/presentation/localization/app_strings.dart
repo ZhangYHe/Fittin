@@ -47,8 +47,41 @@ class AppStrings {
   String get rotation => isChinese ? '轮换' : 'Rotation';
   String get leadLift => isChinese ? '主项' : 'Lead Lift';
   String get goodMorning => isChinese ? '早上好，' : 'Good morning,';
+  String get goodAfternoon => isChinese ? '下午好，' : 'Good afternoon,';
+  String get goodEvening => isChinese ? '晚上好，' : 'Good evening,';
+  String get goodNight => isChinese ? '夜深了，' : 'Good night,';
   String get atAGlance => isChinese ? '概览' : 'AT A GLANCE';
   String get activity => isChinese ? '活动' : 'ACTIVITY';
+  String get trainingMilestones => isChinese ? '训练里程碑' : 'Training Milestones';
+  String get profilePreferences => isChinese ? '个人资料偏好' : 'Profile Preferences';
+  String get profilePreferencesSubtitle => isChinese
+      ? '自定义首页问候里显示的名字。'
+      : 'Customize the name shown in your home greeting.';
+  String get displayName => isChinese ? '显示名称' : 'Display Name';
+  String get displayNamePlaceholder =>
+      isChinese ? '输入你想显示的名字' : 'Enter the name you want to see';
+  String get clearDisplayName => isChinese ? '清空名称' : 'Clear Name';
+  String get homeDisplayNameHint => isChinese
+      ? '这个名字只用于首页问候，不影响账户身份。'
+      : 'This name is used only in the home greeting and does not change your account identity.';
+  String get athleteFallbackName => isChinese ? '训练者' : 'Athlete';
+  String get weekProgress => isChinese ? '本周进度' : 'Week Progress';
+  String get cycleProgress => isChinese ? '周期进度' : 'Cycle Progress';
+  String weekDayProgressLabel(
+    int week,
+    int totalWeeks,
+    int day,
+    int totalDays,
+  ) => isChinese
+      ? '第$week/$totalWeeks周 · 第$day/$totalDays天'
+      : 'Week $week/$totalWeeks · Day $day/$totalDays';
+  String compactWeekDayLabel(int week, int day) =>
+      isChinese ? '第$week周 · 第$day天' : 'Week $week · Day $day';
+  String get viewPrDashboard => isChinese ? '查看 PR 仪表盘' : 'Open PR Dashboard';
+  String get noMilestoneNotifications =>
+      isChinese ? '暂时没有新的训练里程碑。' : 'No new training milestones right now.';
+  String get noStrengthTrendYet =>
+      isChinese ? '还没有足够的力量趋势数据' : 'Not enough strength trend data yet';
   String get insights => isChinese ? '洞察' : 'Insights';
   String get insightsSubtitle =>
       isChinese ? '训练分析会显示在这里。' : 'Progress analytics will live here.';
@@ -147,6 +180,40 @@ class AppStrings {
   String get totalLogged => isChinese ? '累计记录' : 'Total logged';
   String get strengthTrendsOverlay =>
       isChinese ? '力量趋势叠加' : 'Strength Trends Overlay';
+  String get performance => isChinese ? '表现' : 'Performance';
+  String get prDashboard => isChinese ? 'PR 仪表盘' : 'PR Dashboard';
+  String get prDashboardSubtitle => isChinese
+      ? '精确追踪你的巅峰力量指标。'
+      : 'Precision tracking of your peak strength benchmarks.';
+  String get estimated1rmShort => isChinese ? '预估 1RM' : 'Estimated 1RM';
+  String get actualPrShort => isChinese ? '实际 PR' : 'Actual PR';
+  String get squatShort => isChinese ? '深蹲' : 'Squat';
+  String get benchShort => isChinese ? '卧推' : 'Bench';
+  String get deadliftShort => isChinese ? '硬拉' : 'Deadlift';
+  String get strengthProgressionTitle =>
+      isChinese ? '力量进步曲线' : 'Strength Progression';
+  String get recentMilestones => isChinese ? '最近里程碑' : 'Recent Milestones';
+  String get viewAllMilestones => isChinese ? '查看全部' : 'View All';
+  String get milestoneHistory => isChinese ? '全部里程碑' : 'Milestone History';
+  String get milestoneType => isChinese ? '类型' : 'Type';
+  String get allTypes => isChinese ? '全部类型' : 'All Types';
+  String get estimatedType => isChinese ? '预估 1RM' : 'Estimated 1RM';
+  String get actualType => isChinese ? '实际 PR' : 'Actual PR';
+  String get timeRange => isChinese ? '时间范围' : 'Time Range';
+  String get allTime => isChinese ? '全部时间' : 'All Time';
+  String get last30Days => isChinese ? '最近30天' : 'Last 30 Days';
+  String get last90Days => isChinese ? '最近90天' : 'Last 90 Days';
+  String get last365Days => isChinese ? '最近一年' : 'Last 365 Days';
+  String get liftFilter => isChinese ? '动作' : 'Lift';
+  String get chartLift => isChinese ? '曲线动作' : 'Lift';
+  String get detailsCta => isChinese ? '详情 >' : 'DETAILS >';
+  String get noMilestonesYet => isChinese ? '还没有里程碑记录。' : 'No milestones yet.';
+  String get noFilteredMilestones =>
+      isChinese ? '当前筛选条件下没有结果。' : 'No milestones match these filters.';
+  String milestoneValueLabel(String label, double value) => isChinese
+      ? '$label：${value.toStringAsFixed(1)} 公斤'
+      : '$label: ${value.toStringAsFixed(1)} kg';
+  String chartAxisWeight(String value) => isChinese ? '$value 公斤' : '$value kg';
   String get profile => isChinese ? '我的' : 'Profile';
   String get settings => isChinese ? '设置' : 'Settings';
   String get account => isChinese ? '账户' : 'Account';
@@ -334,6 +401,15 @@ class AppStrings {
   String get noActivePlan => isChinese
       ? '当前没有激活的训练计划，请先去计划库开始。'
       : 'No active training plan instance. Open Plan Library to start one.';
+
+  String greetingForPeriod(String periodKey) {
+    return switch (periodKey) {
+      'afternoon' => goodAfternoon,
+      'evening' => goodEvening,
+      'night' => goodNight,
+      _ => goodMorning,
+    };
+  }
 
   String _englishMonthShort(int month) {
     const months = [

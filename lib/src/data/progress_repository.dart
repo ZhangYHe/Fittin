@@ -9,16 +9,26 @@ import 'package:fittin_v2/src/domain/models/progress_photo.dart';
 
 final progressRepositoryProvider = Provider<ProgressRepository>((ref) {
   final isar = ref.watch(databaseRepositoryProvider).isar;
-  if (isar == null) {
-    throw StateError('Isar is not initialized');
+  if (isar != null) {
+    return ProgressRepository(isar);
   }
-  return ProgressRepository(isar);
+  return InMemoryProgressRepository();
 });
 
 class ProgressRepository {
-  final Isar _isar;
+  final Isar? _isar;
 
-  ProgressRepository(this._isar);
+  ProgressRepository([this._isar]);
+
+  Isar get _database {
+    final isar = _isar;
+    if (isar == null) {
+      throw StateError(
+        'This progress repository instance is not backed by Isar.',
+      );
+    }
+    return isar;
+  }
 
   // ---------- Body Metrics ---------- //
 
@@ -41,7 +51,7 @@ class ProgressRepository {
       ..syncStatusKey = syncStatus ?? _defaultSyncStatus(ownerUserId)
       ..lastModifiedByDeviceId = deviceId;
 
-    final existing = await _isar.bodyMetricCollections
+    final existing = await _database.bodyMetricCollections
         .filter()
         .metricIdEqualTo(metric.metricId)
         .findFirst();
@@ -57,8 +67,8 @@ class ProgressRepository {
           deviceId ?? existing.lastModifiedByDeviceId;
     }
 
-    await _isar.writeTxn(() async {
-      await _isar.bodyMetricCollections.put(collection);
+    await _database.writeTxn(() async {
+      await _database.bodyMetricCollections.put(collection);
     });
     await _enqueueSync(
       entityType: SyncEntityTypes.bodyMetric,
@@ -70,7 +80,7 @@ class ProgressRepository {
   }
 
   Future<List<BodyMetric>> fetchBodyMetrics({String? ownerUserId}) async {
-    final collections = await _isar.bodyMetricCollections
+    final collections = await _database.bodyMetricCollections
         .where()
         .sortByTimestampDesc()
         .findAll();
@@ -91,7 +101,7 @@ class ProgressRepository {
   }
 
   Future<void> deleteBodyMetric(String metricId) async {
-    final existing = await _isar.bodyMetricCollections
+    final existing = await _database.bodyMetricCollections
         .filter()
         .metricIdEqualTo(metricId)
         .findFirst();
@@ -101,8 +111,8 @@ class ProgressRepository {
     existing.deletedAt = DateTime.now();
     existing.version = existing.version + 1;
     existing.syncStatusKey = SyncStatusKeys.pendingDelete;
-    await _isar.writeTxn(() async {
-      await _isar.bodyMetricCollections.put(existing);
+    await _database.writeTxn(() async {
+      await _database.bodyMetricCollections.put(existing);
     });
     await _enqueueSync(
       entityType: SyncEntityTypes.bodyMetric,
@@ -133,7 +143,7 @@ class ProgressRepository {
       ..syncStatusKey = syncStatus ?? _defaultSyncStatus(ownerUserId)
       ..lastModifiedByDeviceId = deviceId;
 
-    final existing = await _isar.progressPhotoCollections
+    final existing = await _database.progressPhotoCollections
         .filter()
         .photoIdEqualTo(photo.photoId)
         .findFirst();
@@ -149,8 +159,8 @@ class ProgressRepository {
           deviceId ?? existing.lastModifiedByDeviceId;
     }
 
-    await _isar.writeTxn(() async {
-      await _isar.progressPhotoCollections.put(collection);
+    await _database.writeTxn(() async {
+      await _database.progressPhotoCollections.put(collection);
     });
     await _enqueueSync(
       entityType: SyncEntityTypes.progressPhoto,
@@ -162,7 +172,7 @@ class ProgressRepository {
   }
 
   Future<List<ProgressPhoto>> fetchProgressPhotos({String? ownerUserId}) async {
-    final collections = await _isar.progressPhotoCollections
+    final collections = await _database.progressPhotoCollections
         .where()
         .sortByTimestampDesc()
         .findAll();
@@ -182,7 +192,7 @@ class ProgressRepository {
   }
 
   Future<void> deleteProgressPhoto(String photoId) async {
-    final existing = await _isar.progressPhotoCollections
+    final existing = await _database.progressPhotoCollections
         .filter()
         .photoIdEqualTo(photoId)
         .findFirst();
@@ -192,8 +202,8 @@ class ProgressRepository {
     existing.deletedAt = DateTime.now();
     existing.version = existing.version + 1;
     existing.syncStatusKey = SyncStatusKeys.pendingDelete;
-    await _isar.writeTxn(() async {
-      await _isar.progressPhotoCollections.put(existing);
+    await _database.writeTxn(() async {
+      await _database.progressPhotoCollections.put(existing);
     });
     await _enqueueSync(
       entityType: SyncEntityTypes.progressPhoto,
@@ -207,23 +217,23 @@ class ProgressRepository {
   Future<void> claimLocalDataForUser(String ownerUserId) async {
     final claimedMetrics = <String>[];
     final claimedPhotos = <String>[];
-    await _isar.writeTxn(() async {
-      final metrics = await _isar.bodyMetricCollections.where().findAll();
+    await _database.writeTxn(() async {
+      final metrics = await _database.bodyMetricCollections.where().findAll();
       for (final metric in metrics) {
         if (metric.ownerUserId == null) {
           metric.ownerUserId = ownerUserId;
           metric.syncStatusKey = SyncStatusKeys.pendingUpload;
-          await _isar.bodyMetricCollections.put(metric);
+          await _database.bodyMetricCollections.put(metric);
           claimedMetrics.add(metric.metricId);
         }
       }
 
-      final photos = await _isar.progressPhotoCollections.where().findAll();
+      final photos = await _database.progressPhotoCollections.where().findAll();
       for (final photo in photos) {
         if (photo.ownerUserId == null) {
           photo.ownerUserId = ownerUserId;
           photo.syncStatusKey = SyncStatusKeys.pendingUpload;
-          await _isar.progressPhotoCollections.put(photo);
+          await _database.progressPhotoCollections.put(photo);
           claimedPhotos.add(photo.photoId);
         }
       }
@@ -267,7 +277,9 @@ class ProgressRepository {
       return;
     }
     final queueKey = '$entityType:$entityId';
-    final existing = await _isar.syncQueueCollections.getByQueueKey(queueKey);
+    final existing = await _database.syncQueueCollections.getByQueueKey(
+      queueKey,
+    );
     final queueItem = SyncQueueCollection()
       ..queueKey = queueKey
       ..ownerUserId = ownerUserId
@@ -276,8 +288,83 @@ class ProgressRepository {
       ..operationType = operationType
       ..createdAt = existing?.createdAt ?? DateTime.now()
       ..updatedAt = DateTime.now();
-    await _isar.writeTxn(() async {
-      await _isar.syncQueueCollections.putByQueueKey(queueItem);
+    await _database.writeTxn(() async {
+      await _database.syncQueueCollections.putByQueueKey(queueItem);
     });
+  }
+}
+
+class InMemoryProgressRepository extends ProgressRepository {
+  InMemoryProgressRepository() : super();
+
+  final List<BodyMetric> _bodyMetrics = [];
+  final List<ProgressPhoto> _progressPhotos = [];
+  final Map<String, String?> _metricOwners = {};
+  final Map<String, String?> _photoOwners = {};
+
+  @override
+  Future<void> saveBodyMetric(
+    BodyMetric metric, {
+    String? ownerUserId,
+    String? syncStatus,
+    String? deviceId,
+  }) async {
+    _bodyMetrics.removeWhere((item) => item.metricId == metric.metricId);
+    _bodyMetrics.add(metric);
+    _metricOwners[metric.metricId] = ownerUserId;
+  }
+
+  @override
+  Future<List<BodyMetric>> fetchBodyMetrics({String? ownerUserId}) async {
+    final metrics =
+        _bodyMetrics
+            .where((metric) => _metricOwners[metric.metricId] == ownerUserId)
+            .toList()
+          ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return metrics;
+  }
+
+  @override
+  Future<void> deleteBodyMetric(String metricId) async {
+    _bodyMetrics.removeWhere((metric) => metric.metricId == metricId);
+    _metricOwners.remove(metricId);
+  }
+
+  @override
+  Future<void> saveProgressPhoto(
+    ProgressPhoto photo, {
+    String? ownerUserId,
+    String? syncStatus,
+    String? deviceId,
+  }) async {
+    _progressPhotos.removeWhere((item) => item.photoId == photo.photoId);
+    _progressPhotos.add(photo);
+    _photoOwners[photo.photoId] = ownerUserId;
+  }
+
+  @override
+  Future<List<ProgressPhoto>> fetchProgressPhotos({String? ownerUserId}) async {
+    final photos =
+        _progressPhotos
+            .where((photo) => _photoOwners[photo.photoId] == ownerUserId)
+            .toList()
+          ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return photos;
+  }
+
+  @override
+  Future<void> deleteProgressPhoto(String photoId) async {
+    _progressPhotos.removeWhere((photo) => photo.photoId == photoId);
+    _photoOwners.remove(photoId);
+  }
+
+  @override
+  Future<void> claimLocalDataForUser(String ownerUserId) async {
+    for (final metric in _bodyMetrics) {
+      _metricOwners[metric.metricId] ??= ownerUserId;
+    }
+    for (final photo in _progressPhotos) {
+      _photoOwners[photo.photoId] ??= ownerUserId;
+    }
   }
 }

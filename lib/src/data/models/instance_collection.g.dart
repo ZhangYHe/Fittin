@@ -16,7 +16,7 @@ extension GetInstanceCollectionCollection on Isar {
 
 const InstanceCollectionSchema = CollectionSchema(
   name: r'InstanceCollection',
-  id: -2215033191059263970,
+  id: -2215033191059264000,
   properties: {
     r'createdAt': PropertySchema(
       id: 0,
@@ -96,7 +96,7 @@ const InstanceCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'instanceId': IndexSchema(
-      id: -6720444513014720235,
+      id: -6720444513014720512,
       name: r'instanceId',
       unique: true,
       replace: true,
@@ -109,7 +109,7 @@ const InstanceCollectionSchema = CollectionSchema(
       ],
     ),
     r'templateId': IndexSchema(
-      id: -5352721467389445085,
+      id: -5352721467389445120,
       name: r'templateId',
       unique: false,
       replace: false,
@@ -122,7 +122,7 @@ const InstanceCollectionSchema = CollectionSchema(
       ],
     ),
     r'ownerUserId': IndexSchema(
-      id: 1631799950038639233,
+      id: 1631799950038639360,
       name: r'ownerUserId',
       unique: false,
       replace: false,

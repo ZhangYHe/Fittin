@@ -32,11 +32,23 @@ class DatabaseTodayWorkoutGateway implements TodayWorkoutGateway {
   Future<TodayWorkoutSummary> loadTodayWorkoutSummary() async {
     final context = await _loadContext();
     final workout = context.workout;
+    final cycleWeekCount =
+        (context.instance.engineState['cycleLengthWeeks'] as num?)?.toInt() ??
+        workout.exercises.first.stages.length;
+    final currentWeekIndex =
+        (context.instance.engineState['currentWeekIndex'] as num?)?.toInt() ??
+        0;
+    final workoutsPerWeek = context.template.workoutsPerCycleWeek();
     return TodayWorkoutSummary(
       instanceId: context.instance.instanceId,
       workoutId: workout.id,
       workoutName: workout.name,
       dayLabel: workout.dayLabel,
+      currentWeekNumber: (currentWeekIndex % cycleWeekCount) + 1,
+      currentDayNumber:
+          (context.instance.currentWorkoutIndex % workoutsPerWeek) + 1,
+      cycleWeekCount: cycleWeekCount,
+      workoutsPerWeek: workoutsPerWeek,
       primaryExerciseId: workout.exercises.first.id,
       primaryExerciseName: workout.exercises.first.name,
       estimatedDurationMinutes: workout.estimatedDurationMinutes,

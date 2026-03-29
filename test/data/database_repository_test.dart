@@ -30,7 +30,7 @@ void main() {
     expect(saved.template.name, 'My GZCLP');
     expect(saved.isBuiltIn, isFalse);
     expect(saved.sourceTemplateId, GzclpSeed.templateId);
-    expect((await repository.fetchTemplates()).length, 3);
+    expect((await repository.fetchTemplates()).length, 4);
     expect(
       (await repository.fetchStoredTemplate(
         GzclpSeed.templateId,
@@ -201,7 +201,7 @@ void main() {
 
       expect(created.templateId, 'custom-template');
       expect(reused.instanceId, created.instanceId);
-      expect((await repository.fetchTemplates()).length, 3);
+      expect((await repository.fetchTemplates()).length, 4);
     },
   );
 

@@ -23,74 +23,76 @@ class TodayWorkoutHeroCard extends ConsumerWidget {
     return summaryAsync.when(
       data: (summary) => templateAsync.when(
         data: (template) => GestureDetector(
-        onTap: () async {
-          await ref.read(activeSessionProvider.notifier).startOrResumeSession();
-          if (!context.mounted) {
-            return;
-          }
-
-          final latestState = ref.read(activeSessionProvider);
-          if (latestState.errorMessage != null) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(latestState.errorMessage!)));
-            return;
-          }
-
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 450),
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  const ActiveSessionScreen(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                    final slideAnimation =
-                        Tween<Offset>(
-                          begin: const Offset(0.15, 0.0),
-                          end: Offset.zero,
-                        ).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeOutQuart,
-                          ),
-                        );
-
-                    return SlideTransition(
-                      position: slideAnimation,
-                      child: FadeTransition(opacity: animation, child: child),
-                    );
-                  },
-            ),
-          );
-        },
-        child: _WorkoutCard(
-          summary: _localizedSummary(summary, template, ref),
-          strings: strings,
-          isResuming: sessionState.activeWorkout != null,
-          isLoading: sessionState.isLoading,
-          onShareTap: () async {
-            try {
-              final template = await ref.read(activeTemplateProvider.future);
-              if (!context.mounted) {
-                return;
-              }
-
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => ShareScreen(planTemplate: template),
-                ),
-              );
-            } catch (error) {
-              if (!context.mounted) {
-                return;
-              }
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(error.toString())));
+          onTap: () async {
+            await ref
+                .read(activeSessionProvider.notifier)
+                .startOrResumeSession();
+            if (!context.mounted) {
+              return;
             }
+
+            final latestState = ref.read(activeSessionProvider);
+            if (latestState.errorMessage != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(latestState.errorMessage!)),
+              );
+              return;
+            }
+
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 450),
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const ActiveSessionScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                      final slideAnimation =
+                          Tween<Offset>(
+                            begin: const Offset(0.15, 0.0),
+                            end: Offset.zero,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: animation,
+                              curve: Curves.easeOutQuart,
+                            ),
+                          );
+
+                      return SlideTransition(
+                        position: slideAnimation,
+                        child: FadeTransition(opacity: animation, child: child),
+                      );
+                    },
+              ),
+            );
           },
+          child: _WorkoutCard(
+            summary: _localizedSummary(summary, template, ref),
+            strings: strings,
+            isResuming: sessionState.activeWorkout != null,
+            isLoading: sessionState.isLoading,
+            onShareTap: () async {
+              try {
+                final template = await ref.read(activeTemplateProvider.future);
+                if (!context.mounted) {
+                  return;
+                }
+
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ShareScreen(planTemplate: template),
+                  ),
+                );
+              } catch (error) {
+                if (!context.mounted) {
+                  return;
+                }
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(error.toString())));
+              }
+            },
+          ),
         ),
-      ),
         loading: () => const _LoadingCard(),
         error: (error, _) => _ErrorCard(message: error.toString()),
       ),
@@ -201,7 +203,10 @@ class _WorkoutCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              strings.dayMinutes(summary.dayLabel, summary.estimatedDurationMinutes),
+              strings.compactWeekDayLabel(
+                summary.currentWeekNumber,
+                summary.currentDayNumber,
+              ),
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: Colors.white.withOpacity(0.72),
                 fontWeight: FontWeight.w500,
@@ -215,45 +220,84 @@ class _WorkoutCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            Row(
-              children: [
-                _InfoPill(
-                  icon: Icons.event_repeat_rounded,
-                  label: strings.rotation,
-                  value: summary.dayLabel,
-                ),
-                const SizedBox(width: 16),
-                _InfoPill(
-                  icon: Icons.fitness_center_rounded,
-                  label: strings.leadLift,
-                  value: summary.primaryExerciseName,
-                ),
-                const Spacer(),
-                if (isLoading)
-                  const SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                else
-                  Row(
-                    children: [
-                      Text(
-                        isResuming ? strings.resume : strings.start,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: Colors.white.withOpacity(0.75),
-                          fontWeight: FontWeight.w700,
-                        ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final action = isLoading
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            isResuming ? strings.resume : strings.start,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: Colors.white.withOpacity(0.75),
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Colors.white.withOpacity(0.6),
+                            size: 16,
+                          ),
+                        ],
+                      );
+
+                final pills = <Widget>[
+                  Expanded(
+                    child: _InfoPill(
+                      icon: Icons.event_repeat_rounded,
+                      label: strings.rotation,
+                      value: strings.weekDayProgressLabel(
+                        summary.currentWeekNumber,
+                        summary.cycleWeekCount,
+                        summary.currentDayNumber,
+                        summary.workoutsPerWeek,
                       ),
-                      const SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.white.withOpacity(0.6),
-                        size: 16,
-                      ),
-                    ],
+                    ),
                   ),
-              ],
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _InfoPill(
+                      icon: Icons.fitness_center_rounded,
+                      label: strings.leadLift,
+                      value: summary.primaryExerciseName,
+                    ),
+                  ),
+                ];
+
+                if (constraints.maxWidth < 320) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: pills,
+                      ),
+                      const SizedBox(height: 16),
+                      Align(alignment: Alignment.centerRight, child: action),
+                    ],
+                  );
+                }
+
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ...pills,
+                    const SizedBox(width: 12),
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: action,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),
@@ -342,11 +386,15 @@ class _InfoPill extends StatelessWidget {
           children: [
             Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
             const SizedBox(width: 4),
-            Text(
-              value,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white.withOpacity(0.92),
+            Expanded(
+              child: Text(
+                value,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white.withOpacity(0.92),
+                ),
               ),
             ),
           ],

@@ -16,7 +16,7 @@ extension GetBodyMetricCollectionCollection on Isar {
 
 const BodyMetricCollectionSchema = CollectionSchema(
   name: r'BodyMetricCollection',
-  id: -5021208054449053923,
+  id: -5021208054449053696,
   properties: {
     r'bodyFatPercent': PropertySchema(
       id: 0,
@@ -99,7 +99,7 @@ const BodyMetricCollectionSchema = CollectionSchema(
       ],
     ),
     r'ownerUserId': IndexSchema(
-      id: 1631799950038639233,
+      id: 1631799950038639360,
       name: r'ownerUserId',
       unique: false,
       replace: false,
@@ -2361,7 +2361,7 @@ extension GetProgressPhotoCollectionCollection on Isar {
 
 const ProgressPhotoCollectionSchema = CollectionSchema(
   name: r'ProgressPhotoCollection',
-  id: -6816542570682781510,
+  id: -6816542570682781696,
   properties: {
     r'deletedAt': PropertySchema(
       id: 0,
@@ -2426,7 +2426,7 @@ const ProgressPhotoCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'photoId': IndexSchema(
-      id: -1877533456151046685,
+      id: -1877533456151046656,
       name: r'photoId',
       unique: true,
       replace: true,
@@ -2439,7 +2439,7 @@ const ProgressPhotoCollectionSchema = CollectionSchema(
       ],
     ),
     r'ownerUserId': IndexSchema(
-      id: 1631799950038639233,
+      id: 1631799950038639360,
       name: r'ownerUserId',
       unique: false,
       replace: false,

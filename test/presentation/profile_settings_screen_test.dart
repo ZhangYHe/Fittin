@@ -80,22 +80,53 @@ void main() {
     expect(find.byType(BackButton), findsOneWidget);
   });
 
-  testWidgets('profile settings root screen does not show a dashboard back button', (
-    WidgetTester tester,
-  ) async {
-    final repository = InMemoryDatabaseRepository();
+  testWidgets(
+    'profile settings root screen does not show a dashboard back button',
+    (WidgetTester tester) async {
+      final repository = InMemoryDatabaseRepository();
 
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [databaseRepositoryProvider.overrideWithValue(repository)],
-        child: const MaterialApp(home: ProfileSettingsScreen()),
-      ),
-    );
-    await tester.pumpAndSettle();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [databaseRepositoryProvider.overrideWithValue(repository)],
+          child: const MaterialApp(home: ProfileSettingsScreen()),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-    expect(
-      find.byKey(const ValueKey('dashboard-header-back')),
-      findsNothing,
-    );
-  });
+      expect(find.byKey(const ValueKey('dashboard-header-back')), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'profile settings opens profile preferences and saves display name',
+    (WidgetTester tester) async {
+      final repository = InMemoryDatabaseRepository();
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [databaseRepositoryProvider.overrideWithValue(repository)],
+          child: const MaterialApp(home: ProfileSettingsScreen()),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final profileButton = find.byKey(
+        const ValueKey('open-profile-preferences'),
+      );
+      await tester.scrollUntilVisible(profileButton, 120);
+      tester.widget<FilledButton>(profileButton).onPressed!.call();
+      await tester.pumpAndSettle();
+
+      expect(find.text('Profile Preferences'), findsOneWidget);
+
+      await tester.enterText(
+        find.byKey(const ValueKey('profile-display-name-field')),
+        'Alex',
+      );
+      await tester.tap(find.byKey(const ValueKey('save-profile-display-name')));
+      await tester.pumpAndSettle();
+
+      expect(await repository.fetchHomeDisplayName(), 'Alex');
+    },
+  );
 }

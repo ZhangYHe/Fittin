@@ -36,13 +36,7 @@ abstract final class LoadUnits {
   static const bodyweight = 'bodyweight';
   static const cableStack = 'cable_stack';
   static const percent1rm = 'percent_1rm';
-  static const supported = {
-    kg,
-    lbs,
-    bodyweight,
-    cableStack,
-    percent1rm,
-  };
+  static const supported = {kg, lbs, bodyweight, cableStack, percent1rm};
 }
 
 @freezed
@@ -197,11 +191,27 @@ extension PlanTemplateLookup on PlanTemplate {
     }
     throw StateError('Exercise not found: $exerciseId');
   }
+
+  int indexOfWorkout(String workoutId) {
+    final index = workouts.indexWhere((workout) => workout.id == workoutId);
+    if (index == -1) {
+      throw StateError('Workout not found: $workoutId');
+    }
+    return index;
+  }
+
+  int workoutsPerCycleWeek() {
+    final phase = phases.firstWhere(
+      (candidate) => candidate.workouts.isNotEmpty,
+      orElse: () =>
+          throw StateError('PlanTemplate does not contain any workouts.'),
+    );
+    return phase.workouts.length;
+  }
 }
 
 extension LocalizedPlanTemplateLookup on PlanTemplate {
-  String displayName(String localeCode) =>
-      localizedName[localeCode] ?? name;
+  String displayName(String localeCode) => localizedName[localeCode] ?? name;
 
   String displayDescription(String localeCode) =>
       localizedDescription[localeCode] ?? description;
@@ -222,16 +232,14 @@ extension PlanTemplateEditorLookup on PlanTemplate {
 }
 
 extension LocalizedWorkoutLookup on Workout {
-  String displayName(String localeCode) =>
-      localizedName[localeCode] ?? name;
+  String displayName(String localeCode) => localizedName[localeCode] ?? name;
 
   String displayDayLabel(String localeCode) =>
       localizedDayLabel[localeCode] ?? dayLabel;
 }
 
 extension LocalizedExerciseLookup on Exercise {
-  String displayName(String localeCode) =>
-      localizedName[localeCode] ?? name;
+  String displayName(String localeCode) => localizedName[localeCode] ?? name;
 }
 
 extension ExerciseLookup on Exercise {

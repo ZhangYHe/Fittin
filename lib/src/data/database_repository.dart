@@ -8,6 +8,7 @@ import 'package:fittin_v2/src/data/models/template_collection.dart';
 import 'package:fittin_v2/src/data/models/workout_log_collection.dart';
 import 'package:fittin_v2/src/data/seeds/gzclp_seed.dart';
 import 'package:fittin_v2/src/data/seeds/jacked_and_tan_seed.dart';
+import 'package:fittin_v2/src/data/seeds/tsa_intermediate_seed.dart';
 import 'package:fittin_v2/src/data/sync/sync_models.dart';
 import 'package:fittin_v2/src/data/seeds/seed_utils.dart';
 import 'package:fittin_v2/src/application/app_locale_provider.dart';
@@ -24,6 +25,8 @@ class DatabaseRepository {
   static const _analyticsFormulaStateKey = 'analytics-formula';
   static const _glassOpacityKey = 'glass-opacity';
   static const _deviceIdStateKey = 'device-id';
+  static const _homeDisplayNameKey = 'home-display-name';
+  static const _homeMilestonesLastSeenAtKey = 'home-milestones-last-seen-at';
   final Isar? _isar;
 
   Isar? get isar => _isar;
@@ -47,8 +50,13 @@ class DatabaseRepository {
       templateId: JackedAndTanSeed.templateId,
       loadTemplate: JackedAndTanSeed.loadTemplate,
     );
+    await _syncBuiltInTemplate(
+      templateId: TsaIntermediateSeed.templateId,
+      loadTemplate: TsaIntermediateSeed.loadTemplate,
+    );
     await _purgeLegacyBuiltInInstanceIfNeeded(GzclpSeed.instanceId);
     await _purgeLegacyBuiltInInstanceIfNeeded(JackedAndTanSeed.instanceId);
+    await _purgeLegacyBuiltInInstanceIfNeeded(TsaIntermediateSeed.instanceId);
 
     final activeInstanceId = await fetchActiveInstanceId();
     final activeInstance = activeInstanceId == null
@@ -342,6 +350,43 @@ class DatabaseRepository {
     await _database.writeTxn(() async {
       await _database.appStateCollections.putByStateKey(state);
     });
+  }
+
+  Future<String?> fetchHomeDisplayName({String? ownerUserId}) async {
+    return _fetchStringState(_scopedStateKey(_homeDisplayNameKey, ownerUserId));
+  }
+
+  Future<void> saveHomeDisplayName(String value, {String? ownerUserId}) async {
+    final trimmed = value.trim();
+    if (trimmed.isEmpty) {
+      await clearHomeDisplayName(ownerUserId: ownerUserId);
+      return;
+    }
+    await _saveStringState(
+      _scopedStateKey(_homeDisplayNameKey, ownerUserId),
+      trimmed,
+    );
+  }
+
+  Future<void> clearHomeDisplayName({String? ownerUserId}) async {
+    await _clearStateByKey(_scopedStateKey(_homeDisplayNameKey, ownerUserId));
+  }
+
+  Future<DateTime?> fetchHomeMilestonesLastSeenAt({String? ownerUserId}) async {
+    final value = await _fetchStringState(
+      _scopedStateKey(_homeMilestonesLastSeenAtKey, ownerUserId),
+    );
+    return value == null ? null : DateTime.tryParse(value)?.toLocal();
+  }
+
+  Future<void> saveHomeMilestonesLastSeenAt(
+    DateTime value, {
+    String? ownerUserId,
+  }) async {
+    await _saveStringState(
+      _scopedStateKey(_homeMilestonesLastSeenAtKey, ownerUserId),
+      value.toUtc().toIso8601String(),
+    );
   }
 
   Future<StoredTrainingInstance?> fetchActiveInstance() async {
@@ -646,26 +691,19 @@ class DatabaseRepository {
   }
 
   Future<String> fetchOrCreateDeviceId() async {
-    final existing = await _database.appStateCollections.getByStateKey(
-      _deviceIdStateKey,
-    );
-    if (existing?.stringValue case final value?) {
+    final existing = await _fetchStringState(_deviceIdStateKey);
+    if (existing case final value?) {
       return value;
     }
     final deviceId = const Uuid().v4();
-    final state = AppStateCollection()
-      ..stateKey = _deviceIdStateKey
-      ..stringValue = deviceId
-      ..updatedAt = DateTime.now();
-    await _database.writeTxn(() async {
-      await _database.appStateCollections.putByStateKey(state);
-    });
+    await _saveStringState(_deviceIdStateKey, deviceId);
     return deviceId;
   }
 
   Future<void> claimLocalDataForUser(String ownerUserId) async {
     final now = DateTime.now();
-    final queuedUpserts = <(String entityType, String entityId, String? ownerUserId)>[];
+    final queuedUpserts =
+        <(String entityType, String entityId, String? ownerUserId)>[];
     await _database.writeTxn(() async {
       final templates = await _database.templateCollections.where().findAll();
       for (final template in templates) {
@@ -751,6 +789,36 @@ class DatabaseRepository {
       return baseKey;
     }
     return '$baseKey:$ownerUserId';
+  }
+
+  Future<String?> _fetchStringState(String stateKey) async {
+    final state = await _database.appStateCollections.getByStateKey(stateKey);
+    return state?.stringValue;
+  }
+
+  Future<void> _saveStringState(String stateKey, String value) async {
+    final existing = await _database.appStateCollections.getByStateKey(
+      stateKey,
+    );
+    final state = existing ?? AppStateCollection();
+    state.stateKey = stateKey;
+    state.stringValue = value;
+    state.updatedAt = DateTime.now();
+    await _database.writeTxn(() async {
+      await _database.appStateCollections.putByStateKey(state);
+    });
+  }
+
+  Future<void> _clearStateByKey(String stateKey) async {
+    final existing = await _database.appStateCollections.getByStateKey(
+      stateKey,
+    );
+    if (existing == null) {
+      return;
+    }
+    await _database.writeTxn(() async {
+      await _database.appStateCollections.delete(existing.id);
+    });
   }
 
   Future<void> _enqueueSync({
@@ -858,6 +926,9 @@ class DatabaseRepository {
     }
     if (templateId == JackedAndTanSeed.templateId) {
       return JackedAndTanSeed.instanceId;
+    }
+    if (templateId == TsaIntermediateSeed.templateId) {
+      return TsaIntermediateSeed.instanceId;
     }
     return 'instance-$templateId';
   }

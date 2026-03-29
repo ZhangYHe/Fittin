@@ -194,12 +194,20 @@ class DashboardSurfaceCard extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Colors.white.withValues(alpha: highlight ? (glassOpacity * 0.47) : (glassOpacity * 0.3)),
+                    Colors.white.withValues(
+                      alpha: highlight
+                          ? (glassOpacity * 0.47)
+                          : (glassOpacity * 0.3),
+                    ),
                     Colors.white.withValues(alpha: glassOpacity * 0.12),
                   ],
                 ),
                 border: Border.all(
-                  color: Colors.white.withValues(alpha: highlight ? (glassOpacity * 0.6) : (glassOpacity * 0.27)),
+                  color: Colors.white.withValues(
+                    alpha: highlight
+                        ? (glassOpacity * 0.6)
+                        : (glassOpacity * 0.27),
+                  ),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -240,12 +248,14 @@ class DashboardStatCard extends StatelessWidget {
     required this.value,
     this.caption,
     this.highlight = false,
+    this.reserveCaptionSpace = false,
   });
 
   final String label;
   final String value;
   final String? caption;
   final bool highlight;
+  final bool reserveCaptionSpace;
 
   @override
   Widget build(BuildContext context) {
@@ -272,15 +282,23 @@ class DashboardStatCard extends StatelessWidget {
               height: 1,
             ),
           ),
-          if (caption != null) ...[
-            const SizedBox(height: 8),
-            Text(
-              caption!,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.58),
-              ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: (theme.textTheme.bodySmall?.fontSize ?? 12) * 1.3,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: caption != null
+                  ? Text(
+                      caption!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.58),
+                      ),
+                    )
+                  : (reserveCaptionSpace
+                        ? const SizedBox.shrink()
+                        : const SizedBox.shrink()),
             ),
-          ],
+          ),
         ],
       ),
     );
@@ -429,9 +447,7 @@ class GlassActionButton extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: Colors.white.withValues(alpha: 0.08),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.12),
-              ),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,

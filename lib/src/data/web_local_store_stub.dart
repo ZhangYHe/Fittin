@@ -1,0 +1,35 @@
+class WebStoreNames {
+  static const appState = 'app_state';
+  static const templates = 'templates';
+  static const instances = 'instances';
+  static const workoutLogs = 'workout_logs';
+  static const bodyMetrics = 'body_metrics';
+  static const progressPhotos = 'progress_photos';
+  static const syncQueue = 'sync_queue';
+}
+
+class WebLocalStore {
+  static Future<WebLocalStore> open() async {
+    throw UnsupportedError('WebLocalStore is only available on the web.');
+  }
+
+  Future<Map<String, dynamic>?> getRecord(String storeName, String key) async {
+    throw UnsupportedError('WebLocalStore is only available on the web.');
+  }
+
+  Future<List<Map<String, dynamic>>> getAllRecords(String storeName) async {
+    throw UnsupportedError('WebLocalStore is only available on the web.');
+  }
+
+  Future<void> putRecord(
+    String storeName,
+    String key,
+    Map<String, dynamic> value,
+  ) async {
+    throw UnsupportedError('WebLocalStore is only available on the web.');
+  }
+
+  Future<void> deleteRecord(String storeName, String key) async {
+    throw UnsupportedError('WebLocalStore is only available on the web.');
+  }
+}

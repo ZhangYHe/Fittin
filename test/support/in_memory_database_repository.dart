@@ -1,6 +1,7 @@
 import 'package:fittin_v2/src/data/database_repository.dart';
 import 'package:fittin_v2/src/data/seeds/gzclp_seed.dart';
 import 'package:fittin_v2/src/data/seeds/jacked_and_tan_seed.dart';
+import 'package:fittin_v2/src/data/seeds/tsa_intermediate_seed.dart';
 import 'package:fittin_v2/src/data/seeds/seed_utils.dart';
 import 'package:fittin_v2/src/application/app_locale_provider.dart';
 import 'package:fittin_v2/src/domain/models/workout_log.dart';
@@ -16,11 +17,18 @@ class InMemoryDatabaseRepository extends DatabaseRepository {
   OneRepMaxFormula _analyticsFormula = OneRepMaxFormula.epley;
   final List<WorkoutLog> _workoutLogs = [];
   String? _deviceId;
+  double _glassOpacity = 0.3;
+  String? _homeDisplayName;
+  DateTime? _homeMilestonesLastSeenAt;
 
   @override
   Future<void> ensureDefaultProgramSeeded() async {
     await saveTemplate(await GzclpSeed.loadTemplate(), isBuiltIn: true);
     await saveTemplate(await JackedAndTanSeed.loadTemplate(), isBuiltIn: true);
+    await saveTemplate(
+      await TsaIntermediateSeed.loadTemplate(),
+      isBuiltIn: true,
+    );
   }
 
   @override
@@ -146,6 +154,42 @@ class InMemoryDatabaseRepository extends DatabaseRepository {
   }
 
   @override
+  Future<double> fetchGlassOpacity() async => _glassOpacity;
+
+  @override
+  Future<void> saveGlassOpacity(double opacity) async {
+    _glassOpacity = opacity;
+  }
+
+  @override
+  Future<String?> fetchHomeDisplayName({String? ownerUserId}) async =>
+      _homeDisplayName;
+
+  @override
+  Future<void> saveHomeDisplayName(String value, {String? ownerUserId}) async {
+    final trimmed = value.trim();
+    _homeDisplayName = trimmed.isEmpty ? null : trimmed;
+  }
+
+  @override
+  Future<void> clearHomeDisplayName({String? ownerUserId}) async {
+    _homeDisplayName = null;
+  }
+
+  @override
+  Future<DateTime?> fetchHomeMilestonesLastSeenAt({
+    String? ownerUserId,
+  }) async => _homeMilestonesLastSeenAt;
+
+  @override
+  Future<void> saveHomeMilestonesLastSeenAt(
+    DateTime value, {
+    String? ownerUserId,
+  }) async {
+    _homeMilestonesLastSeenAt = value;
+  }
+
+  @override
   Future<String> fetchOrCreateDeviceId() async {
     _deviceId ??= 'test-device-id';
     return _deviceId!;
@@ -265,6 +309,8 @@ class InMemoryDatabaseRepository extends DatabaseRepository {
     }
     final instanceId = templateId == JackedAndTanSeed.templateId
         ? JackedAndTanSeed.instanceId
+        : templateId == TsaIntermediateSeed.templateId
+        ? TsaIntermediateSeed.instanceId
         : templateId == GzclpSeed.templateId
         ? GzclpSeed.instanceId
         : 'instance-$templateId';

@@ -6,7 +6,6 @@ import 'package:fittin_v2/src/application/active_session_provider.dart';
 import 'package:fittin_v2/src/application/auth_provider.dart';
 import 'package:fittin_v2/src/data/database_repository.dart';
 import 'package:fittin_v2/src/data/models/body_metric_collection.dart';
-import 'package:fittin_v2/src/data/models/instance_collection.dart';
 import 'package:fittin_v2/src/data/models/sync_queue_collection.dart';
 import 'package:fittin_v2/src/data/models/template_collection.dart';
 import 'package:fittin_v2/src/data/models/workout_log_collection.dart';
@@ -55,7 +54,9 @@ class SyncService {
 
   Future<void> synchronize() async {
     final ownerUserId = _ownerUserId;
-    if (ownerUserId == null || !_remoteRepository.isAvailable) {
+    if (ownerUserId == null ||
+        !_remoteRepository.isAvailable ||
+        _databaseRepository.isar == null) {
       return;
     }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:fittin_v2/src/application/progress_analytics_provider.dart';
 import 'package:fittin_v2/src/application/progress_service.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
@@ -200,8 +199,10 @@ class ExerciseDeepDiveScreen extends ConsumerWidget {
     final e3rmPoints = <Offset>[];
     final e5rmPoints = <Offset>[];
 
-    final minVal = recent.map((e) => e.value).reduce((a, b) => a < b ? a : b) * 0.8;
-    final maxVal = recent.map((e) => e.value).reduce((a, b) => a > b ? a : b) * 1.1;
+    final minVal =
+        recent.map((e) => e.value).reduce((a, b) => a < b ? a : b) * 0.8;
+    final maxVal =
+        recent.map((e) => e.value).reduce((a, b) => a > b ? a : b) * 1.1;
     final range = maxVal - minVal;
 
     for (int i = 0; i < recent.length; i++) {
@@ -235,9 +236,21 @@ class ExerciseDeepDiveScreen extends ConsumerWidget {
       child: CustomPaint(
         painter: LineChartPainter(
           datasets: [
-            LineChartDataset(points: e1rmPoints, color: Colors.cyanAccent, label: '1RM'),
-            LineChartDataset(points: e3rmPoints, color: Colors.purpleAccent, label: '3RM'),
-            LineChartDataset(points: e5rmPoints, color: Colors.pinkAccent, label: '5RM'),
+            LineChartDataset(
+              points: e1rmPoints,
+              color: Colors.cyanAccent,
+              label: '1RM',
+            ),
+            LineChartDataset(
+              points: e3rmPoints,
+              color: Colors.purpleAccent,
+              label: '3RM',
+            ),
+            LineChartDataset(
+              points: e5rmPoints,
+              color: Colors.pinkAccent,
+              label: '5RM',
+            ),
           ],
         ),
         size: Size.infinite,
@@ -260,8 +273,7 @@ class ExerciseDeepDiveScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        DateFormat.yMMMMd(strings.isChinese ? 'zh' : 'en')
-                            .format(point.completedAt),
+                        strings.longDate(point.completedAt),
                         style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 4),
@@ -280,7 +292,10 @@ class ExerciseDeepDiveScreen extends ConsumerWidget {
                   children: [
                     Text(
                       point.value.toStringAsFixed(1),
-                      style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18,
+                      ),
                     ),
                     Text(
                       'E1RM',
@@ -319,10 +334,7 @@ class _LegendDot extends StatelessWidget {
             shape: BoxShape.circle,
             color: color,
             boxShadow: [
-              BoxShadow(
-                color: color.withValues(alpha: 0.4),
-                blurRadius: 4,
-              ),
+              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 4),
             ],
           ),
         ),

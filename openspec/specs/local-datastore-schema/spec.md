@@ -75,3 +75,37 @@ The system MUST persist structured set-type metadata and load-unit metadata for 
 #### Scenario: User saves a top set with percent-based loading
 - **WHEN** a user saves a set whose type is `top_set` and whose load unit is `%1RM`
 - **THEN** the stored template preserves both the set type and the `%1RM` load semantics for future editing and runtime evaluation.
+
+### Requirement: Web-Safe Generated Datastore Metadata
+The local datastore MUST keep checked-in generated schema metadata compatible with every supported Flutter target, including JavaScript compilation for Flutter Web. Generated collection and index identifier literals that exceed JavaScript's exact integer range MUST be normalized before Web builds consume those files.
+
+#### Scenario: Flutter Web compiles generated datastore schema
+- **WHEN** the app is compiled for Chrome or another Flutter Web target
+- **THEN** the generated local datastore schema files contain no identifier literal outside JavaScript's exact integer range
+- **AND** compilation does not fail with integer precision errors from Isar-generated schema code
+
+#### Scenario: Developers regenerate datastore schema files
+- **WHEN** developers rerun Isar code generation and new `*.g.dart` schema files are produced
+- **THEN** the repository provides a repeatable normalization step for unsafe identifier literals
+- **AND** the generated files can be brought back to a Web-compatible state before commit or build
+
+### Requirement: Web Datastore Startup Compatibility
+The app MUST initialize the local datastore on Flutter Web without requiring native filesystem directory APIs before `runApp()`.
+
+#### Scenario: Browser startup opens the datastore
+- **WHEN** the app starts in Chrome or another Flutter Web runtime
+- **THEN** datastore initialization avoids native-only local directory lookups
+- **AND** the app reaches widget rendering instead of stalling on a blank page before first frame
+
+### Requirement: Browser-Persistent Local Datastore
+The system MUST provide a browser-persistent local datastore implementation for Flutter Web instead of falling back to a session-only in-memory repository. The web datastore MUST preserve the same local entity categories required by the current application flow, including templates, active instances, workout logs, body metrics, progress photo metadata, app state, and sync queue records.
+
+#### Scenario: User refreshes the web app
+- **WHEN** a user creates or updates supported local records in the browser and then refreshes the page
+- **THEN** the web app restores those records from browser-persistent local storage
+- **AND** the user does not lose the local working set because of a page reload
+
+#### Scenario: User reopens the web app later
+- **WHEN** the same browser opens the web app again after a prior session stored local records
+- **THEN** the app restores the prior local templates, instances, progress records, and app state
+- **AND** the user can resume from the previously active local context

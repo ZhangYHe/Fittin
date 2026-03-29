@@ -10,8 +10,10 @@ import 'package:fittin_v2/src/presentation/screens/account_screen.dart';
 import '../support/fake_auth_repository.dart';
 import '../support/in_memory_database_repository.dart';
 
-class _TestSyncController extends StateNotifier<SyncControllerState> {
-  _TestSyncController(super.state);
+class _TestSyncController extends SyncController {
+  _TestSyncController(super.ref, SyncControllerState state) {
+    this.state = state;
+  }
 }
 
 void main() {
@@ -149,6 +151,7 @@ void main() {
           authRepositoryProvider.overrideWithValue(authRepository),
           syncControllerProvider.overrideWith(
             (ref) => _TestSyncController(
+              ref,
               const SyncControllerState(
                 stage: SyncStage.retryNeeded,
                 activeUserId: 'retry-user',

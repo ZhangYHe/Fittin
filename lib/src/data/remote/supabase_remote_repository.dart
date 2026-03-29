@@ -86,6 +86,13 @@ class SupabaseRemoteRepository {
     await _requireClient.from(table).delete().eq('id', id);
   }
 
+  Future<void> upsertRow({
+    required String table,
+    required Map<String, dynamic> row,
+  }) async {
+    await _requireClient.from(table).upsert(row);
+  }
+
   Future<List<Map<String, dynamic>>> fetchRows({
     required String table,
     required String userId,

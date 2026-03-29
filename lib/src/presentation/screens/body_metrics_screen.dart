@@ -18,6 +18,7 @@ class BodyMetricsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       floatingActionButton: FloatingActionButton(
+        heroTag: 'body-metrics-fab',
         onPressed: () => _showAddMetricDialog(context, ref),
         backgroundColor: Colors.white,
         child: const Icon(Icons.add, color: Colors.black),
