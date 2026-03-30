@@ -161,6 +161,20 @@ flutter test test/application/sync_provider_test.dart
 flutter test test/presentation/plan_editor_screen_test.dart
 ```
 
+## Web 公网发布
+
+如果你要把 Flutter Web 客户端发布到公网子域名，例如 `fittin.yimelo.cc`，请查看：
+
+- `docs/web-public-deployment.md`
+
+这份文档覆盖：
+
+- release 构建命令
+- `SUPABASE_URL` / `SUPABASE_ANON_KEY` 注入方式
+- 本机 Caddy 静态托管
+- Cloudflare Tunnel ingress 形状
+- smoke checks 与回滚步骤
+
 ## OpenSpec 是什么
 
 OpenSpec 是这个仓库的规格驱动开发工作流。可以把它理解为：
