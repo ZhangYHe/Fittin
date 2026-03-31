@@ -43,6 +43,12 @@ flutter build web --release \
   --dart-define=SUPABASE_ANON_KEY=<your-anon-key>
 ```
 
+Or use the repo wrapper that pulls, rebuilds, and restarts the public web service:
+
+```bash
+tool/update_public_web.sh
+```
+
 Expected output:
 
 - Generated files under `build/web/`

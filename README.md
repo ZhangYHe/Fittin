@@ -175,6 +175,12 @@ flutter test test/presentation/plan_editor_screen_test.dart
 - Cloudflare Tunnel ingress 形状
 - smoke checks 与回滚步骤
 
+常用的一键更新命令：
+
+```bash
+tool/update_public_web.sh
+```
+
 ## OpenSpec 是什么
 
 OpenSpec 是这个仓库的规格驱动开发工作流。可以把它理解为：
