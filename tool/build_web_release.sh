@@ -17,9 +17,20 @@ fi
 
 SUPABASE_URL="$1"
 SUPABASE_ANON_KEY="$2"
+SCHEMA_BACKUP_DIR="$(mktemp -d)"
+
+restore_isar_schema_ids() {
+  if [[ -d "$SCHEMA_BACKUP_DIR" ]]; then
+    cp "$SCHEMA_BACKUP_DIR"/*.g.dart lib/src/data/models/
+    rm -rf "$SCHEMA_BACKUP_DIR"
+  fi
+}
+
+cp lib/src/data/models/*.g.dart "$SCHEMA_BACKUP_DIR"/
+trap restore_isar_schema_ids EXIT
 
 echo "==> Normalizing Isar web schema ids"
-dart tool/fix_isar_web_schema_ids.dart
+dart run tool/fix_isar_web_schema_ids.dart --web-safe
 
 echo "==> Building Flutter web release"
 flutter build web --release \
