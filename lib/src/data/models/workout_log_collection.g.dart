@@ -16,7 +16,7 @@ extension GetWorkoutLogCollectionCollection on Isar {
 
 const WorkoutLogCollectionSchema = CollectionSchema(
   name: r'WorkoutLogCollection',
-  id: 5061488129319444685,
+  id: 5061488129319444480,
   properties: {
     r'completedAt': PropertySchema(
       id: 0,
@@ -78,7 +78,7 @@ const WorkoutLogCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'logId': IndexSchema(
-      id: 3089637606214822530,
+      id: 3089637606214822400,
       name: r'logId',
       unique: true,
       replace: true,
@@ -91,7 +91,7 @@ const WorkoutLogCollectionSchema = CollectionSchema(
       ],
     ),
     r'instanceId': IndexSchema(
-      id: -6720444513014720235,
+      id: -6720444513014720512,
       name: r'instanceId',
       unique: false,
       replace: false,
@@ -104,7 +104,7 @@ const WorkoutLogCollectionSchema = CollectionSchema(
       ],
     ),
     r'workoutId': IndexSchema(
-      id: -2481575602404730374,
+      id: -2481575602404730368,
       name: r'workoutId',
       unique: false,
       replace: false,
@@ -117,7 +117,7 @@ const WorkoutLogCollectionSchema = CollectionSchema(
       ],
     ),
     r'ownerUserId': IndexSchema(
-      id: 1631799950038639233,
+      id: 1631799950038639360,
       name: r'ownerUserId',
       unique: false,
       replace: false,
@@ -130,7 +130,7 @@ const WorkoutLogCollectionSchema = CollectionSchema(
       ],
     ),
     r'completedAt': IndexSchema(
-      id: -3156591011457686752,
+      id: -3156591011457686528,
       name: r'completedAt',
       unique: false,
       replace: false,

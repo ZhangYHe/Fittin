@@ -18,6 +18,10 @@ fi
 SUPABASE_URL="$1"
 SUPABASE_ANON_KEY="$2"
 
+echo "==> Normalizing Isar web schema ids"
+dart tool/fix_isar_web_schema_ids.dart
+
+echo "==> Building Flutter web release"
 flutter build web --release \
   --dart-define=SUPABASE_URL="$SUPABASE_URL" \
   --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"

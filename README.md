@@ -181,6 +181,8 @@ flutter test test/presentation/plan_editor_screen_test.dart
 tool/update_public_web.sh
 ```
 
+这个脚本也会在构建前自动执行 `tool/fix_isar_web_schema_ids.dart`，避免 Web 构建被 Isar 生成文件中的超大整数常量卡住。
+
 ## OpenSpec 是什么
 
 OpenSpec 是这个仓库的规格驱动开发工作流。可以把它理解为：

@@ -49,6 +49,8 @@ Or use the repo wrapper that pulls, rebuilds, and restarts the public web servic
 tool/update_public_web.sh
 ```
 
+The build wrapper automatically normalizes checked-in Isar generated schema ids before running the web release build, so it can recover from the JavaScript integer literal issue without a separate manual step.
+
 Expected output:
 
 - Generated files under `build/web/`

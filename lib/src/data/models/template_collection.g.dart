@@ -16,7 +16,7 @@ extension GetTemplateCollectionCollection on Isar {
 
 const TemplateCollectionSchema = CollectionSchema(
   name: r'TemplateCollection',
-  id: -4094051142176530049,
+  id: -4094051142176529920,
   properties: {
     r'createdAt': PropertySchema(
       id: 0,
@@ -88,7 +88,7 @@ const TemplateCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'templateId': IndexSchema(
-      id: -5352721467389445085,
+      id: -5352721467389445120,
       name: r'templateId',
       unique: true,
       replace: true,
@@ -101,7 +101,7 @@ const TemplateCollectionSchema = CollectionSchema(
       ],
     ),
     r'isBuiltIn': IndexSchema(
-      id: 8159970814813350081,
+      id: 8159970814813349888,
       name: r'isBuiltIn',
       unique: false,
       replace: false,
@@ -114,7 +114,7 @@ const TemplateCollectionSchema = CollectionSchema(
       ],
     ),
     r'ownerUserId': IndexSchema(
-      id: 1631799950038639233,
+      id: 1631799950038639360,
       name: r'ownerUserId',
       unique: false,
       replace: false,
