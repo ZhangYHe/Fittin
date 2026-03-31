@@ -80,6 +80,7 @@ void main() {
 
     expect(find.text('Workout Record Details'), findsOneWidget);
     expect(find.text('Lower A'), findsOneWidget);
+    expect(find.text('Edit'), findsOneWidget);
   });
 
   testWidgets('advanced analytics localizes labels in Chinese', (

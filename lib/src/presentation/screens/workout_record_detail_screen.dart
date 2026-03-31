@@ -75,10 +75,28 @@ class _WorkoutRecordDetailScreenState
                                 ?.copyWith(fontWeight: FontWeight.w800),
                           ),
                         ),
-                        IconButton(
+                        TextButton.icon(
                           onPressed: () => _editLog(context, log),
-                          icon: const Icon(Icons.edit_rounded),
-                          tooltip: strings.edit,
+                          icon: const Icon(Icons.edit_rounded, size: 18),
+                          label: Text(strings.edit),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            textStyle: Theme.of(context).textTheme.labelLarge
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              side: BorderSide(
+                                color: Colors.white.withValues(alpha: 0.16),
+                              ),
+                            ),
+                            backgroundColor: Colors.white.withValues(
+                              alpha: 0.05,
+                            ),
+                          ),
                         ),
                       ],
                     ),
