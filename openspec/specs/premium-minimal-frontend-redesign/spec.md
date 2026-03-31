@@ -1,4 +1,8 @@
-## MODIFIED Requirements
+## Purpose
+
+Define the premium minimal redesign rules for workout logging, plan editing, and premium subpage navigation patterns.
+
+## Requirements
 
 ### Requirement: Focused Workout Console Composition
 The active workout experience MUST present the current exercise and current set as the dominant focal element in a console-style layout.

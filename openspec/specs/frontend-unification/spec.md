@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define the cross-screen visual and localization rules that keep newly built and newly updated screens aligned with the app's premium dashboard language.
+
+## Requirements
 
 ### Requirement: Shared Premium Screen Language
 The system MUST apply a consistent premium visual language across the active workout, progress analytics, and profile/settings screens.

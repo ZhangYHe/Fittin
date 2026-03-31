@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define how built-in plan names, descriptions, workout labels, and exercise labels are localized and rendered for bilingual app usage.
+
+## Requirements
 
 ### Requirement: Bilingual Built-in Plan Metadata
 The system MUST ship built-in plans with both English and Chinese display content for plan-facing text.

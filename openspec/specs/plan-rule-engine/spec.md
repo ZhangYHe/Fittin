@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define how the training rule engine parses templates, resolves prescriptions, and advances engine-specific progression across supported program families.
+
+## Requirements
 
 ### Requirement: Engine-Aware Prescription Resolution
 The system MUST resolve workout prescriptions through an engine-family-specific evaluator instead of one shared progression path.
@@ -21,8 +25,6 @@ The system MUST support fixed weekly/block progression where completing a workou
 - **WHEN** the user completes a Jacked & Tan workout
 - **THEN** the engine advances the instance to the next scheduled workout/week slot
 - **AND** the next session's prescribed weights remain the ones defined for that slot by the template's periodized metadata.
-
-## MODIFIED Requirements
 
 ### Requirement: JSON Schema Parsing
 The system MUST parse training plan templates from a predefined JSON schema into internal Dart objects, preserving the hierarchy of phases, workouts, exercises, and sets, while also parsing engine-family metadata, training-max lift mappings, and engine-specific prescription payloads required for runtime evaluation.

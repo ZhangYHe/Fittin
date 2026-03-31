@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define how training-max-driven programs collect, store, and use canonical training max values before an instance is created.
+
+## Requirements
 
 ### Requirement: Program-Specific Training Max Setup
 The system MUST require a training-max setup step before creating the first instance of a training-max-driven built-in plan.

@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define how training templates can be exported, shared as QR payloads, and imported back into the app through QR or deep-link flows.
+
+## Requirements
 
 ### Requirement: JSON Export
 The system MUST be capable of serializing a full training template definition into a compact JSON string.

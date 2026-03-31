@@ -1,4 +1,8 @@
-## MODIFIED Requirements
+## Purpose
+
+Define how the progress analytics screen presents exercise progress, summary insights, and localized analytics copy.
+
+## Requirements
 
 ### Requirement: Premium Analytics Presentation
 The progress analytics screen MUST present exercise progress, formula controls, and summary metrics inside a premium minimal dark layout with layered hierarchy.
@@ -29,8 +33,6 @@ The analytics page MUST avoid a repetitive wall of equal dark cards. It SHOULD u
 #### Scenario: Scrolling through analytics
 - **WHEN** the user scrolls through the analytics page
 - **THEN** the screen maintains visual interest and hierarchy instead of reading as identical dark rectangles stacked vertically.
-
-## ADDED Requirements
 
 ### Requirement: Bilingual Progress Analytics Copy
 The progress analytics experience MUST localize its screen copy, summary labels, formula controls, empty states, and exercise detail labels in both English and Chinese.

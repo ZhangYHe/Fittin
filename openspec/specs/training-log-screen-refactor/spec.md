@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define the compact single-screen workout logger layout, controls, and interaction model for mobile-first set logging.
+
+## Requirements
 
 ### Requirement: Single-Screen Mobile Workout Logger
 The training log screen MUST present its core recording workflow within a single mobile viewport for common phone sizes, without requiring vertical scrolling during normal set logging.

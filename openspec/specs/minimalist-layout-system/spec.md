@@ -1,4 +1,8 @@
-## MODIFIED Requirements
+## Purpose
+
+Define the shared spacing, typography, depth, and compositional rhythm rules that shape the app's premium minimalist layout system.
+
+## Requirements
 
 ### Requirement: Elevated Whitespace System
 All screen layouts MUST utilize generous margins and paddings, removing dense boundaries to separate core content blocks cleanly. Primary focus elements MUST be vertically and horizontally distinct from secondary info.

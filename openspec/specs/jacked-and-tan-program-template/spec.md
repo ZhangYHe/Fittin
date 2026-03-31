@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define the built-in Jacked & Tan template, its training-max-driven activation flow, and its fixed week-by-week prescription behavior.
+
+## Requirements
 
 ### Requirement: Training-Max-Driven Jacked & Tan Activation
 The built-in Jacked & Tan template MUST derive weekly prescribed loads from user-entered training max values and workbook-defined percentage tables.
@@ -13,8 +17,6 @@ The built-in Jacked & Tan template MUST preserve fixed week-by-week prescription
 #### Scenario: User completes a hard week
 - **WHEN** the user logs a Jacked & Tan workout that was difficult or unusually easy
 - **THEN** the next scheduled Jacked & Tan workout still resolves its weights from the predefined next week/block prescription rather than from linear load carry-forward.
-
-## MODIFIED Requirements
 
 ### Requirement: Built-in Jacked & Tan 2.0 Template
 The system MUST ship with a built-in Jacked & Tan 2.0 template derived from the checked-in workbook `/Users/yzxbb/Desktop/Fittin_v2/jacked_and_tan.xlsx`, seeded alongside the existing GZCLP template as app-owned JSON data, and it MUST model Jacked & Tan as a periodized training-max-driven program rather than a linear progression template.

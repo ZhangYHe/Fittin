@@ -2,7 +2,7 @@
 
 Define how user-owned workout data synchronizes between the local datastore and Supabase-backed cloud storage.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: User-Scoped Cloud Synchronization
 The system MUST synchronize user-owned training data between the local datastore and Supabase under the authenticated user's identity. Synchronization MUST cover plans, active training instances, workout logs, body metrics, and progress photo metadata so the same signed-in user can recover a consistent state across launches and devices.

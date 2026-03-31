@@ -1,4 +1,8 @@
-## MODIFIED Requirements
+## Purpose
+
+Define how the app exposes language preferences and bilingual reference content within the profile and settings experience.
+
+## Requirements
 
 ### Requirement: Premium Settings Grouping
 The profile/settings screen MUST present language settings inside a premium minimal grouped layout rather than a single plain black list block.

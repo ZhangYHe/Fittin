@@ -1,4 +1,8 @@
-## MODIFIED Requirements
+## Purpose
+
+Define the no-keyboard, gesture-first interaction rules that keep workout logging focused on quick touch-driven set entry.
+
+## Requirements
 
 ### Requirement: Gesture-First Set Logging
 The workout logger MUST preserve a gesture-first, low-friction flow for reps and weights without requiring keyboard input during a normal workout.

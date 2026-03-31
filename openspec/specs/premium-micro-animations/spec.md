@@ -1,4 +1,8 @@
-## MODIFIED Requirements
+## Purpose
+
+Define the subtle motion rules that give interactive elements and premium surfaces responsive feedback without compromising clarity.
+
+## Requirements
 
 ### Requirement: Interactive Element Feedback
 The system MUST provide smooth visual feedback (e.g., subtle scaling/elevation) for interactive elements upon press and release.

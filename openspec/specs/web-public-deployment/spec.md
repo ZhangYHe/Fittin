@@ -1,4 +1,8 @@
+## Purpose
+
 Define how the Flutter Web client is published to a stable public subdomain using a repeatable release build flow, local static hosting, and Cloudflare Tunnel routing.
+
+## Requirements
 
 ### Requirement: Public Web Release Build
 The system MUST provide a repeatable release build flow for the Flutter Web client that is suitable for public serving at `https://fittin.yimelo.cc/`.

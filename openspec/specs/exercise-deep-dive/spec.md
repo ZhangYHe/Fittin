@@ -2,7 +2,7 @@
 
 Define the exercise-level analytics and history experience for inspecting performance trends for a single movement.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Exercise-Specific Strength Trend Overlay
 The Exercise Deep Dive screen MUST present an overlay chart showing 1RM, 3RM, and 5RM trends simultaneously for the selected exercise.

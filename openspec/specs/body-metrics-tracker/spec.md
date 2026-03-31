@@ -2,7 +2,7 @@
 
 Define the body metrics and progress photo experience for tracking physical changes over time.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Body Metrics Page Hierarchy
 The Body Metrics screen MUST present a clear information hierarchy that reads as a progress dashboard rather than a collection of oversized placeholder cards. The screen MUST prioritize the primary trend module first, then current metric highlights, then measurement history and supporting actions.

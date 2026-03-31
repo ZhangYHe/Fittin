@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Define the built-in GZCLP template, its training-max-driven activation flow, and the progression metadata needed to run the program correctly.
+
+## Requirements
 
 ### Requirement: Training-Max-Driven GZCLP Activation
 The built-in GZCLP template MUST derive initial working prescriptions from user-entered training max values rather than from fixed seeded working weights.
@@ -6,8 +10,6 @@ The built-in GZCLP template MUST derive initial working prescriptions from user-
 #### Scenario: User starts GZCLP from scratch
 - **WHEN** the user creates the first GZCLP instance after entering the required training max values
 - **THEN** the app calculates the initial T1 and T2 prescriptions from those training max values and the template's starter percentage and increment metadata.
-
-## MODIFIED Requirements
 
 ### Requirement: Built-in GZCLP 4-Day Template
 The system MUST ship with a built-in GZCLP 4-day template derived from the checked-in workbook `2.0_GZCLP 4-Day 12-Week.xlsx`, using the populated Day 1 to Day 4 exercise lineup and tier structure from that file, and it MUST treat those workouts as a training-max-driven linear plan rather than a fixed-weight seed.
