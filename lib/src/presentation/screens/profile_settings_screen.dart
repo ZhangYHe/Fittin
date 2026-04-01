@@ -8,6 +8,7 @@ import 'package:fittin_v2/src/presentation/screens/account_screen.dart';
 import 'package:fittin_v2/src/presentation/screens/profile_preferences_screen.dart';
 import 'package:fittin_v2/src/presentation/screens/set_type_guide_screen.dart';
 import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
+import 'package:fittin_v2/src/presentation/widgets/weight_tools_sheet.dart';
 
 class ProfileSettingsScreen extends ConsumerWidget {
   const ProfileSettingsScreen({super.key});
@@ -226,6 +227,8 @@ class ProfileSettingsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 20),
+              const WeightToolsSettingsCard(),
             ],
           ),
         ),

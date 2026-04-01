@@ -285,6 +285,8 @@ mixin _$SessionSetState {
   int get completedReps => throw _privateConstructorUsedError;
   double get targetWeight => throw _privateConstructorUsedError;
   double get weight => throw _privateConstructorUsedError;
+  double? get targetRpe => throw _privateConstructorUsedError;
+  double? get completedRpe => throw _privateConstructorUsedError;
   bool get isAmrap => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
 
@@ -307,6 +309,8 @@ abstract class $SessionSetStateCopyWith<$Res> {
       int completedReps,
       double targetWeight,
       double weight,
+      double? targetRpe,
+      double? completedRpe,
       bool isAmrap,
       bool isCompleted});
 }
@@ -330,6 +334,8 @@ class _$SessionSetStateCopyWithImpl<$Res, $Val extends SessionSetState>
     Object? completedReps = null,
     Object? targetWeight = null,
     Object? weight = null,
+    Object? targetRpe = freezed,
+    Object? completedRpe = freezed,
     Object? isAmrap = null,
     Object? isCompleted = null,
   }) {
@@ -358,6 +364,14 @@ class _$SessionSetStateCopyWithImpl<$Res, $Val extends SessionSetState>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as double,
+      targetRpe: freezed == targetRpe
+          ? _value.targetRpe
+          : targetRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
+      completedRpe: freezed == completedRpe
+          ? _value.completedRpe
+          : completedRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
       isAmrap: null == isAmrap
           ? _value.isAmrap
           : isAmrap // ignore: cast_nullable_to_non_nullable
@@ -385,6 +399,8 @@ abstract class _$$SessionSetStateImplCopyWith<$Res>
       int completedReps,
       double targetWeight,
       double weight,
+      double? targetRpe,
+      double? completedRpe,
       bool isAmrap,
       bool isCompleted});
 }
@@ -406,6 +422,8 @@ class __$$SessionSetStateImplCopyWithImpl<$Res>
     Object? completedReps = null,
     Object? targetWeight = null,
     Object? weight = null,
+    Object? targetRpe = freezed,
+    Object? completedRpe = freezed,
     Object? isAmrap = null,
     Object? isCompleted = null,
   }) {
@@ -434,6 +452,14 @@ class __$$SessionSetStateImplCopyWithImpl<$Res>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as double,
+      targetRpe: freezed == targetRpe
+          ? _value.targetRpe
+          : targetRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
+      completedRpe: freezed == completedRpe
+          ? _value.completedRpe
+          : completedRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
       isAmrap: null == isAmrap
           ? _value.isAmrap
           : isAmrap // ignore: cast_nullable_to_non_nullable
@@ -456,6 +482,8 @@ class _$SessionSetStateImpl implements _SessionSetState {
       required this.completedReps,
       required this.targetWeight,
       required this.weight,
+      this.targetRpe,
+      this.completedRpe,
       this.isAmrap = false,
       this.isCompleted = false});
 
@@ -475,6 +503,10 @@ class _$SessionSetStateImpl implements _SessionSetState {
   @override
   final double weight;
   @override
+  final double? targetRpe;
+  @override
+  final double? completedRpe;
+  @override
   @JsonKey()
   final bool isAmrap;
   @override
@@ -483,7 +515,7 @@ class _$SessionSetStateImpl implements _SessionSetState {
 
   @override
   String toString() {
-    return 'SessionSetState(id: $id, role: $role, targetReps: $targetReps, completedReps: $completedReps, targetWeight: $targetWeight, weight: $weight, isAmrap: $isAmrap, isCompleted: $isCompleted)';
+    return 'SessionSetState(id: $id, role: $role, targetReps: $targetReps, completedReps: $completedReps, targetWeight: $targetWeight, weight: $weight, targetRpe: $targetRpe, completedRpe: $completedRpe, isAmrap: $isAmrap, isCompleted: $isCompleted)';
   }
 
   @override
@@ -500,6 +532,10 @@ class _$SessionSetStateImpl implements _SessionSetState {
             (identical(other.targetWeight, targetWeight) ||
                 other.targetWeight == targetWeight) &&
             (identical(other.weight, weight) || other.weight == weight) &&
+            (identical(other.targetRpe, targetRpe) ||
+                other.targetRpe == targetRpe) &&
+            (identical(other.completedRpe, completedRpe) ||
+                other.completedRpe == completedRpe) &&
             (identical(other.isAmrap, isAmrap) || other.isAmrap == isAmrap) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted));
@@ -507,8 +543,18 @@ class _$SessionSetStateImpl implements _SessionSetState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, role, targetReps,
-      completedReps, targetWeight, weight, isAmrap, isCompleted);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      role,
+      targetReps,
+      completedReps,
+      targetWeight,
+      weight,
+      targetRpe,
+      completedRpe,
+      isAmrap,
+      isCompleted);
 
   @JsonKey(ignore: true)
   @override
@@ -533,6 +579,8 @@ abstract class _SessionSetState implements SessionSetState {
       required final int completedReps,
       required final double targetWeight,
       required final double weight,
+      final double? targetRpe,
+      final double? completedRpe,
       final bool isAmrap,
       final bool isCompleted}) = _$SessionSetStateImpl;
 
@@ -551,6 +599,10 @@ abstract class _SessionSetState implements SessionSetState {
   double get targetWeight;
   @override
   double get weight;
+  @override
+  double? get targetRpe;
+  @override
+  double? get completedRpe;
   @override
   bool get isAmrap;
   @override
@@ -573,6 +625,9 @@ mixin _$ExerciseSessionState {
   String get tier => throw _privateConstructorUsedError;
   int get restSeconds => throw _privateConstructorUsedError;
   String get stageId => throw _privateConstructorUsedError;
+  String get displayLoadUnit => throw _privateConstructorUsedError;
+  bool get showsPlateBreakdown => throw _privateConstructorUsedError;
+  int get currentSetIndex => throw _privateConstructorUsedError;
   List<SessionSetState> get sets => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -594,6 +649,9 @@ abstract class $ExerciseSessionStateCopyWith<$Res> {
       String tier,
       int restSeconds,
       String stageId,
+      String displayLoadUnit,
+      bool showsPlateBreakdown,
+      int currentSetIndex,
       List<SessionSetState> sets});
 }
 
@@ -617,6 +675,9 @@ class _$ExerciseSessionStateCopyWithImpl<$Res,
     Object? tier = null,
     Object? restSeconds = null,
     Object? stageId = null,
+    Object? displayLoadUnit = null,
+    Object? showsPlateBreakdown = null,
+    Object? currentSetIndex = null,
     Object? sets = null,
   }) {
     return _then(_value.copyWith(
@@ -644,6 +705,18 @@ class _$ExerciseSessionStateCopyWithImpl<$Res,
           ? _value.stageId
           : stageId // ignore: cast_nullable_to_non_nullable
               as String,
+      displayLoadUnit: null == displayLoadUnit
+          ? _value.displayLoadUnit
+          : displayLoadUnit // ignore: cast_nullable_to_non_nullable
+              as String,
+      showsPlateBreakdown: null == showsPlateBreakdown
+          ? _value.showsPlateBreakdown
+          : showsPlateBreakdown // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentSetIndex: null == currentSetIndex
+          ? _value.currentSetIndex
+          : currentSetIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       sets: null == sets
           ? _value.sets
           : sets // ignore: cast_nullable_to_non_nullable
@@ -667,6 +740,9 @@ abstract class _$$ExerciseSessionStateImplCopyWith<$Res>
       String tier,
       int restSeconds,
       String stageId,
+      String displayLoadUnit,
+      bool showsPlateBreakdown,
+      int currentSetIndex,
       List<SessionSetState> sets});
 }
 
@@ -687,6 +763,9 @@ class __$$ExerciseSessionStateImplCopyWithImpl<$Res>
     Object? tier = null,
     Object? restSeconds = null,
     Object? stageId = null,
+    Object? displayLoadUnit = null,
+    Object? showsPlateBreakdown = null,
+    Object? currentSetIndex = null,
     Object? sets = null,
   }) {
     return _then(_$ExerciseSessionStateImpl(
@@ -714,6 +793,18 @@ class __$$ExerciseSessionStateImplCopyWithImpl<$Res>
           ? _value.stageId
           : stageId // ignore: cast_nullable_to_non_nullable
               as String,
+      displayLoadUnit: null == displayLoadUnit
+          ? _value.displayLoadUnit
+          : displayLoadUnit // ignore: cast_nullable_to_non_nullable
+              as String,
+      showsPlateBreakdown: null == showsPlateBreakdown
+          ? _value.showsPlateBreakdown
+          : showsPlateBreakdown // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentSetIndex: null == currentSetIndex
+          ? _value.currentSetIndex
+          : currentSetIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       sets: null == sets
           ? _value._sets
           : sets // ignore: cast_nullable_to_non_nullable
@@ -732,6 +823,9 @@ class _$ExerciseSessionStateImpl implements _ExerciseSessionState {
       required this.tier,
       required this.restSeconds,
       required this.stageId,
+      this.displayLoadUnit = LoadUnits.kg,
+      this.showsPlateBreakdown = false,
+      this.currentSetIndex = 0,
       required final List<SessionSetState> sets})
       : _sets = sets;
 
@@ -750,6 +844,15 @@ class _$ExerciseSessionStateImpl implements _ExerciseSessionState {
   final int restSeconds;
   @override
   final String stageId;
+  @override
+  @JsonKey()
+  final String displayLoadUnit;
+  @override
+  @JsonKey()
+  final bool showsPlateBreakdown;
+  @override
+  @JsonKey()
+  final int currentSetIndex;
   final List<SessionSetState> _sets;
   @override
   List<SessionSetState> get sets {
@@ -760,7 +863,7 @@ class _$ExerciseSessionStateImpl implements _ExerciseSessionState {
 
   @override
   String toString() {
-    return 'ExerciseSessionState(id: $id, exerciseId: $exerciseId, exerciseName: $exerciseName, tier: $tier, restSeconds: $restSeconds, stageId: $stageId, sets: $sets)';
+    return 'ExerciseSessionState(id: $id, exerciseId: $exerciseId, exerciseName: $exerciseName, tier: $tier, restSeconds: $restSeconds, stageId: $stageId, displayLoadUnit: $displayLoadUnit, showsPlateBreakdown: $showsPlateBreakdown, currentSetIndex: $currentSetIndex, sets: $sets)';
   }
 
   @override
@@ -777,13 +880,29 @@ class _$ExerciseSessionStateImpl implements _ExerciseSessionState {
             (identical(other.restSeconds, restSeconds) ||
                 other.restSeconds == restSeconds) &&
             (identical(other.stageId, stageId) || other.stageId == stageId) &&
+            (identical(other.displayLoadUnit, displayLoadUnit) ||
+                other.displayLoadUnit == displayLoadUnit) &&
+            (identical(other.showsPlateBreakdown, showsPlateBreakdown) ||
+                other.showsPlateBreakdown == showsPlateBreakdown) &&
+            (identical(other.currentSetIndex, currentSetIndex) ||
+                other.currentSetIndex == currentSetIndex) &&
             const DeepCollectionEquality().equals(other._sets, _sets));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, exerciseId, exerciseName,
-      tier, restSeconds, stageId, const DeepCollectionEquality().hash(_sets));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      exerciseId,
+      exerciseName,
+      tier,
+      restSeconds,
+      stageId,
+      displayLoadUnit,
+      showsPlateBreakdown,
+      currentSetIndex,
+      const DeepCollectionEquality().hash(_sets));
 
   @JsonKey(ignore: true)
   @override
@@ -809,6 +928,9 @@ abstract class _ExerciseSessionState implements ExerciseSessionState {
       required final String tier,
       required final int restSeconds,
       required final String stageId,
+      final String displayLoadUnit,
+      final bool showsPlateBreakdown,
+      final int currentSetIndex,
       required final List<SessionSetState> sets}) = _$ExerciseSessionStateImpl;
 
   factory _ExerciseSessionState.fromJson(Map<String, dynamic> json) =
@@ -826,6 +948,12 @@ abstract class _ExerciseSessionState implements ExerciseSessionState {
   int get restSeconds;
   @override
   String get stageId;
+  @override
+  String get displayLoadUnit;
+  @override
+  bool get showsPlateBreakdown;
+  @override
+  int get currentSetIndex;
   @override
   List<SessionSetState> get sets;
   @override

@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fittin_v2/src/application/advanced_analytics_provider.dart';
 import 'package:fittin_v2/src/application/progress_analytics_provider.dart';
 import 'package:fittin_v2/src/data/local/local_workout_log_repository.dart';
+import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/domain/models/workout_log.dart';
+import 'package:fittin_v2/src/domain/weight_tools.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
 import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
 
@@ -122,11 +124,14 @@ class _WorkoutRecordDetailScreenState
                             children: [
                               Expanded(
                                 child: Text(
-                                  '${strings.completedSets}: ${set.completedReps}/${set.targetReps}',
+                                  '${strings.completedSets}: ${set.completedReps}/${set.targetReps}${set.targetRpe == null ? '' : ' · target RPE ${_formatOptionalRpe(set.targetRpe)}'}${set.completedRpe == null ? '' : ' · RPE ${_formatOptionalRpe(set.completedRpe)}'}',
                                 ),
                               ),
                               Text(
-                                strings.kilograms(set.weight),
+                                _formatLoggedWeight(
+                                  set.weight,
+                                  exercise.displayLoadUnit,
+                                ),
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ],
@@ -229,12 +234,14 @@ class _WorkoutLogEditorSheetState extends State<_WorkoutLogEditorSheet> {
           exerciseId: exercise.exerciseId,
           exerciseName: exercise.exerciseName,
           stageId: exercise.stageId,
+          displayLoadUnit: exercise.displayLoadUnit,
           sets: [
             for (final set in exercise.sets)
               _EditableSetState(
                 role: set.role,
                 targetReps: set.targetReps,
                 targetWeight: set.targetWeight,
+                targetRpe: set.targetRpe,
                 isAmrap: set.isAmrap,
                 completed: set.isCompleted,
                 repsController: TextEditingController(
@@ -244,6 +251,11 @@ class _WorkoutLogEditorSheetState extends State<_WorkoutLogEditorSheet> {
                   text: set.weight.toStringAsFixed(
                     set.weight.truncateToDouble() == set.weight ? 0 : 1,
                   ),
+                ),
+                rpeController: TextEditingController(
+                  text: set.completedRpe == null
+                      ? ''
+                      : _formatOptionalRpe(set.completedRpe),
                 ),
               ),
           ],
@@ -259,6 +271,7 @@ class _WorkoutLogEditorSheetState extends State<_WorkoutLogEditorSheet> {
       for (final set in exercise.sets) {
         set.repsController.dispose();
         set.weightController.dispose();
+        set.rpeController.dispose();
       }
     }
     super.dispose();
@@ -317,42 +330,91 @@ class _WorkoutLogEditorSheetState extends State<_WorkoutLogEditorSheet> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+                const SizedBox(height: 6),
+                SegmentedButton<String>(
+                  segments: const [
+                    ButtonSegment(value: LoadUnits.kg, label: Text('kg')),
+                    ButtonSegment(value: LoadUnits.lbs, label: Text('lb')),
+                  ],
+                  selected: {
+                    exercise.displayLoadUnit == LoadUnits.lbs
+                        ? LoadUnits.lbs
+                        : LoadUnits.kg,
+                  },
+                  onSelectionChanged: (selection) {
+                    setState(() {
+                      exercise.displayLoadUnit = selection.first;
+                    });
+                  },
+                ),
                 const SizedBox(height: 10),
                 for (var index = 0; index < exercise.sets.length; index++)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Row(
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: TextField(
-                            controller: exercise.sets[index].repsController,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: 'Reps ${index + 1}',
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: exercise.sets[index].repsController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  labelText: 'Reps ${index + 1}',
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: TextField(
+                                controller: exercise.sets[index].weightController,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                      decimal: true,
+                                    ),
+                                decoration: InputDecoration(
+                                  labelText:
+                                      'Weight ${index + 1} (${exercise.displayLoadUnit == LoadUnits.lbs ? 'lb' : 'kg'})',
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: TextField(
+                                controller: exercise.sets[index].rpeController,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                      decimal: true,
+                                    ),
+                                decoration: InputDecoration(
+                                  labelText: 'RPE ${index + 1}',
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Checkbox(
+                              value: exercise.sets[index].completed,
+                              onChanged: (value) {
+                                setState(() {
+                                  exercise.sets[index].completed = value ?? false;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        if (exercise.sets[index].targetRpe != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 6),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Target RPE ${_formatOptionalRpe(exercise.sets[index].targetRpe)}',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.68),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: TextField(
-                            controller: exercise.sets[index].weightController,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                            decoration: InputDecoration(
-                              labelText: 'Weight ${index + 1}',
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Checkbox(
-                          value: exercise.sets[index].completed,
-                          onChanged: (value) {
-                            setState(() {
-                              exercise.sets[index].completed = value ?? false;
-                            });
-                          },
-                        ),
                       ],
                     ),
                   ),
@@ -401,6 +463,7 @@ class _WorkoutLogEditorSheetState extends State<_WorkoutLogEditorSheet> {
           exerciseId: exercise.exerciseId,
           exerciseName: exercise.exerciseName,
           stageId: exercise.stageId,
+          displayLoadUnit: exercise.displayLoadUnit,
           sets: [
             for (final set in exercise.sets)
               SetLog(
@@ -409,7 +472,13 @@ class _WorkoutLogEditorSheetState extends State<_WorkoutLogEditorSheet> {
                 completedReps:
                     int.tryParse(set.repsController.text.trim()) ?? 0,
                 targetWeight: set.targetWeight,
-                weight: double.tryParse(set.weightController.text.trim()) ?? 0,
+                weight: convertWeight(
+                  double.tryParse(set.weightController.text.trim()) ?? 0,
+                  exercise.displayLoadUnit,
+                  LoadUnits.kg,
+                ),
+                targetRpe: set.targetRpe,
+                completedRpe: double.tryParse(set.rpeController.text.trim()),
                 isAmrap: set.isAmrap,
                 isCompleted: set.completed,
               ),
@@ -428,12 +497,14 @@ class _EditableExerciseState {
     required this.exerciseId,
     required this.exerciseName,
     required this.stageId,
+    required this.displayLoadUnit,
     required this.sets,
   });
 
   final String exerciseId;
   final String exerciseName;
   final String stageId;
+  String displayLoadUnit;
   final List<_EditableSetState> sets;
 }
 
@@ -442,19 +513,23 @@ class _EditableSetState {
     required this.role,
     required this.targetReps,
     required this.targetWeight,
+    required this.targetRpe,
     required this.isAmrap,
     required this.completed,
     required this.repsController,
     required this.weightController,
+    required this.rpeController,
   });
 
   final String role;
   final int targetReps;
   final double targetWeight;
+  final double? targetRpe;
   final bool isAmrap;
   bool completed;
   final TextEditingController repsController;
   final TextEditingController weightController;
+  final TextEditingController rpeController;
 }
 
 DateTime? _parseDateTime(String rawDate, String rawTime) {
@@ -504,4 +579,16 @@ double _workoutVolume(WorkoutLog log) {
               : setSum + (set.weight * set.completedReps),
         ),
   );
+}
+
+String _formatLoggedWeight(double canonicalWeight, String displayUnit) {
+  final value = convertWeight(canonicalWeight, LoadUnits.kg, displayUnit);
+  return '${value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1)} ${displayUnit == LoadUnits.lbs ? 'lb' : 'kg'}';
+}
+
+String _formatOptionalRpe(double? value) {
+  if (value == null) {
+    return '';
+  }
+  return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1);
 }

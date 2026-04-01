@@ -39,6 +39,23 @@ abstract final class LoadUnits {
   static const supported = {kg, lbs, bodyweight, cableStack, percent1rm};
 }
 
+abstract final class EquipmentTypes {
+  static const general = 'general';
+  static const barbell = 'barbell';
+  static const dumbbell = 'dumbbell';
+  static const machine = 'machine';
+  static const cable = 'cable';
+  static const bodyweight = 'bodyweight';
+  static const supported = {
+    general,
+    barbell,
+    dumbbell,
+    machine,
+    cable,
+    bodyweight,
+  };
+}
+
 @freezed
 class PlanTemplate with _$PlanTemplate {
   const factory PlanTemplate({
@@ -99,6 +116,7 @@ class Exercise with _$Exercise {
     @Default(1.0) double trainingMaxMultiplier,
     @Default(2.5) double roundingIncrement,
     @Default(LoadUnits.kg) String loadUnit,
+    @Default(EquipmentTypes.general) String equipmentType,
     @Default(<String, dynamic>{}) Map<String, dynamic> engineConfig,
     required List<SetScheme>
     stages, // Progression stages e.g. Stage 1: 5x3, Stage 2: 6x2
@@ -129,6 +147,7 @@ class SetDefinition with _$SetDefinition {
   const factory SetDefinition({
     required int targetReps,
     required double intensity, // multiplier of TM or base weight e.g. 0.85
+    double? targetRpe,
     @Default(false) bool isAmrap,
     @Default(SetKinds.working) String kind,
     @Default(SetTypes.straightSet) String setType,
@@ -251,6 +270,39 @@ extension ExerciseLookup on Exercise {
   }
 
   bool get usesPercent1rm => loadUnit == LoadUnits.percent1rm;
+
+  bool get isBarbell {
+    if (equipmentType == EquipmentTypes.barbell) {
+      return true;
+    }
+    if (equipmentType != EquipmentTypes.general) {
+      return false;
+    }
+    final descriptor = '${exerciseId.toLowerCase()} ${name.toLowerCase()}';
+    if (descriptor.contains('dumbbell') ||
+        descriptor.contains('machine') ||
+        descriptor.contains('cable') ||
+        descriptor.contains('pulldown')) {
+      return false;
+    }
+    const knownBarbellPatterns = [
+      'barbell',
+      'bench_press',
+      'close_grip_bench_press',
+      'pause_bench_press',
+      'slingshot_bench_press',
+      'overhead_press',
+      'push_press',
+      'deadlift',
+      'squat',
+      'front_squat',
+      'rdl',
+      'romanian_deadlift',
+      'good_morning',
+      'barbell_row',
+    ];
+    return knownBarbellPatterns.any(descriptor.contains);
+  }
 }
 
 extension SetDefinitionLookup on SetDefinition {

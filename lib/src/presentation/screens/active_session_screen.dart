@@ -2,17 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fittin_v2/src/application/active_session_provider.dart';
 import 'package:fittin_v2/src/application/app_locale_provider.dart';
+import 'package:fittin_v2/src/application/ui_settings_provider.dart';
 import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/domain/models/training_state.dart';
+import 'package:fittin_v2/src/domain/weight_tools.dart';
 import 'package:fittin_v2/src/presentation/localization/app_strings.dart';
 import 'package:fittin_v2/src/presentation/localization/plan_text.dart';
 import 'package:fittin_v2/src/presentation/widgets/dashboard_primitives.dart';
+import 'package:fittin_v2/src/presentation/widgets/weight_tools_sheet.dart';
 
-class ActiveSessionScreen extends ConsumerWidget {
+class ActiveSessionScreen extends ConsumerStatefulWidget {
   const ActiveSessionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ActiveSessionScreen> createState() => _ActiveSessionScreenState();
+}
+
+class _ActiveSessionScreenState extends ConsumerState<ActiveSessionScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _completionController;
+
+  @override
+  void initState() {
+    super.initState();
+    _completionController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 420),
+    );
+  }
+
+  @override
+  void dispose() {
+    _completionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final sessionState = ref.watch(activeSessionProvider);
     final template = ref.watch(activeTemplateProvider).valueOrNull;
     final locale = ref.watch(appLocaleProvider);
@@ -39,10 +65,7 @@ class ActiveSessionScreen extends ConsumerWidget {
     String localizedExercise(ExerciseSessionState exercise) {
       if (template == null) return exercise.exerciseName;
       try {
-        return localizedExerciseName(
-          template.findExerciseById(exercise.id),
-          locale,
-        );
+        return localizedExerciseName(template.findExerciseById(exercise.id), locale);
       } on StateError {
         return exercise.exerciseName;
       }
@@ -50,19 +73,33 @@ class ActiveSessionScreen extends ConsumerWidget {
 
     final currentExercise = workout.exercises[workout.currentExerciseIndex];
     final currentExerciseName = localizedExercise(currentExercise);
-    final currentSetIndex = currentExercise.sets.indexWhere(
-      (set) => !set.isCompleted,
-    );
-    final resolvedSetIndex = currentSetIndex == -1
-        ? currentExercise.sets.length - 1
-        : currentSetIndex;
+    final resolvedSetIndex = _resolveCurrentSetIndex(currentExercise);
     final currentSet = currentExercise.sets[resolvedSetIndex];
-    final totalSetCount = currentExercise.sets.length;
+    final displayUnit = _supportsUnitToggle(currentExercise.displayLoadUnit)
+        ? currentExercise.displayLoadUnit
+        : LoadUnits.kg;
+    final displayWeight = convertWeight(currentSet.weight, LoadUnits.kg, displayUnit);
+    final displayTargetWeight = convertWeight(
+      currentSet.targetWeight,
+      LoadUnits.kg,
+      displayUnit,
+    );
+    final step = displayUnit == LoadUnits.lbs ? 5.0 : 2.5;
+    final kgBarWeight = ref.watch(kgBarWeightProvider);
+    final lbBarWeight = ref.watch(lbBarWeightProvider);
     final compactWorkoutTitle = _buildWorkoutContextTitle(
       workout: workout,
       displayName: _localizedWorkoutName(template, workout, locale),
       currentStageId: currentExercise.stageId,
     );
+    final plateBreakdown = currentExercise.showsPlateBreakdown &&
+            _supportsUnitToggle(displayUnit)
+        ? computePlateBreakdown(
+            totalWeight: displayWeight,
+            unit: displayUnit,
+            barWeight: displayUnit == LoadUnits.lbs ? lbBarWeight : kgBarWeight,
+          )
+        : null;
 
     return DashboardPageScaffold(
       bottomPadding: 28,
@@ -122,8 +159,8 @@ class ActiveSessionScreen extends ConsumerWidget {
                         const SizedBox(height: 4),
                         Text(
                           strings.isChinese
-                              ? '第 ${resolvedSetIndex + 1} 组 / 共 $totalSetCount 组'
-                              : 'Set ${resolvedSetIndex + 1} / $totalSetCount',
+                              ? '第 ${resolvedSetIndex + 1} 组 / 共 ${currentExercise.sets.length} 组'
+                              : 'Set ${resolvedSetIndex + 1} / ${currentExercise.sets.length}',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: Colors.white.withValues(alpha: 0.62),
                             fontWeight: FontWeight.w600,
@@ -145,7 +182,7 @@ class ActiveSessionScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: _CompactMetaTile(
-                      label: strings.isChinese ? '层级' : 'Tier',
+                      label: strings.tier,
                       value: currentExercise.tier,
                     ),
                   ),
@@ -154,13 +191,61 @@ class ActiveSessionScreen extends ConsumerWidget {
                     flex: 2,
                     child: _CompactMetaTile(
                       label: strings.isChinese ? '目标' : 'Target',
-                      value:
-                          '${_formatWeight(currentSet.targetWeight)} · ${currentSet.targetReps}${currentSet.isAmrap ? '+' : ''}',
+                      value: _targetSummary(
+                        strings,
+                        currentSet,
+                        displayTargetWeight,
+                        displayUnit,
+                      ),
                       highlight: true,
                     ),
                   ),
                 ],
               ),
+              if (_supportsUnitToggle(displayUnit)) ...[
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SegmentedButton<String>(
+                        showSelectedIcon: false,
+                        segments: [
+                          ButtonSegment(
+                            value: LoadUnits.kg,
+                            label: Text(strings.isChinese ? '公斤' : 'kg'),
+                          ),
+                          ButtonSegment(
+                            value: LoadUnits.lbs,
+                            label: Text(strings.isChinese ? '磅' : 'lb'),
+                          ),
+                        ],
+                        selected: {displayUnit},
+                        onSelectionChanged: (selection) {
+                          notifier.switchExerciseDisplayUnit(selection.first);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    FilledButton.tonalIcon(
+                      onPressed: () => _openWeightTools(
+                        exerciseName: currentExerciseName,
+                        weight: displayWeight,
+                        unit: displayUnit,
+                        onApply: (value, unit) {
+                          notifier.updateWeightFromDisplayUnit(
+                            resolvedSetIndex,
+                            value,
+                            displayUnit: unit,
+                          );
+                          notifier.switchExerciseDisplayUnit(unit);
+                        },
+                      ),
+                      icon: const Icon(Icons.calculate_rounded),
+                      label: Text(strings.isChinese ? '换算' : 'Tools'),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
@@ -177,9 +262,9 @@ class ActiveSessionScreen extends ConsumerWidget {
                     icon: Icons.remove_rounded,
                     onTap: currentSet.completedReps > 0
                         ? () => notifier.updateReps(
-                            resolvedSetIndex,
-                            currentSet.completedReps - 1,
-                          )
+                              resolvedSetIndex,
+                              currentSet.completedReps - 1,
+                            )
                         : null,
                   ),
                   const SizedBox(width: 10),
@@ -201,9 +286,7 @@ class ActiveSessionScreen extends ConsumerWidget {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: theme.colorScheme.primary.withValues(
-                                alpha: 0.18,
-                              ),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.18),
                               blurRadius: 28,
                               offset: const Offset(0, 8),
                             ),
@@ -239,91 +322,96 @@ class ActiveSessionScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  _SquareActionButton(
-                    icon: Icons.check_rounded,
-                    onTap: () => notifier.completeSet(resolvedSetIndex),
+                  _AnimatedCheckButton(
+                    controller: _completionController,
+                    onTap: () => _handleCompleteSet(notifier, resolvedSetIndex),
                   ),
                 ],
               ),
               const SizedBox(height: 12),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
+              _InfoPanel(
+                label: strings.isChinese ? '当前次数' : 'Current Reps',
+                primary: '${currentSet.completedReps}',
+                secondary: currentSet.isAmrap
+                    ? 'AMRAP'
+                    : (strings.isChinese
+                          ? '目标 ${currentSet.targetReps}'
+                          : 'Target ${currentSet.targetReps}'),
+              ),
+              const SizedBox(height: 12),
+              _WeightEntryCard(
+                strings: strings,
+                displayWeight: displayWeight,
+                displayUnit: displayUnit,
+                step: step,
+                onDecrease: () => notifier.updateWeightFromDisplayUnit(
+                  resolvedSetIndex,
+                  displayWeight - step < 0 ? 0 : displayWeight - step,
+                  displayUnit: displayUnit,
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  color: Colors.white.withValues(alpha: 0.05),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.08),
+                onIncrease: () => notifier.updateWeightFromDisplayUnit(
+                  resolvedSetIndex,
+                  displayWeight + step,
+                  displayUnit: displayUnit,
+                ),
+                onLongPress: () => _editWeight(
+                  strings,
+                  currentValue: displayWeight,
+                  displayUnit: displayUnit,
+                  onSubmit: (value) => notifier.updateWeightFromDisplayUnit(
+                    resolvedSetIndex,
+                    value,
+                    displayUnit: displayUnit,
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            strings.isChinese ? '当前次数' : 'Current Reps',
-                            style: theme.textTheme.labelLarge?.copyWith(
-                              color: Colors.white.withValues(alpha: 0.54),
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '${currentSet.completedReps}',
-                            style: theme.textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: -2,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      currentSet.isAmrap ? 'AMRAP' : '${currentSet.targetReps}',
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.72),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
                 ),
               ),
               const SizedBox(height: 12),
               Row(
                 children: [
                   Expanded(
-                    child: _WeightEditorTile(
-                      label: strings.isChinese ? '重量 -' : 'Weight -',
-                      value: _formatWeight(currentSet.weight),
-                      trailing: '-2.5',
-                      onTap: () => notifier.updateWeight(
-                        resolvedSetIndex,
-                        currentSet.weight - 2.5 < 0
-                            ? 0
-                            : currentSet.weight - 2.5,
-                      ),
+                    child: _InfoPanel(
+                      label: strings.isChinese ? '目标 RPE' : 'Target RPE',
+                      primary: currentSet.targetRpe == null
+                          ? (strings.isChinese ? '未设置' : 'Not set')
+                          : currentSet.targetRpe!.toStringAsFixed(
+                              currentSet.targetRpe!.truncateToDouble() ==
+                                      currentSet.targetRpe
+                                  ? 0
+                                  : 1,
+                            ),
+                      secondary: strings.isChinese ? '计划预填' : 'Planned',
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: _WeightEditorTile(
-                      label: strings.isChinese ? '重量 +' : 'Weight +',
-                      value: _formatWeight(currentSet.weight),
-                      trailing: '+2.5',
-                      highlight: true,
-                      onTap: () => notifier.updateWeight(
+                    child: _RpeEditorCard(
+                      strings: strings,
+                      currentRpe: currentSet.completedRpe,
+                      onDecrease: () => notifier.updateCompletedRpe(
                         resolvedSetIndex,
-                        currentSet.weight + 2.5,
+                        (currentSet.completedRpe ?? currentSet.targetRpe ?? 7) - 0.5,
+                      ),
+                      onIncrease: () => notifier.updateCompletedRpe(
+                        resolvedSetIndex,
+                        (currentSet.completedRpe ?? currentSet.targetRpe ?? 6.5) + 0.5,
+                      ),
+                      onTap: () => _editRpe(
+                        strings,
+                        currentValue: currentSet.completedRpe ?? currentSet.targetRpe,
+                        onSubmit: (value) =>
+                            notifier.updateCompletedRpe(resolvedSetIndex, value),
                       ),
                     ),
                   ),
                 ],
               ),
+              if (plateBreakdown != null) ...[
+                const SizedBox(height: 12),
+                _PlateBreakdownCard(
+                  strings: strings,
+                  breakdown: plateBreakdown,
+                ),
+              ],
             ],
           ),
         ),
@@ -345,6 +433,7 @@ class ActiveSessionScreen extends ConsumerWidget {
                       index: i,
                       set: currentExercise.sets[i],
                       active: i == resolvedSetIndex,
+                      onTap: () => notifier.selectSet(i),
                     ),
                     if (i != currentExercise.sets.length - 1)
                       Expanded(
@@ -362,9 +451,7 @@ class ActiveSessionScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 14),
         PremiumPrimaryButton(
-          label: sessionState.isLoading
-              ? strings.saving
-              : strings.concludeWorkout,
+          label: sessionState.isLoading ? strings.saving : strings.concludeWorkout,
           icon: Icons.check_circle_outline_rounded,
           loading: sessionState.isLoading,
           onPressed: () async {
@@ -410,6 +497,113 @@ class ActiveSessionScreen extends ConsumerWidget {
       ],
     );
   }
+
+  Future<void> _handleCompleteSet(
+    ActiveSessionNotifier notifier,
+    int setIndex,
+  ) async {
+    await _completionController.forward(from: 0);
+    notifier.completeSet(setIndex);
+  }
+
+  Future<void> _openWeightTools({
+    required String exerciseName,
+    required double weight,
+    required String unit,
+    required void Function(double value, String unit) onApply,
+  }) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.black,
+      builder: (_) => WeightToolsSheet(
+        initialWeight: weight,
+        initialUnit: unit,
+        showApplyButton: true,
+        exerciseName: exerciseName,
+        onApply: onApply,
+      ),
+    );
+  }
+
+  Future<void> _editWeight(
+    AppStrings strings, {
+    required double currentValue,
+    required String displayUnit,
+    required ValueChanged<double> onSubmit,
+  }) async {
+    final controller = TextEditingController(text: _formatWeightValue(currentValue));
+    final result = await showDialog<double>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(strings.isChinese ? '直接输入重量' : 'Enter Weight'),
+        content: TextField(
+          controller: controller,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          decoration: InputDecoration(
+            labelText: strings.isChinese ? '重量' : 'Weight',
+            suffixText: displayUnit == LoadUnits.kg ? 'kg' : 'lb',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(strings.cancel),
+          ),
+          FilledButton(
+            onPressed: () =>
+                Navigator.of(dialogContext).pop(double.tryParse(controller.text.trim())),
+            child: Text(strings.saveChanges),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    if (result != null) {
+      onSubmit(result);
+    }
+  }
+
+  Future<void> _editRpe(
+    AppStrings strings, {
+    required double? currentValue,
+    required ValueChanged<double?> onSubmit,
+  }) async {
+    final controller = TextEditingController(
+      text: currentValue == null ? '' : _formatWeightValue(currentValue),
+    );
+    final result = await showDialog<double?>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(strings.isChinese ? '输入 RPE' : 'Enter RPE'),
+        content: TextField(
+          controller: controller,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          decoration: InputDecoration(
+            labelText: 'RPE',
+            hintText: strings.isChinese ? '例如 7 或 7.5' : 'For example 7 or 7.5',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(strings.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(null),
+            child: Text(strings.isChinese ? '清空' : 'Clear'),
+          ),
+          FilledButton(
+            onPressed: () =>
+                Navigator.of(dialogContext).pop(double.tryParse(controller.text.trim())),
+            child: Text(strings.saveChanges),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    onSubmit(result);
+  }
 }
 
 String _localizedWorkoutName(
@@ -419,10 +613,7 @@ String _localizedWorkoutName(
 ) {
   if (template == null) return workout.workoutName;
   try {
-    return localizedWorkoutName(
-      template.findWorkoutById(workout.workoutId),
-      locale,
-    );
+    return localizedWorkoutName(template.findWorkoutById(workout.workoutId), locale);
   } on StateError {
     return workout.workoutName;
   }
@@ -438,9 +629,7 @@ String _buildWorkoutContextTitle({
     r'week[-_]?(\d+)',
     caseSensitive: false,
   ).firstMatch(currentStageId);
-  final weekPart = stageWeekMatch == null
-      ? null
-      : 'W${stageWeekMatch.group(1)}';
+  final weekPart = stageWeekMatch == null ? null : 'W${stageWeekMatch.group(1)}';
   final dayPart = dayMatch == null ? null : 'D${dayMatch.group(1)}';
   final prefix = [
     if (weekPart != null) weekPart,
@@ -449,10 +638,48 @@ String _buildWorkoutContextTitle({
   return prefix.isEmpty ? displayName : '$prefix-$displayName';
 }
 
-String _formatWeight(double value) {
-  return value.truncateToDouble() == value
-      ? '${value.toStringAsFixed(0)} kg'
-      : '${value.toStringAsFixed(1)} kg';
+int _resolveCurrentSetIndex(ExerciseSessionState exercise) {
+  if (exercise.sets.isEmpty) {
+    return 0;
+  }
+  final saved = exercise.currentSetIndex;
+  if (saved >= 0 && saved < exercise.sets.length) {
+    return saved;
+  }
+  final firstIncomplete = exercise.sets.indexWhere((set) => !set.isCompleted);
+  return firstIncomplete == -1 ? exercise.sets.length - 1 : firstIncomplete;
+}
+
+bool _supportsUnitToggle(String unit) {
+  return unit == LoadUnits.kg || unit == LoadUnits.lbs;
+}
+
+String _formatDisplayWeight(double value, String unit) {
+  final formatted = _formatWeightValue(value);
+  return '$formatted ${unit == LoadUnits.kg ? 'kg' : 'lb'}';
+}
+
+String _formatWeightValue(double value) {
+  if (value.truncateToDouble() == value) {
+    return value.toStringAsFixed(0);
+  }
+  if ((value * 10).roundToDouble() / 10 == value) {
+    return value.toStringAsFixed(1);
+  }
+  return value.toStringAsFixed(2);
+}
+
+String _targetSummary(
+  AppStrings strings,
+  SessionSetState set,
+  double displayTargetWeight,
+  String displayUnit,
+) {
+  final reps = set.isAmrap ? '${set.targetReps}+' : '${set.targetReps}';
+  final rpe = set.targetRpe == null
+      ? ''
+      : ' · RPE ${set.targetRpe!.toStringAsFixed(set.targetRpe!.truncateToDouble() == set.targetRpe ? 0 : 1)}';
+  return '${_formatDisplayWeight(displayTargetWeight, displayUnit)} · $reps$rpe';
 }
 
 class _HeaderIconButton extends StatelessWidget {
@@ -516,13 +743,350 @@ class _CompactMetaTile extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             value,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoPanel extends StatelessWidget {
+  const _InfoPanel({
+    required this.label,
+    required this.primary,
+    required this.secondary,
+  });
+
+  final String label;
+  final String primary;
+  final String secondary;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: Colors.white.withValues(alpha: 0.05),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.54),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  primary,
+                  style: theme.textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            secondary,
+            style: theme.textTheme.titleSmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.72),
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _WeightEntryCard extends StatelessWidget {
+  const _WeightEntryCard({
+    required this.strings,
+    required this.displayWeight,
+    required this.displayUnit,
+    required this.step,
+    required this.onDecrease,
+    required this.onIncrease,
+    required this.onLongPress,
+  });
+
+  final AppStrings strings;
+  final double displayWeight;
+  final String displayUnit;
+  final double step;
+  final VoidCallback onDecrease;
+  final VoidCallback onIncrease;
+  final VoidCallback onLongPress;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: Colors.white.withValues(alpha: 0.05),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              _MiniStepButton(label: '-${_formatWeightValue(step)}', onTap: onDecrease),
+              const SizedBox(width: 10),
+              Expanded(
+                child: InkWell(
+                  onLongPress: onLongPress,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white.withValues(alpha: 0.04),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          strings.isChinese ? '长按直接输入重量' : 'Long press to type weight',
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: Colors.white.withValues(alpha: 0.52),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          _formatDisplayWeight(displayWeight, displayUnit),
+                          style: theme.textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: -2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              _MiniStepButton(label: '+${_formatWeightValue(step)}', onTap: onIncrease),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MiniStepButton extends StatelessWidget {
+  const _MiniStepButton({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        width: 74,
+        height: 94,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white.withValues(alpha: 0.08),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+        ),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RpeEditorCard extends StatelessWidget {
+  const _RpeEditorCard({
+    required this.strings,
+    required this.currentRpe,
+    required this.onDecrease,
+    required this.onIncrease,
+    required this.onTap,
+  });
+
+  final AppStrings strings;
+  final double? currentRpe;
+  final VoidCallback onDecrease;
+  final VoidCallback onIncrease;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: Colors.white.withValues(alpha: 0.05),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+      ),
+      child: Column(
+        children: [
+          Text(
+            strings.isChinese ? '实际 RPE' : 'Performed RPE',
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: Colors.white.withValues(alpha: 0.54),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              IconButton(onPressed: onDecrease, icon: const Icon(Icons.remove_rounded)),
+              Expanded(
+                child: InkWell(
+                  onTap: onTap,
+                  borderRadius: BorderRadius.circular(16),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Text(
+                      currentRpe == null
+                          ? (strings.isChinese ? '未记录' : 'Not logged')
+                          : currentRpe!.toStringAsFixed(
+                              currentRpe!.truncateToDouble() == currentRpe ? 0 : 1,
+                            ),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -1.2,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              IconButton(onPressed: onIncrease, icon: const Icon(Icons.add_rounded)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PlateBreakdownCard extends StatelessWidget {
+  const _PlateBreakdownCard({
+    required this.strings,
+    required this.breakdown,
+  });
+
+  final AppStrings strings;
+  final PlateBreakdownResult breakdown;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final detail = breakdown.platesPerSide
+        .map((plate) => '${_formatWeightValue(plate.weight)} × ${plate.count}')
+        .join(' + ');
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: Colors.white.withValues(alpha: 0.05),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            strings.isChinese ? '杠铃上片' : 'Barbell Loading',
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: Colors.white.withValues(alpha: 0.54),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            strings.isChinese ? '每边 $detail' : '$detail each side',
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          if (!breakdown.exact) ...[
+            const SizedBox(height: 6),
+            Text(
+              strings.isChinese
+                  ? '当前默认杠重下无法完全精确匹配，还差 ${_formatWeightValue(breakdown.unresolvedWeight)} ${breakdown.unit == LoadUnits.kg ? '公斤' : '磅'}'
+                  : 'Exact loading is not possible with the current default bar weight. Remaining ${_formatWeightValue(breakdown.unresolvedWeight)} ${breakdown.unit == LoadUnits.kg ? 'kg' : 'lb'}.',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: Colors.white.withValues(alpha: 0.7),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _AnimatedCheckButton extends StatelessWidget {
+  const _AnimatedCheckButton({
+    required this.controller,
+    required this.onTap,
+  });
+
+  final AnimationController controller;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scale = Tween<double>(begin: 1, end: 1.16).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOutBack),
+    );
+    final glow = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut),
+    );
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: scale.value,
+            child: Container(
+              width: 74,
+              height: 74,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: Colors.white.withValues(alpha: 0.08 + glow.value * 0.12),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withValues(alpha: 0.1 + glow.value * 0.22),
+                    blurRadius: 26,
+                    spreadRadius: 1,
+                  ),
+                ],
+              ),
+              child: const Icon(Icons.check_rounded, size: 32),
+            ),
+          );
+        },
       ),
     );
   }
@@ -547,9 +1111,7 @@ class _ExerciseSwitchMenu extends StatelessWidget {
       data: Theme.of(context).copyWith(
         popupMenuTheme: PopupMenuThemeData(
           color: const Color(0xFF101216),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(22),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           elevation: 24,
         ),
       ),
@@ -565,9 +1127,7 @@ class _ExerciseSwitchMenu extends StatelessWidget {
                 active: i == activeIndex,
                 tier: exercises[i].tier,
                 name: localizedExercise(exercises[i]),
-                completed: exercises[i].sets
-                    .where((set) => set.isCompleted)
-                    .length,
+                completed: exercises[i].sets.where((set) => set.isCompleted).length,
                 total: exercises[i].sets.length,
               ),
             ),
@@ -619,9 +1179,7 @@ class _ExerciseMenuItem extends StatelessWidget {
           ),
           child: Text(
             '$completed/$total',
-            style: theme.textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
+            style: theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
         ),
         const SizedBox(width: 10),
@@ -669,117 +1227,55 @@ class _SquareActionButton extends StatelessWidget {
   }
 }
 
-class _WeightEditorTile extends StatelessWidget {
-  const _WeightEditorTile({
-    required this.label,
-    required this.value,
-    required this.trailing,
-    required this.onTap,
-    this.highlight = false,
-  });
-
-  final String label;
-  final String value;
-  final String trailing;
-  final VoidCallback onTap;
-  final bool highlight;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: Colors.white.withValues(alpha: highlight ? 0.08 : 0.05),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: highlight ? 0.14 : 0.08),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: Colors.white.withValues(alpha: 0.54),
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    value,
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
-                    ),
-                  ),
-                ),
-                Text(
-                  trailing,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.66),
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _SetProgressDot extends StatelessWidget {
   const _SetProgressDot({
     required this.index,
     required this.set,
     required this.active,
+    required this.onTap,
   });
 
   final int index;
   final SessionSetState set;
   final bool active;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final fillColor = set.isCompleted
         ? Colors.white
         : active
-        ? Colors.white.withValues(alpha: 0.88)
-        : Colors.transparent;
+            ? Colors.white.withValues(alpha: 0.88)
+            : Colors.transparent;
     final borderColor = active || set.isCompleted
         ? Colors.white.withValues(alpha: 0.96)
         : Colors.white.withValues(alpha: 0.34);
-    return Column(
-      children: [
-        Container(
-          width: active ? 22 : 18,
-          height: active ? 22 : 18,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: fillColor,
-            border: Border.all(color: borderColor, width: 2),
-            boxShadow: active
-                ? [
-                    BoxShadow(
-                      color: Colors.white.withValues(alpha: 0.14),
-                      blurRadius: 16,
-                    ),
-                  ]
-                : null,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Column(
+        children: [
+          Container(
+            width: active ? 22 : 18,
+            height: active ? 22 : 18,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: fillColor,
+              border: Border.all(color: borderColor, width: 2),
+              boxShadow: active
+                  ? [
+                      BoxShadow(
+                        color: Colors.white.withValues(alpha: 0.14),
+                        blurRadius: 16,
+                      ),
+                    ]
+                  : null,
+            ),
           ),
-        ),
-        const SizedBox(height: 6),
-        Text('${index + 1}'),
-      ],
+          const SizedBox(height: 6),
+          Text('${index + 1}'),
+        ],
+      ),
     );
   }
 }

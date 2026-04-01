@@ -17,6 +17,11 @@ The system MUST synchronize user-owned training data between the local datastore
 - **THEN** the updated plan persists locally first
 - **AND** the change is queued for Supabase synchronization under that user account.
 
+#### Scenario: Signed-in user completes a workout
+- **WHEN** a signed-in user successfully concludes a workout session
+- **THEN** the workout log and updated training instance are saved locally first
+- **AND** the app automatically starts a cloud sync attempt for that user without requiring a manual tap on the account screen.
+
 #### Scenario: User completes a workout while offline
 - **WHEN** a signed-in user finishes a workout without network access
 - **THEN** the workout result is saved locally without blocking the training flow
@@ -26,6 +31,11 @@ The system MUST synchronize user-owned training data between the local datastore
 - **WHEN** the app has user-owned records that previously failed to upload or download
 - **THEN** a later sync run retries the affected operations without duplicating the records
 - **AND** the account surface exposes that a retry or recovery occurred.
+
+#### Scenario: Auto sync fails after workout save
+- **WHEN** the post-workout cloud sync attempt cannot finish successfully
+- **THEN** the workout still remains saved locally
+- **AND** the sync controller moves into its retry/recovery state instead of reporting the workout conclusion itself as failed.
 
 ### Requirement: First Login Merge
 The system MUST merge or attach existing local data into the authenticated user's cloud scope when a local-only user signs in for the first time on a device. The merge flow MUST preserve the local working set and avoid destructive overwrites when equivalent cloud-backed records already exist.

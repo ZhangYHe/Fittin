@@ -68,6 +68,7 @@ _$ExerciseLogImpl _$$ExerciseLogImplFromJson(Map<String, dynamic> json) =>
       exerciseId: json['exerciseId'] as String,
       exerciseName: json['exerciseName'] as String,
       stageId: json['stageId'] as String,
+      displayLoadUnit: json['displayLoadUnit'] as String? ?? LoadUnits.kg,
       sets: (json['sets'] as List<dynamic>)
           .map((e) => SetLog.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -78,6 +79,7 @@ Map<String, dynamic> _$$ExerciseLogImplToJson(_$ExerciseLogImpl instance) =>
       'exerciseId': instance.exerciseId,
       'exerciseName': instance.exerciseName,
       'stageId': instance.stageId,
+      'displayLoadUnit': instance.displayLoadUnit,
       'sets': instance.sets,
     };
 
@@ -87,6 +89,8 @@ _$SetLogImpl _$$SetLogImplFromJson(Map<String, dynamic> json) => _$SetLogImpl(
       completedReps: (json['completedReps'] as num).toInt(),
       targetWeight: (json['targetWeight'] as num).toDouble(),
       weight: (json['weight'] as num).toDouble(),
+      targetRpe: (json['targetRpe'] as num?)?.toDouble(),
+      completedRpe: (json['completedRpe'] as num?)?.toDouble(),
       isAmrap: json['isAmrap'] as bool? ?? false,
       isCompleted: json['isCompleted'] as bool? ?? false,
     );
@@ -98,6 +102,8 @@ Map<String, dynamic> _$$SetLogImplToJson(_$SetLogImpl instance) =>
       'completedReps': instance.completedReps,
       'targetWeight': instance.targetWeight,
       'weight': instance.weight,
+      'targetRpe': instance.targetRpe,
+      'completedRpe': instance.completedRpe,
       'isAmrap': instance.isAmrap,
       'isCompleted': instance.isCompleted,
     };

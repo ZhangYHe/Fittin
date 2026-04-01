@@ -229,6 +229,12 @@ ExerciseSessionState _buildExerciseSession({
     tier: exercise.tier,
     restSeconds: exercise.restSeconds,
     stageId: stage.id,
+    displayLoadUnit: exercise.loadUnit == LoadUnits.bodyweight ||
+            exercise.loadUnit == LoadUnits.cableStack ||
+            exercise.loadUnit == LoadUnits.percent1rm
+        ? exercise.loadUnit
+        : LoadUnits.kg,
+    showsPlateBreakdown: exercise.isBarbell,
     sets: [
       for (var index = 0; index < stage.sets.length; index++)
         _buildSessionSet(
@@ -258,6 +264,7 @@ SessionSetState _buildSessionSet({
     completedReps: definition.targetReps,
     targetWeight: targetWeight,
     weight: targetWeight,
+    targetRpe: definition.targetRpe,
     isAmrap: definition.isAmrap,
   );
 }
@@ -299,6 +306,7 @@ ExerciseLog _exerciseLogFromSession({
     exerciseId: session.id,
     exerciseName: session.exerciseName,
     stageId: stageId,
+    displayLoadUnit: session.displayLoadUnit,
     sets: [
       for (final set in session.sets)
         SetLog(
@@ -307,6 +315,8 @@ ExerciseLog _exerciseLogFromSession({
           completedReps: set.completedReps,
           targetWeight: set.targetWeight,
           weight: set.weight,
+          targetRpe: set.targetRpe,
+          completedRpe: set.completedRpe,
           isAmrap: set.isAmrap,
           isCompleted: set.isCompleted,
         ),

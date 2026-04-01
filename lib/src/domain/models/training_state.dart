@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:fittin_v2/src/domain/models/training_plan.dart';
 
 part 'training_state.freezed.dart';
 part 'training_state.g.dart';
@@ -27,6 +28,8 @@ class SessionSetState with _$SessionSetState {
     required int completedReps,
     required double targetWeight,
     required double weight,
+    double? targetRpe,
+    double? completedRpe,
     @Default(false) bool isAmrap,
     @Default(false) bool isCompleted,
   }) = _SessionSetState;
@@ -44,6 +47,9 @@ class ExerciseSessionState with _$ExerciseSessionState {
     required String tier,
     required int restSeconds,
     required String stageId,
+    @Default(LoadUnits.kg) String displayLoadUnit,
+    @Default(false) bool showsPlateBreakdown,
+    @Default(0) int currentSetIndex,
     required List<SessionSetState> sets,
   }) = _ExerciseSessionState;
 

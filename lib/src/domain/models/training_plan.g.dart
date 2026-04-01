@@ -112,6 +112,7 @@ _$ExerciseImpl _$$ExerciseImplFromJson(Map<String, dynamic> json) =>
           (json['trainingMaxMultiplier'] as num?)?.toDouble() ?? 1.0,
       roundingIncrement: (json['roundingIncrement'] as num?)?.toDouble() ?? 2.5,
       loadUnit: json['loadUnit'] as String? ?? LoadUnits.kg,
+      equipmentType: json['equipmentType'] as String? ?? EquipmentTypes.general,
       engineConfig: json['engineConfig'] as Map<String, dynamic>? ??
           const <String, dynamic>{},
       stages: (json['stages'] as List<dynamic>)
@@ -132,6 +133,7 @@ Map<String, dynamic> _$$ExerciseImplToJson(_$ExerciseImpl instance) =>
       'trainingMaxMultiplier': instance.trainingMaxMultiplier,
       'roundingIncrement': instance.roundingIncrement,
       'loadUnit': instance.loadUnit,
+      'equipmentType': instance.equipmentType,
       'engineConfig': instance.engineConfig,
       'stages': instance.stages,
     };
@@ -167,6 +169,7 @@ _$SetDefinitionImpl _$$SetDefinitionImplFromJson(Map<String, dynamic> json) =>
     _$SetDefinitionImpl(
       targetReps: (json['targetReps'] as num).toInt(),
       intensity: (json['intensity'] as num).toDouble(),
+      targetRpe: (json['targetRpe'] as num?)?.toDouble(),
       isAmrap: json['isAmrap'] as bool? ?? false,
       kind: json['kind'] as String? ?? SetKinds.working,
       setType: json['setType'] as String? ?? SetTypes.straightSet,
@@ -176,6 +179,7 @@ Map<String, dynamic> _$$SetDefinitionImplToJson(_$SetDefinitionImpl instance) =>
     <String, dynamic>{
       'targetReps': instance.targetReps,
       'intensity': instance.intensity,
+      'targetRpe': instance.targetRpe,
       'isAmrap': instance.isAmrap,
       'kind': instance.kind,
       'setType': instance.setType,

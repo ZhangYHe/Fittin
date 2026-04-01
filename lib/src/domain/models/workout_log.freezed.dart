@@ -640,6 +640,7 @@ mixin _$ExerciseLog {
   String get exerciseId => throw _privateConstructorUsedError;
   String get exerciseName => throw _privateConstructorUsedError;
   String get stageId => throw _privateConstructorUsedError;
+  String get displayLoadUnit => throw _privateConstructorUsedError;
   List<SetLog> get sets => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -658,6 +659,7 @@ abstract class $ExerciseLogCopyWith<$Res> {
       {String exerciseId,
       String exerciseName,
       String stageId,
+      String displayLoadUnit,
       List<SetLog> sets});
 }
 
@@ -677,6 +679,7 @@ class _$ExerciseLogCopyWithImpl<$Res, $Val extends ExerciseLog>
     Object? exerciseId = null,
     Object? exerciseName = null,
     Object? stageId = null,
+    Object? displayLoadUnit = null,
     Object? sets = null,
   }) {
     return _then(_value.copyWith(
@@ -691,6 +694,10 @@ class _$ExerciseLogCopyWithImpl<$Res, $Val extends ExerciseLog>
       stageId: null == stageId
           ? _value.stageId
           : stageId // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayLoadUnit: null == displayLoadUnit
+          ? _value.displayLoadUnit
+          : displayLoadUnit // ignore: cast_nullable_to_non_nullable
               as String,
       sets: null == sets
           ? _value.sets
@@ -712,6 +719,7 @@ abstract class _$$ExerciseLogImplCopyWith<$Res>
       {String exerciseId,
       String exerciseName,
       String stageId,
+      String displayLoadUnit,
       List<SetLog> sets});
 }
 
@@ -729,6 +737,7 @@ class __$$ExerciseLogImplCopyWithImpl<$Res>
     Object? exerciseId = null,
     Object? exerciseName = null,
     Object? stageId = null,
+    Object? displayLoadUnit = null,
     Object? sets = null,
   }) {
     return _then(_$ExerciseLogImpl(
@@ -743,6 +752,10 @@ class __$$ExerciseLogImplCopyWithImpl<$Res>
       stageId: null == stageId
           ? _value.stageId
           : stageId // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayLoadUnit: null == displayLoadUnit
+          ? _value.displayLoadUnit
+          : displayLoadUnit // ignore: cast_nullable_to_non_nullable
               as String,
       sets: null == sets
           ? _value._sets
@@ -759,6 +772,7 @@ class _$ExerciseLogImpl implements _ExerciseLog {
       {required this.exerciseId,
       required this.exerciseName,
       required this.stageId,
+      this.displayLoadUnit = LoadUnits.kg,
       required final List<SetLog> sets})
       : _sets = sets;
 
@@ -771,6 +785,9 @@ class _$ExerciseLogImpl implements _ExerciseLog {
   final String exerciseName;
   @override
   final String stageId;
+  @override
+  @JsonKey()
+  final String displayLoadUnit;
   final List<SetLog> _sets;
   @override
   List<SetLog> get sets {
@@ -781,7 +798,7 @@ class _$ExerciseLogImpl implements _ExerciseLog {
 
   @override
   String toString() {
-    return 'ExerciseLog(exerciseId: $exerciseId, exerciseName: $exerciseName, stageId: $stageId, sets: $sets)';
+    return 'ExerciseLog(exerciseId: $exerciseId, exerciseName: $exerciseName, stageId: $stageId, displayLoadUnit: $displayLoadUnit, sets: $sets)';
   }
 
   @override
@@ -794,13 +811,15 @@ class _$ExerciseLogImpl implements _ExerciseLog {
             (identical(other.exerciseName, exerciseName) ||
                 other.exerciseName == exerciseName) &&
             (identical(other.stageId, stageId) || other.stageId == stageId) &&
+            (identical(other.displayLoadUnit, displayLoadUnit) ||
+                other.displayLoadUnit == displayLoadUnit) &&
             const DeepCollectionEquality().equals(other._sets, _sets));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, exerciseId, exerciseName,
-      stageId, const DeepCollectionEquality().hash(_sets));
+      stageId, displayLoadUnit, const DeepCollectionEquality().hash(_sets));
 
   @JsonKey(ignore: true)
   @override
@@ -821,6 +840,7 @@ abstract class _ExerciseLog implements ExerciseLog {
       {required final String exerciseId,
       required final String exerciseName,
       required final String stageId,
+      final String displayLoadUnit,
       required final List<SetLog> sets}) = _$ExerciseLogImpl;
 
   factory _ExerciseLog.fromJson(Map<String, dynamic> json) =
@@ -832,6 +852,8 @@ abstract class _ExerciseLog implements ExerciseLog {
   String get exerciseName;
   @override
   String get stageId;
+  @override
+  String get displayLoadUnit;
   @override
   List<SetLog> get sets;
   @override
@@ -851,6 +873,8 @@ mixin _$SetLog {
   int get completedReps => throw _privateConstructorUsedError;
   double get targetWeight => throw _privateConstructorUsedError;
   double get weight => throw _privateConstructorUsedError;
+  double? get targetRpe => throw _privateConstructorUsedError;
+  double? get completedRpe => throw _privateConstructorUsedError;
   bool get isAmrap => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
 
@@ -870,6 +894,8 @@ abstract class $SetLogCopyWith<$Res> {
       int completedReps,
       double targetWeight,
       double weight,
+      double? targetRpe,
+      double? completedRpe,
       bool isAmrap,
       bool isCompleted});
 }
@@ -892,6 +918,8 @@ class _$SetLogCopyWithImpl<$Res, $Val extends SetLog>
     Object? completedReps = null,
     Object? targetWeight = null,
     Object? weight = null,
+    Object? targetRpe = freezed,
+    Object? completedRpe = freezed,
     Object? isAmrap = null,
     Object? isCompleted = null,
   }) {
@@ -916,6 +944,14 @@ class _$SetLogCopyWithImpl<$Res, $Val extends SetLog>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as double,
+      targetRpe: freezed == targetRpe
+          ? _value.targetRpe
+          : targetRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
+      completedRpe: freezed == completedRpe
+          ? _value.completedRpe
+          : completedRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
       isAmrap: null == isAmrap
           ? _value.isAmrap
           : isAmrap // ignore: cast_nullable_to_non_nullable
@@ -941,6 +977,8 @@ abstract class _$$SetLogImplCopyWith<$Res> implements $SetLogCopyWith<$Res> {
       int completedReps,
       double targetWeight,
       double weight,
+      double? targetRpe,
+      double? completedRpe,
       bool isAmrap,
       bool isCompleted});
 }
@@ -961,6 +999,8 @@ class __$$SetLogImplCopyWithImpl<$Res>
     Object? completedReps = null,
     Object? targetWeight = null,
     Object? weight = null,
+    Object? targetRpe = freezed,
+    Object? completedRpe = freezed,
     Object? isAmrap = null,
     Object? isCompleted = null,
   }) {
@@ -985,6 +1025,14 @@ class __$$SetLogImplCopyWithImpl<$Res>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as double,
+      targetRpe: freezed == targetRpe
+          ? _value.targetRpe
+          : targetRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
+      completedRpe: freezed == completedRpe
+          ? _value.completedRpe
+          : completedRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
       isAmrap: null == isAmrap
           ? _value.isAmrap
           : isAmrap // ignore: cast_nullable_to_non_nullable
@@ -1006,6 +1054,8 @@ class _$SetLogImpl implements _SetLog {
       required this.completedReps,
       required this.targetWeight,
       required this.weight,
+      this.targetRpe,
+      this.completedRpe,
       this.isAmrap = false,
       this.isCompleted = false});
 
@@ -1023,6 +1073,10 @@ class _$SetLogImpl implements _SetLog {
   @override
   final double weight;
   @override
+  final double? targetRpe;
+  @override
+  final double? completedRpe;
+  @override
   @JsonKey()
   final bool isAmrap;
   @override
@@ -1031,7 +1085,7 @@ class _$SetLogImpl implements _SetLog {
 
   @override
   String toString() {
-    return 'SetLog(role: $role, targetReps: $targetReps, completedReps: $completedReps, targetWeight: $targetWeight, weight: $weight, isAmrap: $isAmrap, isCompleted: $isCompleted)';
+    return 'SetLog(role: $role, targetReps: $targetReps, completedReps: $completedReps, targetWeight: $targetWeight, weight: $weight, targetRpe: $targetRpe, completedRpe: $completedRpe, isAmrap: $isAmrap, isCompleted: $isCompleted)';
   }
 
   @override
@@ -1047,6 +1101,10 @@ class _$SetLogImpl implements _SetLog {
             (identical(other.targetWeight, targetWeight) ||
                 other.targetWeight == targetWeight) &&
             (identical(other.weight, weight) || other.weight == weight) &&
+            (identical(other.targetRpe, targetRpe) ||
+                other.targetRpe == targetRpe) &&
+            (identical(other.completedRpe, completedRpe) ||
+                other.completedRpe == completedRpe) &&
             (identical(other.isAmrap, isAmrap) || other.isAmrap == isAmrap) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted));
@@ -1055,7 +1113,7 @@ class _$SetLogImpl implements _SetLog {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, role, targetReps, completedReps,
-      targetWeight, weight, isAmrap, isCompleted);
+      targetWeight, weight, targetRpe, completedRpe, isAmrap, isCompleted);
 
   @JsonKey(ignore: true)
   @override
@@ -1078,6 +1136,8 @@ abstract class _SetLog implements SetLog {
       required final int completedReps,
       required final double targetWeight,
       required final double weight,
+      final double? targetRpe,
+      final double? completedRpe,
       final bool isAmrap,
       final bool isCompleted}) = _$SetLogImpl;
 
@@ -1093,6 +1153,10 @@ abstract class _SetLog implements SetLog {
   double get targetWeight;
   @override
   double get weight;
+  @override
+  double? get targetRpe;
+  @override
+  double? get completedRpe;
   @override
   bool get isAmrap;
   @override

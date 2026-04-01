@@ -48,7 +48,7 @@
               "trainingMaxLift": "squat",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -61,6 +61,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -68,6 +69,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -75,6 +77,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -82,6 +85,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -99,6 +103,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -106,6 +111,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -113,6 +119,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -120,6 +127,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -137,6 +145,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -144,6 +153,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -151,6 +161,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -158,6 +169,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -175,6 +187,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -182,6 +195,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -189,6 +203,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -196,6 +211,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -213,6 +229,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -220,6 +237,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -227,6 +245,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -244,6 +263,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 6.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -251,6 +271,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.85,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -258,6 +279,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.85,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -265,6 +287,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.85,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -272,6 +295,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.85,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -279,6 +303,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.85,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -296,6 +321,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -303,6 +329,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.87,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -310,6 +337,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.87,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -317,6 +345,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.87,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -324,6 +353,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.87,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -331,6 +361,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.87,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -348,6 +379,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -355,6 +387,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.89,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -362,6 +395,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.89,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -369,6 +403,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.89,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -376,6 +411,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.89,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -383,6 +419,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.89,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -405,7 +442,7 @@
               "trainingMaxLift": "bench",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -418,6 +455,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -425,6 +463,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -432,6 +471,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -449,6 +489,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -456,6 +497,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -463,6 +505,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -480,6 +523,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -487,6 +531,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -494,6 +539,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -501,6 +547,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -518,6 +565,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -525,6 +573,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -532,6 +581,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -539,6 +589,7 @@
                     {
                       "targetReps": 7,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -556,6 +607,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -563,6 +615,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -570,6 +623,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -587,6 +641,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -594,6 +649,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -601,6 +657,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -608,6 +665,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -625,6 +683,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -632,6 +691,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -639,6 +699,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -646,6 +707,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -663,6 +725,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -670,6 +733,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -677,6 +741,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -684,6 +749,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -706,7 +772,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -719,6 +785,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -726,6 +793,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -733,6 +801,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -750,6 +819,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -757,6 +827,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -764,6 +835,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -781,6 +853,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -788,6 +861,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -795,6 +869,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -812,6 +887,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -819,6 +895,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -826,6 +903,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -843,6 +921,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -850,6 +929,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -867,6 +947,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -874,6 +955,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -881,6 +963,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -898,6 +981,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -905,6 +989,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -912,6 +997,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -929,6 +1015,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -936,6 +1023,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -943,6 +1031,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -965,7 +1054,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -978,6 +1067,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -985,6 +1075,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -992,6 +1083,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -999,6 +1091,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1016,6 +1109,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1023,6 +1117,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1030,6 +1125,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1037,6 +1133,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1054,6 +1151,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1061,6 +1159,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1068,6 +1167,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1075,6 +1175,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1092,6 +1193,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1099,6 +1201,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1106,6 +1209,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1113,6 +1217,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1130,6 +1235,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1137,6 +1243,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1144,6 +1251,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1151,6 +1259,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1168,6 +1277,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1175,6 +1285,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1182,6 +1293,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1189,6 +1301,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1206,6 +1319,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1213,6 +1327,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1220,6 +1335,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1227,6 +1343,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1244,6 +1361,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1251,6 +1369,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1258,6 +1377,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1265,6 +1385,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1287,7 +1408,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -1300,6 +1421,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1307,6 +1429,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1314,6 +1437,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1331,6 +1455,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1338,6 +1463,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1345,6 +1471,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1362,6 +1489,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1369,6 +1497,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1376,6 +1505,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1393,6 +1523,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1400,6 +1531,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1407,6 +1539,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1424,6 +1557,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1431,6 +1565,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1438,6 +1573,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1455,6 +1591,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1462,6 +1599,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1469,6 +1607,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1486,6 +1625,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1493,6 +1633,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1500,6 +1641,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1517,6 +1659,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1524,6 +1667,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1531,6 +1675,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 1.0,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1567,7 +1712,7 @@
               "trainingMaxLift": "deadlift",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -1580,6 +1725,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1587,6 +1733,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1594,6 +1741,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1601,6 +1749,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1618,6 +1767,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1625,6 +1775,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1632,6 +1783,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1639,6 +1791,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1646,6 +1799,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1663,6 +1817,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1670,6 +1825,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1677,6 +1833,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1684,6 +1841,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1691,6 +1849,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1708,6 +1867,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1715,6 +1875,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1722,6 +1883,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1729,6 +1891,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1736,6 +1899,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1743,6 +1907,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1760,6 +1925,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1767,6 +1933,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1774,6 +1941,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1781,6 +1949,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1798,6 +1967,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -1805,6 +1975,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1812,6 +1983,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1819,6 +1991,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1826,6 +1999,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1843,6 +2017,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -1850,6 +2025,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1857,6 +2033,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1864,6 +2041,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1871,6 +2049,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1878,6 +2057,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1895,6 +2075,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -1902,6 +2083,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1909,6 +2091,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1916,6 +2099,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1923,6 +2107,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -1945,7 +2130,7 @@
               "trainingMaxLift": "bench",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -1958,6 +2143,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1965,6 +2151,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1972,6 +2159,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1979,6 +2167,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -1986,6 +2175,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2003,6 +2193,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2010,6 +2201,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2017,6 +2209,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2024,6 +2217,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2031,6 +2225,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2048,6 +2243,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2055,6 +2251,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2062,6 +2259,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2069,6 +2267,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2076,6 +2275,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2093,6 +2293,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2100,6 +2301,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2107,6 +2309,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2114,6 +2317,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2121,6 +2325,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2138,6 +2343,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2145,6 +2351,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2152,6 +2359,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2159,6 +2367,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2166,6 +2375,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2183,6 +2393,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2190,6 +2401,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2197,6 +2409,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2204,6 +2417,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2211,6 +2425,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2228,6 +2443,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2235,6 +2451,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2242,6 +2459,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2249,6 +2467,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2256,6 +2475,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.82,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2273,6 +2493,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2280,6 +2501,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2287,6 +2509,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2294,6 +2517,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2301,6 +2525,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2323,7 +2548,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -2336,6 +2561,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2343,6 +2569,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2350,6 +2577,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2367,6 +2595,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2374,6 +2603,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2381,6 +2611,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2398,6 +2629,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2405,6 +2637,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2412,6 +2645,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2429,6 +2663,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2436,6 +2671,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2443,6 +2679,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2460,6 +2697,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2467,6 +2705,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2474,6 +2713,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2491,6 +2731,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2498,6 +2739,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2505,6 +2747,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2522,6 +2765,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2529,6 +2773,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2536,6 +2781,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2553,6 +2799,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2560,6 +2807,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2567,6 +2815,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2589,7 +2838,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -2602,6 +2851,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2609,6 +2859,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2616,6 +2867,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2633,6 +2885,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2640,6 +2893,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2647,6 +2901,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2664,6 +2919,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2671,6 +2927,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2678,6 +2935,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2695,6 +2953,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2702,6 +2961,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2709,6 +2969,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2726,6 +2987,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2733,6 +2995,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2740,6 +3003,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2757,6 +3021,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2764,6 +3029,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2771,6 +3037,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2788,6 +3055,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2795,6 +3063,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2802,6 +3071,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2819,6 +3089,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2826,6 +3097,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2833,6 +3105,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2855,7 +3128,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -2868,6 +3141,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2885,6 +3159,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2902,6 +3177,7 @@
                     {
                       "targetReps": 35,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2919,6 +3195,7 @@
                     {
                       "targetReps": 35,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2936,6 +3213,7 @@
                     {
                       "targetReps": 30,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2953,6 +3231,7 @@
                     {
                       "targetReps": 35,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2970,6 +3249,7 @@
                     {
                       "targetReps": 35,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -2987,6 +3267,7 @@
                     {
                       "targetReps": 35,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3023,7 +3304,7 @@
               "trainingMaxLift": "squat",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -3036,6 +3317,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3043,6 +3325,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3050,6 +3333,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3057,6 +3341,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3064,6 +3349,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3071,6 +3357,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3088,6 +3375,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3095,6 +3383,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3102,6 +3391,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3109,6 +3399,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3116,6 +3407,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3123,6 +3415,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3140,6 +3433,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3147,6 +3441,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3154,6 +3449,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3161,6 +3457,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3168,6 +3465,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3175,6 +3473,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3192,6 +3491,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3199,6 +3499,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3206,6 +3507,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3213,6 +3515,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3220,6 +3523,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3227,6 +3531,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3244,6 +3549,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3251,6 +3557,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3258,6 +3565,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3265,6 +3573,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3272,6 +3581,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.75,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3289,6 +3599,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3296,6 +3607,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3303,6 +3615,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3310,6 +3623,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3317,6 +3631,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3334,6 +3649,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3341,6 +3657,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3348,6 +3665,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3355,6 +3673,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3362,6 +3681,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3379,6 +3699,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3386,6 +3707,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3393,6 +3715,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3400,6 +3723,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3407,6 +3731,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.8,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3429,7 +3754,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -3442,6 +3767,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3449,6 +3775,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3456,6 +3783,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3473,6 +3801,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3480,6 +3809,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3487,6 +3817,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3504,6 +3835,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3511,6 +3843,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3518,6 +3851,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3535,6 +3869,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3542,6 +3877,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3549,6 +3885,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3566,6 +3903,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3573,6 +3911,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3580,6 +3919,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3597,6 +3937,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3604,6 +3945,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3611,6 +3953,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3628,6 +3971,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3635,6 +3979,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3642,6 +3987,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3659,6 +4005,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3666,6 +4013,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3673,6 +4021,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3695,7 +4044,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -3708,6 +4057,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3715,6 +4065,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3722,6 +4073,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3739,6 +4091,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3746,6 +4099,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3753,6 +4107,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3770,6 +4125,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3777,6 +4133,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3784,6 +4141,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3801,6 +4159,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3808,6 +4167,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3815,6 +4175,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3832,6 +4193,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3839,6 +4201,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3846,6 +4209,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3863,6 +4227,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3870,6 +4235,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3877,6 +4243,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3894,6 +4261,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3901,6 +4269,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3908,6 +4277,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3925,6 +4295,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3932,6 +4303,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3939,6 +4311,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3961,7 +4334,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -3974,6 +4347,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3981,6 +4355,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -3988,6 +4363,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4005,6 +4381,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4012,6 +4389,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4019,6 +4397,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4036,6 +4415,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4043,6 +4423,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4050,6 +4431,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4067,6 +4449,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4074,6 +4457,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4081,6 +4465,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4098,6 +4483,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4105,6 +4491,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4112,6 +4499,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4129,6 +4517,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4136,6 +4525,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4143,6 +4533,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4160,6 +4551,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4167,6 +4559,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4174,6 +4567,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4191,6 +4585,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4198,6 +4593,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4205,6 +4601,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4227,7 +4624,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -4240,6 +4637,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4247,6 +4645,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4254,6 +4653,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4271,6 +4671,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4278,6 +4679,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4285,6 +4687,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4302,6 +4705,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4309,6 +4713,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4316,6 +4721,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4333,6 +4739,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4340,6 +4747,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4347,6 +4755,7 @@
                     {
                       "targetReps": 12,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4364,6 +4773,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4371,6 +4781,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4378,6 +4789,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4395,6 +4807,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4402,6 +4815,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4409,6 +4823,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4426,6 +4841,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4433,6 +4849,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4440,6 +4857,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4457,6 +4875,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4464,6 +4883,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4471,6 +4891,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4507,7 +4928,7 @@
               "trainingMaxLift": "bench",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -4520,6 +4941,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4527,6 +4949,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4534,6 +4957,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4541,6 +4965,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.77,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4558,6 +4983,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4565,6 +4991,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4572,6 +4999,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4579,6 +5007,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.79,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4596,6 +5025,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4603,6 +5033,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4610,6 +5041,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4617,6 +5049,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4634,6 +5067,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4641,6 +5075,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4648,6 +5083,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4655,6 +5091,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4672,6 +5109,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4679,6 +5117,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4686,6 +5125,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4703,6 +5143,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4710,6 +5151,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4717,6 +5159,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4724,6 +5167,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4731,6 +5175,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.81,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4748,6 +5193,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4755,6 +5201,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4762,6 +5209,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4769,6 +5217,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4776,6 +5225,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.84,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4793,6 +5243,7 @@
                     {
                       "targetReps": 1,
                       "intensity": 0.001,
+                      "targetRpe": 9.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "top_set"
@@ -4800,6 +5251,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4807,6 +5259,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4814,6 +5267,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4821,6 +5275,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.86,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "backoff_set"
@@ -4843,7 +5298,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -4856,6 +5311,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4863,6 +5319,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4870,6 +5327,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4887,6 +5345,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4894,6 +5353,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4901,6 +5361,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4918,6 +5379,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4925,6 +5387,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4932,6 +5395,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4949,6 +5413,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4956,6 +5421,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4963,6 +5429,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4980,6 +5447,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -4987,6 +5455,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5004,6 +5473,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5011,6 +5481,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5018,6 +5489,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5035,6 +5507,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5042,6 +5515,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5049,6 +5523,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 7.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5066,6 +5541,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5073,6 +5549,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5080,6 +5557,7 @@
                     {
                       "targetReps": 5,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5102,7 +5580,7 @@
               "trainingMaxLift": "deadlift",
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -5115,6 +5593,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.67,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5122,6 +5601,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.67,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5129,6 +5609,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.67,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5136,6 +5617,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.67,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5153,6 +5635,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5160,6 +5643,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5167,6 +5651,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5174,6 +5659,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.69,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5191,6 +5677,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5198,6 +5685,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5205,6 +5693,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5212,6 +5701,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.71,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5229,6 +5719,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5236,6 +5727,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5243,6 +5735,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5250,6 +5743,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.73,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5267,6 +5761,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5274,6 +5769,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5281,6 +5777,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5288,6 +5785,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.72,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5305,6 +5803,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5312,6 +5811,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5319,6 +5819,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5326,6 +5827,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5333,6 +5835,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.74,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5350,6 +5853,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5357,6 +5861,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5364,6 +5869,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5371,6 +5877,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5378,6 +5885,7 @@
                     {
                       "targetReps": 3,
                       "intensity": 0.76,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5395,6 +5903,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5402,6 +5911,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5409,6 +5919,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5416,6 +5927,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5423,6 +5935,7 @@
                     {
                       "targetReps": 2,
                       "intensity": 0.78,
+                      "targetRpe": null,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5445,7 +5958,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -5458,6 +5971,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5465,6 +5979,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5472,6 +5987,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5489,6 +6005,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5496,6 +6013,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5503,6 +6021,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5520,6 +6039,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5527,6 +6047,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5534,6 +6055,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5551,6 +6073,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5558,6 +6081,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5565,6 +6089,7 @@
                     {
                       "targetReps": 6,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5582,6 +6107,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5589,6 +6115,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5596,6 +6123,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5613,6 +6141,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5620,6 +6149,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5627,6 +6157,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5644,6 +6175,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5651,6 +6183,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5658,6 +6191,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5675,6 +6209,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5682,6 +6217,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5689,6 +6225,7 @@
                     {
                       "targetReps": 4,
                       "intensity": 0.001,
+                      "targetRpe": 8.0,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5711,7 +6248,7 @@
               "trainingMaxLift": null,
               "trainingMaxMultiplier": 1.0,
               "roundingIncrement": 2.5,
-              "loadUnit": "lbs",
+              "loadUnit": "kg",
               "engineConfig": {},
               "stages": [
                 {
@@ -5724,6 +6261,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5731,6 +6269,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5738,6 +6277,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5755,6 +6295,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5762,6 +6303,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5769,6 +6311,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5786,6 +6329,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5793,6 +6337,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5800,6 +6345,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5817,6 +6363,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5824,6 +6371,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5831,6 +6379,7 @@
                     {
                       "targetReps": 10,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5848,6 +6397,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5855,6 +6405,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5862,6 +6413,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5879,6 +6431,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5886,6 +6439,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5893,6 +6447,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5910,6 +6465,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5917,6 +6473,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5924,6 +6481,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5941,6 +6499,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5948,6 +6507,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"
@@ -5955,6 +6515,7 @@
                     {
                       "targetReps": 8,
                       "intensity": 0.001,
+                      "targetRpe": 8.5,
                       "isAmrap": false,
                       "kind": "working",
                       "setType": "straight_set"

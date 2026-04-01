@@ -118,6 +118,22 @@ The local datastore MUST persist the current active workout draft, including exe
 - **THEN** the datastore restores that draft payload for the same user and training instance
 - **AND** the app can continue the workout without regenerating the session from scratch.
 
+### Requirement: Session Unit And RPE Persistence
+The local datastore MUST persist per-exercise session display units and optional target/actual RPE values in active workout drafts and saved workout logs.
+
+#### Scenario: User refreshes after switching units and editing RPE
+- **WHEN** the user changes one exercise to pounds, records an actual RPE, and then refreshes the app mid-session
+- **THEN** the restored workout draft keeps the same per-exercise unit choice
+- **AND** the restored draft preserves the target and actual RPE values already entered for each set.
+
+### Requirement: Weight Tool Preference Persistence
+The local datastore MUST persist the user's default kilogram and pound bar weights for plate calculations.
+
+#### Scenario: User customizes default bar weights
+- **WHEN** the user saves custom bar-weight preferences in settings
+- **THEN** the datastore restores those values on the next app launch or browser refresh
+- **AND** the weight tools surface uses the restored values for future calculations.
+
 ### Requirement: Editable Workout Log Identity
 The local datastore MUST assign and preserve a stable identity for each workout log so later edits target the same stored record on every supported platform.
 
@@ -133,4 +149,3 @@ The local datastore MUST preserve optional replay metadata for workout logs crea
 - **WHEN** a recently saved workout log includes pre-conclusion and post-conclusion progression snapshots
 - **THEN** the datastore exposes that metadata to the workout-log update flow
 - **AND** the app can use it to recompute the current instance state from the edited workout when allowed.
-

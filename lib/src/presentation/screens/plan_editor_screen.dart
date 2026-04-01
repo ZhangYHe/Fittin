@@ -652,6 +652,99 @@ class _ExerciseEditorCard extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  initialValue: exercise.equipmentType,
+                  decoration: InputDecoration(
+                    labelText: strings.isChinese ? '器械类型' : 'Equipment',
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: EquipmentTypes.general,
+                      child: Text(strings.isChinese ? '通用' : 'General'),
+                    ),
+                    DropdownMenuItem(
+                      value: EquipmentTypes.barbell,
+                      child: Text(strings.isChinese ? '杠铃' : 'Barbell'),
+                    ),
+                    DropdownMenuItem(
+                      value: EquipmentTypes.dumbbell,
+                      child: Text(strings.isChinese ? '哑铃' : 'Dumbbell'),
+                    ),
+                    DropdownMenuItem(
+                      value: EquipmentTypes.machine,
+                      child: Text(strings.isChinese ? '器械' : 'Machine'),
+                    ),
+                    DropdownMenuItem(
+                      value: EquipmentTypes.cable,
+                      child: Text(strings.isChinese ? '绳索' : 'Cable'),
+                    ),
+                    DropdownMenuItem(
+                      value: EquipmentTypes.bodyweight,
+                      child: Text(strings.isChinese ? '自重' : 'Bodyweight'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      notifier.updateExerciseEquipmentType(
+                        workoutIndex,
+                        exerciseIndex,
+                        value,
+                      );
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: DropdownButtonFormField<String?>(
+                  initialValue: exercise.trainingMaxLift,
+                  decoration: InputDecoration(
+                    labelText: strings.isChinese ? '训练最大值映射' : 'TM Mapping',
+                  ),
+                  items: [
+                    DropdownMenuItem<String?>(
+                      value: null,
+                      child: Text(strings.isChinese ? '无 / 后续补充' : 'None / Later'),
+                    ),
+                    const DropdownMenuItem<String?>(
+                      value: 'squat',
+                      child: Text('Squat'),
+                    ),
+                    const DropdownMenuItem<String?>(
+                      value: 'bench',
+                      child: Text('Bench'),
+                    ),
+                    const DropdownMenuItem<String?>(
+                      value: 'deadlift',
+                      child: Text('Deadlift'),
+                    ),
+                    const DropdownMenuItem<String?>(
+                      value: 'overhead_press',
+                      child: Text('Overhead Press'),
+                    ),
+                  ],
+                  onChanged: (value) => notifier.updateExerciseTrainingMaxLift(
+                    workoutIndex,
+                    exerciseIndex,
+                    value,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            strings.isChinese
+                ? '计划可先快速开始，之后再回来补充动作的训练最大值映射或起始重量。'
+                : 'Plans can quick-start now and come back later to finish lift mappings or starting weights.',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.68),
+            ),
+          ),
           const SizedBox(height: 16),
           for (final entry in visibleStages)
             Padding(
@@ -976,6 +1069,18 @@ class _SetEditorRow extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 10),
+          _DraftDoubleField(
+            label: strings.isChinese ? '目标 RPE' : 'Target RPE',
+            value: setDefinition.targetRpe ?? 0,
+            onChanged: (value) => notifier.updateSetTargetRpe(
+              workoutIndex,
+              exerciseIndex,
+              stageIndex,
+              setIndex,
+              value <= 0 ? null : value,
+            ),
           ),
         ],
       ),

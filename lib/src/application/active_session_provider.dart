@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fittin_v2/src/application/auth_provider.dart';
 import 'package:fittin_v2/src/application/progress_analytics_provider.dart';
+import 'package:fittin_v2/src/application/sync_provider.dart';
 import 'package:fittin_v2/src/application/services/today_workout_gateway.dart';
 import 'package:fittin_v2/src/data/database_repository.dart';
 import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/domain/models/training_state.dart';
+import 'package:fittin_v2/src/domain/weight_tools.dart';
 
 final databaseRepositoryProvider = Provider<DatabaseRepository>((ref) {
   throw UnimplementedError(
@@ -150,8 +152,26 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
     }
 
     _setActiveWorkout(
-      workout.copyWith(currentExerciseIndex: index),
+      workout.copyWith(
+        currentExerciseIndex: index,
+        exercises: [
+          for (var exerciseIndex = 0;
+              exerciseIndex < workout.exercises.length;
+              exerciseIndex++)
+            exerciseIndex == index
+                ? _withResolvedCurrentSet(workout.exercises[exerciseIndex])
+                : workout.exercises[exerciseIndex],
+        ],
+      ),
       preserveLoading: false,
+    );
+  }
+
+  void selectSet(int setIndex) {
+    _updateCurrentExercise(
+      (exercise) => exercise.copyWith(
+        currentSetIndex: _clampSetIndex(setIndex, exercise.sets.length),
+      ),
     );
   }
 
@@ -171,6 +191,29 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
     );
   }
 
+  void updateWeightFromDisplayUnit(
+    int setIndex,
+    double displayWeight, {
+    required String displayUnit,
+  }) {
+    final canonicalWeight = convertWeight(displayWeight, displayUnit, LoadUnits.kg);
+    updateWeight(setIndex, canonicalWeight);
+  }
+
+  void updateCompletedRpe(int setIndex, double? newRpe) {
+    _updateCurrentExerciseSet(
+      setIndex,
+      (set) => set.copyWith(completedRpe: _normalizeRpe(newRpe)),
+    );
+  }
+
+  void switchExerciseDisplayUnit(String unit) {
+    if (!LoadUnits.supported.contains(unit)) {
+      return;
+    }
+    _updateCurrentExercise((exercise) => exercise.copyWith(displayLoadUnit: unit));
+  }
+
   void completeSet(int setIndex) {
     final workout = state.activeWorkout;
     if (workout == null) {
@@ -187,21 +230,33 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
     updatedSets[setIndex] = updatedSets[setIndex].copyWith(isCompleted: true);
 
     var nextExerciseIndex = exerciseIndex;
+    var nextCurrentSetIndex = setIndex;
     final nextSetIndex = updatedSets.indexWhere((set) => !set.isCompleted);
     if (nextSetIndex == -1) {
       for (var i = exerciseIndex + 1; i < workout.exercises.length; i++) {
         final candidate = workout.exercises[i];
         if (candidate.sets.any((set) => !set.isCompleted)) {
           nextExerciseIndex = i;
+          nextCurrentSetIndex = candidate.currentSetIndex;
           break;
         }
       }
+    } else {
+      nextCurrentSetIndex = nextSetIndex;
     }
 
     final updatedExercises = [...workout.exercises];
     updatedExercises[exerciseIndex] = currentExercise.copyWith(
       sets: updatedSets,
+      currentSetIndex: nextSetIndex == -1
+          ? currentExercise.currentSetIndex
+          : nextSetIndex,
     );
+    if (nextExerciseIndex != exerciseIndex) {
+      updatedExercises[nextExerciseIndex] = _withResolvedCurrentSet(
+        updatedExercises[nextExerciseIndex],
+      ).copyWith(currentSetIndex: nextCurrentSetIndex);
+    }
 
     _setActiveWorkout(
       workout.copyWith(
@@ -241,6 +296,11 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
       state = SessionState();
       _ref.invalidate(todayWorkoutSummaryProvider);
       _ref.invalidate(progressAnalyticsOverviewProvider);
+      if (ownerUserId != null) {
+        unawaited(
+          _ref.read(syncControllerProvider.notifier).synchronizeWithRecovery(),
+        );
+      }
       return true;
     } catch (error) {
       state = SessionState(
@@ -284,6 +344,22 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
     );
   }
 
+  void _updateCurrentExercise(
+    ExerciseSessionState Function(ExerciseSessionState exercise) update,
+  ) {
+    final workout = state.activeWorkout;
+    if (workout == null) {
+      return;
+    }
+    final exerciseIndex = workout.currentExerciseIndex;
+    final updatedExercises = [...workout.exercises];
+    updatedExercises[exerciseIndex] = update(updatedExercises[exerciseIndex]);
+    _setActiveWorkout(
+      workout.copyWith(exercises: updatedExercises),
+      preserveLoading: false,
+    );
+  }
+
   void _setActiveWorkout(
     WorkoutSessionState workout, {
     required bool preserveLoading,
@@ -299,5 +375,41 @@ class ActiveSessionNotifier extends StateNotifier<SessionState> {
           .read(databaseRepositoryProvider)
           .saveActiveSessionDraft(workout, ownerUserId: ownerUserId),
     );
+  }
+
+  ExerciseSessionState _withResolvedCurrentSet(ExerciseSessionState exercise) {
+    if (exercise.sets.isEmpty) {
+      return exercise;
+    }
+    final firstIncomplete = exercise.sets.indexWhere((set) => !set.isCompleted);
+    if (firstIncomplete == -1) {
+      return exercise.copyWith(
+        currentSetIndex: _clampSetIndex(exercise.currentSetIndex, exercise.sets.length),
+      );
+    }
+    return exercise.copyWith(
+      currentSetIndex: _clampSetIndex(firstIncomplete, exercise.sets.length),
+    );
+  }
+
+  int _clampSetIndex(int setIndex, int length) {
+    if (length <= 0) {
+      return 0;
+    }
+    if (setIndex < 0) {
+      return 0;
+    }
+    if (setIndex >= length) {
+      return length - 1;
+    }
+    return setIndex;
+  }
+
+  double? _normalizeRpe(double? value) {
+    if (value == null) {
+      return null;
+    }
+    final clamped = value.clamp(0, 10).toDouble();
+    return (clamped * 2).round() / 2;
   }
 }

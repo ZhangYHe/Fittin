@@ -274,6 +274,30 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
     );
   }
 
+  void updateExerciseEquipmentType(
+    int workoutIndex,
+    int exerciseIndex,
+    String value,
+  ) {
+    _updateExercise(
+      workoutIndex,
+      exerciseIndex,
+      (exercise) => exercise.copyWith(equipmentType: value),
+    );
+  }
+
+  void updateExerciseTrainingMaxLift(
+    int workoutIndex,
+    int exerciseIndex,
+    String? value,
+  ) {
+    _updateExercise(
+      workoutIndex,
+      exerciseIndex,
+      (exercise) => exercise.copyWith(trainingMaxLift: value),
+    );
+  }
+
   void addStage(int workoutIndex, int exerciseIndex) {
     _updateExercise(workoutIndex, exerciseIndex, (exercise) {
       return exercise.copyWith(stages: [...exercise.stages, _newStage()]);
@@ -406,6 +430,22 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
       stageIndex,
       setIndex,
       (set) => set.copyWith(intensity: value <= 0 ? 0.1 : value),
+    );
+  }
+
+  void updateSetTargetRpe(
+    int workoutIndex,
+    int exerciseIndex,
+    int stageIndex,
+    int setIndex,
+    double? value,
+  ) {
+    _updateSet(
+      workoutIndex,
+      exerciseIndex,
+      stageIndex,
+      setIndex,
+      (set) => set.copyWith(targetRpe: value == null ? null : _normalizeRpe(value)),
     );
   }
 
@@ -763,6 +803,9 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
                             LoadUnits.supported.contains(exercise.loadUnit)
                             ? exercise.loadUnit
                             : LoadUnits.kg,
+                        equipmentType: _normalizeEquipmentType(
+                          exercise.equipmentType,
+                        ),
                         stages: [
                           for (final stage in exercise.stages)
                             stage.copyWith(
@@ -770,6 +813,9 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
                                 for (final set in stage.sets)
                                   set.copyWith(
                                     setType: set.resolvedSetType,
+                                    targetRpe: set.targetRpe == null
+                                        ? null
+                                        : _normalizeRpe(set.targetRpe!),
                                     kind:
                                         set.resolvedSetType ==
                                             SetTypes.warmupSet
@@ -820,6 +866,7 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
       tier: 'T2',
       restSeconds: 120,
       loadUnit: LoadUnits.kg,
+      equipmentType: EquipmentTypes.general,
       stages: [_newStage()],
     );
   }
@@ -865,6 +912,7 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
     return SetDefinition(
       targetReps: kind == SetKinds.warmup ? 5 : 10,
       intensity: intensity,
+      targetRpe: kind == SetKinds.warmup ? null : 7,
       kind: kind,
       setType:
           setType ??
@@ -875,5 +923,22 @@ class TemplateEditorNotifier extends StateNotifier<TemplateEditorState> {
 
   String _newId(String prefix) {
     return '$prefix-${DateTime.now().microsecondsSinceEpoch}';
+  }
+
+  String _normalizeEquipmentType(String value) {
+    const supported = {
+      EquipmentTypes.general,
+      EquipmentTypes.barbell,
+      EquipmentTypes.dumbbell,
+      EquipmentTypes.machine,
+      EquipmentTypes.cable,
+      EquipmentTypes.bodyweight,
+    };
+    return supported.contains(value) ? value : EquipmentTypes.general;
+  }
+
+  double _normalizeRpe(double value) {
+    final clamped = value.clamp(0, 10).toDouble();
+    return (clamped * 2).round() / 2;
   }
 }

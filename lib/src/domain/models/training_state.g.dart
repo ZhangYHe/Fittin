@@ -38,6 +38,8 @@ _$SessionSetStateImpl _$$SessionSetStateImplFromJson(
       completedReps: (json['completedReps'] as num).toInt(),
       targetWeight: (json['targetWeight'] as num).toDouble(),
       weight: (json['weight'] as num).toDouble(),
+      targetRpe: (json['targetRpe'] as num?)?.toDouble(),
+      completedRpe: (json['completedRpe'] as num?)?.toDouble(),
       isAmrap: json['isAmrap'] as bool? ?? false,
       isCompleted: json['isCompleted'] as bool? ?? false,
     );
@@ -51,6 +53,8 @@ Map<String, dynamic> _$$SessionSetStateImplToJson(
       'completedReps': instance.completedReps,
       'targetWeight': instance.targetWeight,
       'weight': instance.weight,
+      'targetRpe': instance.targetRpe,
+      'completedRpe': instance.completedRpe,
       'isAmrap': instance.isAmrap,
       'isCompleted': instance.isCompleted,
     };
@@ -64,6 +68,9 @@ _$ExerciseSessionStateImpl _$$ExerciseSessionStateImplFromJson(
       tier: json['tier'] as String,
       restSeconds: (json['restSeconds'] as num).toInt(),
       stageId: json['stageId'] as String,
+      displayLoadUnit: json['displayLoadUnit'] as String? ?? LoadUnits.kg,
+      showsPlateBreakdown: json['showsPlateBreakdown'] as bool? ?? false,
+      currentSetIndex: (json['currentSetIndex'] as num?)?.toInt() ?? 0,
       sets: (json['sets'] as List<dynamic>)
           .map((e) => SessionSetState.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -78,6 +85,9 @@ Map<String, dynamic> _$$ExerciseSessionStateImplToJson(
       'tier': instance.tier,
       'restSeconds': instance.restSeconds,
       'stageId': instance.stageId,
+      'displayLoadUnit': instance.displayLoadUnit,
+      'showsPlateBreakdown': instance.showsPlateBreakdown,
+      'currentSetIndex': instance.currentSetIndex,
       'sets': instance.sets,
     };
 

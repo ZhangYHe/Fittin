@@ -1,7 +1,7 @@
 # editable-workout-history Specification
 
 ## Purpose
-TBD - created by archiving change protect-active-session-and-edit-workout-history. Update Purpose after archive.
+Define how saved workout logs can be safely reopened, corrected, and replayed without breaking unrelated history or losing newly captured training context.
 ## Requirements
 ### Requirement: Individual Workout Log Editing
 The system MUST allow the user to reopen a saved workout log and edit that single recorded workout without recreating the entire training day.
@@ -12,12 +12,17 @@ The system MUST allow the user to reopen a saved workout log and edit that singl
 - **AND** saving the edit updates that log without modifying the other workout logs from the same day.
 
 ### Requirement: Editable Recorded Set Values
-The workout-log editor MUST allow the user to change recorded set values, including completed reps, recorded weight, completion flags, and the workout completion timestamp for the selected workout log.
+The workout-log editor MUST allow the user to change recorded set values, including completed reps, recorded weight, recorded RPE, completion flags, and the workout completion timestamp for the selected workout log.
 
 #### Scenario: User corrects logged set data
 - **WHEN** the user changes set reps, set weight, or the completion time in the workout-log editor and saves
 - **THEN** the stored workout log reflects the corrected values on the next load
 - **AND** the record detail and analytics views render the updated workout data.
+
+#### Scenario: User corrects recorded RPE and unit context
+- **WHEN** the user edits a saved workout log that includes target or actual RPE and a chosen display unit
+- **THEN** the editor preserves those fields during load
+- **AND** saving the edit updates the same workout log with the corrected RPE and unit context instead of dropping them.
 
 ### Requirement: Bounded Progression Rewrite After Editing
 Saving an edited workout log MUST always update the log itself, but the system MUST only rewrite next-session progression when that edited log is the latest relevant workout that directly determines the current next prescription.
@@ -39,4 +44,3 @@ The workout-log editor MUST preserve edit support for older workout logs that pr
 - **WHEN** the selected workout log lacks the replay metadata required for progression rewrite
 - **THEN** the app still saves the corrected log values
 - **AND** it skips any progression rewrite for that save path.
-

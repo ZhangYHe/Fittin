@@ -35,6 +35,8 @@ When editing a set, the system MUST expose a structured set type selector instea
 
 When editing an exercise, the system MUST allow selecting a load unit from the supported unit system, including `kg`, `lbs`, `bodyweight`, `cable_stack`, and `%1RM`.
 
+When editing an exercise, the system MUST also allow defining the equipment context needed for runtime weight tools and the starting-load metadata needed for later correction.
+
 #### Scenario: User customizes exercise prescription
 - **WHEN** a user edits an exercise
 - **THEN** they can modify the exercise name, tier, rest time, starting weight, stage names, set count, target reps, set types, load unit, and warmup vs working set roles before saving.
@@ -47,6 +49,11 @@ When editing an exercise, the system MUST allow selecting a load unit from the s
 #### Scenario: User adds a custom accessory movement
 - **WHEN** a user adds a new exercise to a workout
 - **THEN** the editor creates a new ordered exercise entry with editable stages, sets, set types, and unit configuration that becomes part of the saved template.
+
+#### Scenario: User defines target RPE and barbell metadata
+- **WHEN** a user edits a set or exercise in the plan editor
+- **THEN** they can define an optional target RPE for the set
+- **AND** they can classify the exercise as barbell or non-barbell so the runtime logger knows whether plate guidance should appear.
 
 ### Requirement: Structured Progression Editing
 The system MUST let users edit progression behavior through structured stage and action controls that remain compatible with the rule engine.

@@ -411,6 +411,13 @@ class _TrainingMaxSetupDialogState extends State<_TrainingMaxSetupDialog> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
+              Text(
+                strings.isChinese
+                    ? '可以先输入已知主项训练最大值，或直接快速开始，之后再去计划编辑页补齐动作起始重量。'
+                    : 'Enter known training maxes now, or quick start first and fill in accessory starting loads later in the plan editor.',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              const SizedBox(height: 16),
               for (final liftKey
                   in widget.template.requiredTrainingMaxKeys) ...[
                 TextFormField(
@@ -440,6 +447,10 @@ class _TrainingMaxSetupDialogState extends State<_TrainingMaxSetupDialog> {
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: Text(strings.cancel),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(TrainingMaxProfile.empty),
+          child: Text(strings.isChinese ? '快速开始' : 'Quick Start'),
         ),
         FilledButton(
           onPressed: () {

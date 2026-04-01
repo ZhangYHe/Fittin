@@ -11,6 +11,7 @@ import 'package:fittin_v2/src/domain/one_rep_max.dart';
 import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/domain/models/training_max.dart';
 import 'package:fittin_v2/src/domain/models/training_state.dart';
+import 'package:fittin_v2/src/domain/weight_tools.dart';
 
 class InMemoryDatabaseRepository extends DatabaseRepository {
   final Map<String, StoredTemplateRecord> _templates = {};
@@ -22,6 +23,8 @@ class InMemoryDatabaseRepository extends DatabaseRepository {
   final Map<String, WorkoutSessionState> _sessionDrafts = {};
   String? _deviceId;
   double _glassOpacity = 0.3;
+  double _kgBarWeight = defaultKgBarWeight;
+  double _lbBarWeight = defaultLbBarWeight;
   String? _homeDisplayName;
   DateTime? _homeMilestonesLastSeenAt;
 
@@ -190,6 +193,22 @@ class InMemoryDatabaseRepository extends DatabaseRepository {
   @override
   Future<void> saveGlassOpacity(double opacity) async {
     _glassOpacity = opacity;
+  }
+
+  @override
+  Future<double> fetchKgBarWeight() async => _kgBarWeight;
+
+  @override
+  Future<void> saveKgBarWeight(double value) async {
+    _kgBarWeight = value;
+  }
+
+  @override
+  Future<double> fetchLbBarWeight() async => _lbBarWeight;
+
+  @override
+  Future<void> saveLbBarWeight(double value) async {
+    _lbBarWeight = value;
   }
 
   @override

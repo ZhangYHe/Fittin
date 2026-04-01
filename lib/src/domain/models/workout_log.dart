@@ -1,4 +1,5 @@
 import 'package:fittin_v2/src/domain/models/training_max.dart';
+import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/domain/models/training_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -43,6 +44,7 @@ class ExerciseLog with _$ExerciseLog {
     required String exerciseId,
     required String exerciseName,
     required String stageId,
+    @Default(LoadUnits.kg) String displayLoadUnit,
     required List<SetLog> sets,
   }) = _ExerciseLog;
 
@@ -58,6 +60,8 @@ class SetLog with _$SetLog {
     required int completedReps,
     required double targetWeight,
     required double weight,
+    double? targetRpe,
+    double? completedRpe,
     @Default(false) bool isAmrap,
     @Default(false) bool isCompleted,
   }) = _SetLog;

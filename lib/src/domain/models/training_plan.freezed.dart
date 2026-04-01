@@ -887,6 +887,7 @@ mixin _$Exercise {
   double get trainingMaxMultiplier => throw _privateConstructorUsedError;
   double get roundingIncrement => throw _privateConstructorUsedError;
   String get loadUnit => throw _privateConstructorUsedError;
+  String get equipmentType => throw _privateConstructorUsedError;
   Map<String, dynamic> get engineConfig => throw _privateConstructorUsedError;
   List<SetScheme> get stages => throw _privateConstructorUsedError;
 
@@ -913,6 +914,7 @@ abstract class $ExerciseCopyWith<$Res> {
       double trainingMaxMultiplier,
       double roundingIncrement,
       String loadUnit,
+      String equipmentType,
       Map<String, dynamic> engineConfig,
       List<SetScheme> stages});
 }
@@ -941,6 +943,7 @@ class _$ExerciseCopyWithImpl<$Res, $Val extends Exercise>
     Object? trainingMaxMultiplier = null,
     Object? roundingIncrement = null,
     Object? loadUnit = null,
+    Object? equipmentType = null,
     Object? engineConfig = null,
     Object? stages = null,
   }) {
@@ -989,6 +992,10 @@ class _$ExerciseCopyWithImpl<$Res, $Val extends Exercise>
           ? _value.loadUnit
           : loadUnit // ignore: cast_nullable_to_non_nullable
               as String,
+      equipmentType: null == equipmentType
+          ? _value.equipmentType
+          : equipmentType // ignore: cast_nullable_to_non_nullable
+              as String,
       engineConfig: null == engineConfig
           ? _value.engineConfig
           : engineConfig // ignore: cast_nullable_to_non_nullable
@@ -1021,6 +1028,7 @@ abstract class _$$ExerciseImplCopyWith<$Res>
       double trainingMaxMultiplier,
       double roundingIncrement,
       String loadUnit,
+      String equipmentType,
       Map<String, dynamic> engineConfig,
       List<SetScheme> stages});
 }
@@ -1047,6 +1055,7 @@ class __$$ExerciseImplCopyWithImpl<$Res>
     Object? trainingMaxMultiplier = null,
     Object? roundingIncrement = null,
     Object? loadUnit = null,
+    Object? equipmentType = null,
     Object? engineConfig = null,
     Object? stages = null,
   }) {
@@ -1095,6 +1104,10 @@ class __$$ExerciseImplCopyWithImpl<$Res>
           ? _value.loadUnit
           : loadUnit // ignore: cast_nullable_to_non_nullable
               as String,
+      equipmentType: null == equipmentType
+          ? _value.equipmentType
+          : equipmentType // ignore: cast_nullable_to_non_nullable
+              as String,
       engineConfig: null == engineConfig
           ? _value._engineConfig
           : engineConfig // ignore: cast_nullable_to_non_nullable
@@ -1122,6 +1135,7 @@ class _$ExerciseImpl implements _Exercise {
       this.trainingMaxMultiplier = 1.0,
       this.roundingIncrement = 2.5,
       this.loadUnit = LoadUnits.kg,
+      this.equipmentType = EquipmentTypes.general,
       final Map<String, dynamic> engineConfig = const <String, dynamic>{},
       required final List<SetScheme> stages})
       : _localizedName = localizedName,
@@ -1167,6 +1181,9 @@ class _$ExerciseImpl implements _Exercise {
   @override
   @JsonKey()
   final String loadUnit;
+  @override
+  @JsonKey()
+  final String equipmentType;
   final Map<String, dynamic> _engineConfig;
   @override
   @JsonKey()
@@ -1186,7 +1203,7 @@ class _$ExerciseImpl implements _Exercise {
 
   @override
   String toString() {
-    return 'Exercise(id: $id, exerciseId: $exerciseId, name: $name, localizedName: $localizedName, initialBaseWeight: $initialBaseWeight, tier: $tier, restSeconds: $restSeconds, trainingMaxLift: $trainingMaxLift, trainingMaxMultiplier: $trainingMaxMultiplier, roundingIncrement: $roundingIncrement, loadUnit: $loadUnit, engineConfig: $engineConfig, stages: $stages)';
+    return 'Exercise(id: $id, exerciseId: $exerciseId, name: $name, localizedName: $localizedName, initialBaseWeight: $initialBaseWeight, tier: $tier, restSeconds: $restSeconds, trainingMaxLift: $trainingMaxLift, trainingMaxMultiplier: $trainingMaxMultiplier, roundingIncrement: $roundingIncrement, loadUnit: $loadUnit, equipmentType: $equipmentType, engineConfig: $engineConfig, stages: $stages)';
   }
 
   @override
@@ -1213,6 +1230,8 @@ class _$ExerciseImpl implements _Exercise {
                 other.roundingIncrement == roundingIncrement) &&
             (identical(other.loadUnit, loadUnit) ||
                 other.loadUnit == loadUnit) &&
+            (identical(other.equipmentType, equipmentType) ||
+                other.equipmentType == equipmentType) &&
             const DeepCollectionEquality()
                 .equals(other._engineConfig, _engineConfig) &&
             const DeepCollectionEquality().equals(other._stages, _stages));
@@ -1233,6 +1252,7 @@ class _$ExerciseImpl implements _Exercise {
       trainingMaxMultiplier,
       roundingIncrement,
       loadUnit,
+      equipmentType,
       const DeepCollectionEquality().hash(_engineConfig),
       const DeepCollectionEquality().hash(_stages));
 
@@ -1263,6 +1283,7 @@ abstract class _Exercise implements Exercise {
       final double trainingMaxMultiplier,
       final double roundingIncrement,
       final String loadUnit,
+      final String equipmentType,
       final Map<String, dynamic> engineConfig,
       required final List<SetScheme> stages}) = _$ExerciseImpl;
 
@@ -1291,6 +1312,8 @@ abstract class _Exercise implements Exercise {
   double get roundingIncrement;
   @override
   String get loadUnit;
+  @override
+  String get equipmentType;
   @override
   Map<String, dynamic> get engineConfig;
   @override
@@ -1602,6 +1625,7 @@ mixin _$SetDefinition {
   int get targetReps => throw _privateConstructorUsedError;
   double get intensity =>
       throw _privateConstructorUsedError; // multiplier of TM or base weight e.g. 0.85
+  double? get targetRpe => throw _privateConstructorUsedError;
   bool get isAmrap => throw _privateConstructorUsedError;
   String get kind => throw _privateConstructorUsedError;
   String get setType => throw _privateConstructorUsedError;
@@ -1621,6 +1645,7 @@ abstract class $SetDefinitionCopyWith<$Res> {
   $Res call(
       {int targetReps,
       double intensity,
+      double? targetRpe,
       bool isAmrap,
       String kind,
       String setType});
@@ -1641,6 +1666,7 @@ class _$SetDefinitionCopyWithImpl<$Res, $Val extends SetDefinition>
   $Res call({
     Object? targetReps = null,
     Object? intensity = null,
+    Object? targetRpe = freezed,
     Object? isAmrap = null,
     Object? kind = null,
     Object? setType = null,
@@ -1654,6 +1680,10 @@ class _$SetDefinitionCopyWithImpl<$Res, $Val extends SetDefinition>
           ? _value.intensity
           : intensity // ignore: cast_nullable_to_non_nullable
               as double,
+      targetRpe: freezed == targetRpe
+          ? _value.targetRpe
+          : targetRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
       isAmrap: null == isAmrap
           ? _value.isAmrap
           : isAmrap // ignore: cast_nullable_to_non_nullable
@@ -1681,6 +1711,7 @@ abstract class _$$SetDefinitionImplCopyWith<$Res>
   $Res call(
       {int targetReps,
       double intensity,
+      double? targetRpe,
       bool isAmrap,
       String kind,
       String setType});
@@ -1699,6 +1730,7 @@ class __$$SetDefinitionImplCopyWithImpl<$Res>
   $Res call({
     Object? targetReps = null,
     Object? intensity = null,
+    Object? targetRpe = freezed,
     Object? isAmrap = null,
     Object? kind = null,
     Object? setType = null,
@@ -1712,6 +1744,10 @@ class __$$SetDefinitionImplCopyWithImpl<$Res>
           ? _value.intensity
           : intensity // ignore: cast_nullable_to_non_nullable
               as double,
+      targetRpe: freezed == targetRpe
+          ? _value.targetRpe
+          : targetRpe // ignore: cast_nullable_to_non_nullable
+              as double?,
       isAmrap: null == isAmrap
           ? _value.isAmrap
           : isAmrap // ignore: cast_nullable_to_non_nullable
@@ -1734,6 +1770,7 @@ class _$SetDefinitionImpl implements _SetDefinition {
   const _$SetDefinitionImpl(
       {required this.targetReps,
       required this.intensity,
+      this.targetRpe,
       this.isAmrap = false,
       this.kind = SetKinds.working,
       this.setType = SetTypes.straightSet});
@@ -1747,6 +1784,8 @@ class _$SetDefinitionImpl implements _SetDefinition {
   final double intensity;
 // multiplier of TM or base weight e.g. 0.85
   @override
+  final double? targetRpe;
+  @override
   @JsonKey()
   final bool isAmrap;
   @override
@@ -1758,7 +1797,7 @@ class _$SetDefinitionImpl implements _SetDefinition {
 
   @override
   String toString() {
-    return 'SetDefinition(targetReps: $targetReps, intensity: $intensity, isAmrap: $isAmrap, kind: $kind, setType: $setType)';
+    return 'SetDefinition(targetReps: $targetReps, intensity: $intensity, targetRpe: $targetRpe, isAmrap: $isAmrap, kind: $kind, setType: $setType)';
   }
 
   @override
@@ -1770,6 +1809,8 @@ class _$SetDefinitionImpl implements _SetDefinition {
                 other.targetReps == targetReps) &&
             (identical(other.intensity, intensity) ||
                 other.intensity == intensity) &&
+            (identical(other.targetRpe, targetRpe) ||
+                other.targetRpe == targetRpe) &&
             (identical(other.isAmrap, isAmrap) || other.isAmrap == isAmrap) &&
             (identical(other.kind, kind) || other.kind == kind) &&
             (identical(other.setType, setType) || other.setType == setType));
@@ -1777,8 +1818,8 @@ class _$SetDefinitionImpl implements _SetDefinition {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, targetReps, intensity, isAmrap, kind, setType);
+  int get hashCode => Object.hash(
+      runtimeType, targetReps, intensity, targetRpe, isAmrap, kind, setType);
 
   @JsonKey(ignore: true)
   @override
@@ -1798,6 +1839,7 @@ abstract class _SetDefinition implements SetDefinition {
   const factory _SetDefinition(
       {required final int targetReps,
       required final double intensity,
+      final double? targetRpe,
       final bool isAmrap,
       final String kind,
       final String setType}) = _$SetDefinitionImpl;
@@ -1810,6 +1852,8 @@ abstract class _SetDefinition implements SetDefinition {
   @override
   double get intensity;
   @override // multiplier of TM or base weight e.g. 0.85
+  double? get targetRpe;
+  @override
   bool get isAmrap;
   @override
   String get kind;

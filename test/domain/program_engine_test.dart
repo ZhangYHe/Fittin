@@ -202,5 +202,68 @@ void main() {
       expect(result.updatedStates.first.baseWeight, 150);
       expect(result.updatedEngineState['currentWeekIndex'], 1);
     });
+
+    test('session display unit defaults to kilograms for weight-based lifts', () {
+      const template = PlanTemplate(
+        id: 'unit-template',
+        name: 'Unit Test',
+        description: 'Display unit defaults',
+        engineFamily: 'linear_tm',
+        phases: [
+          Phase(
+            id: 'phase',
+            name: 'Phase',
+            workouts: [
+              Workout(
+                id: 'day1',
+                name: 'Day 1',
+                exercises: [
+                  Exercise(
+                    id: 'bench-day1',
+                    exerciseId: 'bench_press',
+                    name: 'Bench Press',
+                    loadUnit: LoadUnits.lbs,
+                    stages: [
+                      SetScheme(
+                        id: 'stage-1',
+                        name: '3x5',
+                        sets: [
+                          SetDefinition(targetReps: 5, intensity: 1.0),
+                        ],
+                        rules: [],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      );
+      final instance = StoredTrainingInstance(
+        instanceId: 'unit-instance',
+        templateId: template.id,
+        currentWorkoutIndex: 0,
+        states: const [
+          TrainingState(
+            workoutId: 'day1',
+            exerciseId: 'bench-day1',
+            exerciseName: 'Bench Press',
+            baseWeight: 100,
+            currentStageId: 'stage-1',
+          ),
+        ],
+      );
+
+      final engine = ProgramEngineDispatcher.resolve(template.engineFamily);
+      final session = engine.buildSession(
+        template: template,
+        instance: instance,
+        workout: template.workoutByIndex(0),
+        stateByExerciseId: {instance.states.first.exerciseId: instance.states.first},
+      );
+
+      expect(session.exercises.first.displayLoadUnit, LoadUnits.kg);
+    });
   });
 }

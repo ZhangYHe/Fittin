@@ -34,6 +34,11 @@ void main() {
           'Band Pull-Aparts',
         ],
       );
+
+      final closeGripBench = workouts.first.exercises[2];
+      expect(closeGripBench.trainingMaxLift, 'bench');
+      expect(closeGripBench.equipmentType, EquipmentTypes.barbell);
+      expect(closeGripBench.stages.first.sets.first.targetRpe, 7.0);
     },
   );
 }

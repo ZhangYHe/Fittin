@@ -14,6 +14,7 @@ import 'package:fittin_v2/src/domain/models/training_plan.dart';
 import 'package:fittin_v2/src/domain/models/training_state.dart';
 import 'package:fittin_v2/src/domain/models/workout_log.dart';
 import 'package:fittin_v2/src/domain/one_rep_max.dart';
+import 'package:fittin_v2/src/domain/weight_tools.dart';
 import 'package:uuid/uuid.dart';
 
 class WebDatabaseRepository extends DatabaseRepository {
@@ -23,6 +24,8 @@ class WebDatabaseRepository extends DatabaseRepository {
   static const _localeStateKey = 'app-locale';
   static const _analyticsFormulaStateKey = 'analytics-formula';
   static const _glassOpacityKey = 'glass-opacity';
+  static const _kgBarWeightKey = 'kg-bar-weight';
+  static const _lbBarWeightKey = 'lb-bar-weight';
   static const _deviceIdStateKey = 'device-id';
   static const _homeDisplayNameKey = 'home-display-name';
   static const _homeMilestonesLastSeenAtKey = 'home-milestones-last-seen-at';
@@ -277,6 +280,28 @@ class WebDatabaseRepository extends DatabaseRepository {
       'glassOpacity': opacity,
       'updatedAt': serializeStoredDateTime(DateTime.now()),
     });
+  }
+
+  @override
+  Future<double> fetchKgBarWeight() async {
+    final value = await _fetchStringState(_kgBarWeightKey);
+    return double.tryParse(value ?? '') ?? defaultKgBarWeight;
+  }
+
+  @override
+  Future<void> saveKgBarWeight(double value) async {
+    await _saveStringState(_kgBarWeightKey, value.toString());
+  }
+
+  @override
+  Future<double> fetchLbBarWeight() async {
+    final value = await _fetchStringState(_lbBarWeightKey);
+    return double.tryParse(value ?? '') ?? defaultLbBarWeight;
+  }
+
+  @override
+  Future<void> saveLbBarWeight(double value) async {
+    await _saveStringState(_lbBarWeightKey, value.toString());
   }
 
   @override

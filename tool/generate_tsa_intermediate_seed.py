@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import re
 from pathlib import Path
@@ -211,6 +213,18 @@ def parse_intensity(
     return 1.0, False
 
 
+def parse_target_rpe(raw: str | None) -> float | None:
+    if raw is None:
+        return None
+    raw = raw.strip()
+    if not raw.startswith("@"):
+        return None
+    try:
+        return float(raw[1:])
+    except ValueError:
+        return None
+
+
 def build_sets(rows: list[dict[str, str | None]]) -> list[dict[str, object]]:
     sets: list[dict[str, object]] = []
     for index, row in enumerate(rows):
@@ -221,6 +235,7 @@ def build_sets(rows: list[dict[str, str | None]]) -> list[dict[str, object]]:
             row.get("intensity"),
             has_load=load_raw not in (None, ""),
         )
+        target_rpe = parse_target_rpe(row.get("intensity"))
         set_count = 1 if row_sets_raw.lower() == "x" else parse_numeric_prefix(row_sets_raw)
         target_reps = parse_reps(row_reps_raw)
         set_type = "straight_set"
@@ -233,6 +248,7 @@ def build_sets(rows: list[dict[str, str | None]]) -> list[dict[str, object]]:
                 {
                     "targetReps": target_reps,
                     "intensity": intensity,
+                    "targetRpe": target_rpe,
                     "isAmrap": is_amrap,
                     "kind": "working",
                     "setType": set_type,
@@ -317,7 +333,7 @@ def build_template() -> dict[str, object]:
                     "trainingMaxLift": TRAINING_MAX_MAP.get(exercise_name),
                     "trainingMaxMultiplier": 1.0,
                     "roundingIncrement": 2.5,
-                    "loadUnit": "lbs",
+                    "loadUnit": "kg",
                     "engineConfig": {},
                     "stages": stages,
                 }
